@@ -5,6 +5,24 @@ class AdminController < ApplicationController
   def index
   end
 
+  def discussions
+    add_breadcrumb 'Discussions'
+    @workshop = Workshop.find_by_id(params[:workshop].to_i)
+    if @workshop.present?
+      authorize @workshop, :show?
+      @discussions = Discussion
+        .joins(:workshop)
+        .where(workshop_id: @workshop.id)
+    else
+      @discussions = Discussion.joins(:workshop)
+    end
+    @discussions = @discussions
+      .order("#{sort_column} #{sort_direction}")
+      .page params[:page]
+    authorize @discussions
+    respond_with @discussions
+  end
+
   def events
     add_breadcrumb 'Events'
     @events = Event

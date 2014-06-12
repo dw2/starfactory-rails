@@ -1,0 +1,21 @@
+%section.textual
+  %h1 Discussions
+  %nav
+    - url = @workshop.present? ? new_discussion_url(workshop: @workshop) : new_discussion_url
+    = link_to 'New', url, class: 'btn secondary icon new'
+  %table
+    %thead
+      %tr
+        %th= sort_link 'Name', 'discussions.name'
+        %th= sort_link 'Comments', 'discussions.comments_count'
+        %th= sort_link 'Created', 'discussions.created_at'
+    - if @discussions.total_pages > 1
+      %tfoot
+        %td{ colspan: 4 }= paginate @discussions
+    %tbody
+      - @discussions.each do |discussion|
+        %tr
+          %td= link_to discussion.name, workshop_discussion_url(workshop_id: discussion.workshop, id: discussion)
+          %td= discussion.comments_count
+          %td
+            %time= discussion.created_at.strftime '%b %e, %Y @ %l:%M %P'

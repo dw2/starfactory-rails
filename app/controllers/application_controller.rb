@@ -22,13 +22,16 @@ private
     end
   end
 
-  def sort_column
+  def model_class
     case
     when controller_name == 'admin'
       model_class = action_name.classify.constantize
     else
       model_class = controller_name.classify.constantize
     end
+  end
+
+  def sort_column
     case
     when !!params[:sort]
       sort_string = params[:sort].gsub(/[^a-z_\.]/i, '')
@@ -48,6 +51,13 @@ private
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    case
+    when %w[asc desc].include?(params[:direction])
+      params[:direction]
+    when defined?(model_class::DEFAULT_SORT_DIRECTION)
+      model_class::DEFAULT_SORT_DIRECTION
+    else
+      'asc'
+    end
   end
 end

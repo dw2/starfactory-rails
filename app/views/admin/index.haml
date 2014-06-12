@@ -25,3 +25,7 @@
       = link_to admin_events_url do
         %h3 Events
         %dfn #{Event.upcoming.size} Upcoming
+    %li
+      = link_to admin_discussions_url do
+        %h3 Discussions
+        %dfn #{Discussion.active.size} Active

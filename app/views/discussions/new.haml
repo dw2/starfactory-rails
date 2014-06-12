@@ -1,0 +1,11 @@
+%section.textual
+  %h1 New Discussion
+  = form_for @discussion do |f|
+    .field
+      = f.label :workshop_id
+      = f.select :workshop_id, Workshop.active.all.map {|w| [w.name, w.id]}
+    = render 'fields', f: f
+    = f.hidden_field :student_profile_id
+    = f.hidden_field :instructor_profile_id
+    .actions
+      = button_tag 'Submit'

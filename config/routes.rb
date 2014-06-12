@@ -7,9 +7,10 @@ Starfactory::Application.routes.draw do
   get 'logout' => 'sessions#destroy', as: 'logout'
   get 'login' => 'sessions#new', as: 'login'
   get 'register' => 'users#new', as: 'register'
-
   resources :users
   resources :sessions
+
+  resources :discussions, except: [:show]
   resources :events do
     resources :registrations, only: [:edit]
   end
@@ -20,10 +21,13 @@ Starfactory::Application.routes.draw do
     resources :registrations, only: [:index, :show]
   end
   resources :tracks
-  resources :workshops, concerns: :votable
+  resources :workshops, concerns: :votable do
+    resources :discussions, only: [:index, :show]
+  end
 
   scope :admin do
     get '' => 'admin#index', as: 'admin'
+    get 'discussions' => 'admin#discussions', as: 'admin_discussions'
     get 'events' => 'admin#events', as: 'admin_events'
     get 'instructors' => 'admin#instructor_profiles', as: 'admin_instructors'
     get 'users' => 'admin#users', as: 'admin_users'

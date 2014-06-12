@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612033539) do
+ActiveRecord::Schema.define(version: 20140612080420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,37 @@ ActiveRecord::Schema.define(version: 20140612033539) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", force: true do |t|
+    t.text     "body"
+    t.string   "status",                default: "Published"
+    t.integer  "discussion_id"
+    t.integer  "comment_id"
+    t.integer  "student_profile_id"
+    t.integer  "instructor_profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["comment_id"], name: "index_comments_on_comment_id", using: :btree
+  add_index "comments", ["discussion_id"], name: "index_comments_on_discussion_id", using: :btree
+  add_index "comments", ["instructor_profile_id"], name: "index_comments_on_instructor_profile_id", using: :btree
+  add_index "comments", ["student_profile_id"], name: "index_comments_on_student_profile_id", using: :btree
+
+  create_table "discussions", force: true do |t|
+    t.string   "name"
+    t.string   "status",                default: "Active"
+    t.integer  "comments_count"
+    t.integer  "workshop_id"
+    t.integer  "student_profile_id"
+    t.integer  "instructor_profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discussions", ["instructor_profile_id"], name: "index_discussions_on_instructor_profile_id", using: :btree
+  add_index "discussions", ["student_profile_id"], name: "index_discussions_on_student_profile_id", using: :btree
+  add_index "discussions", ["workshop_id"], name: "index_discussions_on_workshop_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "status",              default: "Active"
@@ -129,14 +160,15 @@ ActiveRecord::Schema.define(version: 20140612033539) do
   create_table "workshops", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "status",      default: "Active"
+    t.string   "status",            default: "Active"
     t.string   "banner"
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "votes_count", default: 0
-    t.integer  "votes_goal",  default: 0
+    t.integer  "votes_count",       default: 0
+    t.integer  "votes_goal",        default: 0
     t.integer  "track_id"
+    t.integer  "discussions_count"
   end
 
   add_index "workshops", ["track_id"], name: "index_workshops_on_track_id", using: :btree

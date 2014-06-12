@@ -1,0 +1,6 @@
+%section.textual
+  %h1 Editing Discussion
+  = form_for @discussion do |f|
+    = render 'fields', f: f
+    .actions
+      = button_tag 'Save'

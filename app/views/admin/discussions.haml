@@ -1,0 +1,32 @@
+%section.textual
+  %h1 Discussions
+  %nav
+    = link_to 'New', new_discussion_url(workshop: @workshop), class: 'btn secondary icon new'
+  - if @discussions.blank?
+    %p No discussions found.
+  - else
+    %table
+      %thead
+        %tr
+          %th= sort_link 'Name', 'discussions.name'
+          %th= sort_link 'Workshop', 'workshops.name'
+          %th= sort_link 'Comments', 'discussions.comments_count'
+          %th= sort_link 'Created', 'discussions.created_at'
+          %th= sort_link 'Status', 'discussions.status'
+          %th
+      - if @discussions.total_pages > 1
+        %tfoot
+          %td{ colspan: 6 }= paginate @discussions
+      %tbody
+        - @discussions.each do |discussion|
+          %tr
+            %td= link_to discussion.name, edit_discussion_url(discussion)
+            %td= discussion.workshop_name
+            %td= discussion.comments_count
+            %td
+              %time= discussion.created_at.strftime '%b %e, %Y @ %l:%M %P'
+            %td= discussion.status
+            %td.actions
+              %div
+                = link_to 'View', workshop_discussion_url(workshop_id: discussion.workshop, id: discussion), class: 'view'
+                = link_to 'Edit', edit_discussion_url(discussion), class: 'edit'

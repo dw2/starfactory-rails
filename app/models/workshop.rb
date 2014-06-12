@@ -24,6 +24,8 @@ class Workshop < ActiveRecord::Base
   VALID_STATUSES = %w(Active Disabled)
   DEFAULT_SORT_COLUMN = 'tracks.name'
 
+  include Discussionable
+
   scope :active, -> { where { status.eq 'Active' } }
   scope :by_name, -> { order('name asc') }
   scope :voted, -> {
