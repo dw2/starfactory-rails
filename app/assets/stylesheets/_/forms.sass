@@ -20,11 +20,14 @@ input[type="submit"]
         color: #fff
     &.secondary
         background: #414348
-        color: #D14C78
+        color: #fff
+        &:before,
+        &:after
+            color: $colorAccent
         &:hover,
         &:focus
             background: lighten(#414348, 2%)
-            color: #F9598D
+            color: #fff
     &.icon
         padding-right: 50px
         &:before

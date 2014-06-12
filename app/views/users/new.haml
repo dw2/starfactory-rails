@@ -1,14 +1,13 @@
-%section
-  .wrapper
-    %p
-      Already have any account?
-      = link_to 'Login', new_session_url
-    = form_for :user, url: users_url do |f|
-      .field
-        = f.label :email
-        = f.email_field :email, spellcheck: false
-      .field
-        = f.label :password
-        = f.password_field :password
-      .actions
-        = button_tag 'Register'
+%section.textual
+  %p
+    Already have any account?
+    = link_to 'Login', new_session_url
+  = form_for :user, url: users_url do |f|
+    .field
+      = f.label :email
+      = f.email_field :email, spellcheck: false
+    .field
+      = f.label :password
+      = f.password_field :password
+    .actions
+      = button_tag 'Register'

@@ -1,31 +1,30 @@
-.wrapper
-  %section.callout
-    %h1 Learn how to build websites and apps with real people.
+%section.callout
+  %h1 Learn how to build websites and apps with real people.
 
-  %section.workshops
-    .list.upcoming
-      %label Upcoming
-      %ol
-        - @active_events.each do |event|
-          = render 'events/list_item', event: event
-    .list.voted
-      %label On the horizon
-      %ol
-        - @voted_workshops.each do |workshop|
-          = render 'workshops/list_item', workshop: workshop
+%section.workshops
+  .list.upcoming
+    %label Upcoming
+    %ol
+      - @active_events.each do |event|
+        = render 'events/list_item', event: event
+  .list.voted
+    %label On the horizon
+    %ol
+      - @voted_workshops.each do |workshop|
+        = render 'workshops/list_item', workshop: workshop
 
-  %aside.textual
-    %h2 Our workshops are small, intimate, and in person
-    %p
-      There are a lot of resources out there for learning on your own, but
-      it's way more fun to learn from the guru sitting next to you. Starfactory
-      brings back the human element to web-tech education.
-    %h2 Sound pretty rad?
-    %p Join our non-spammy email list:
-    %form.signup
-      %input{ type: 'text' }
-      %button.secondary= svg_image 'arrow-right', alt: 'Submit'
-    %h2 Location
-    %p
-      We're based out of Eastern Washington, where the Tri-Cities tech community
-      is growing like wildfire. Starfactory is here to fan that flame.
+%aside.textual
+  %h2 Our workshops are small, intimate, and in person
+  %p
+    There are a lot of resources out there for learning on your own, but
+    it's way more fun to learn from the guru sitting next to you. Starfactory
+    brings back the human element to web-tech education.
+  %h2 Sound pretty rad?
+  %p Join our non-spammy email list:
+  %form.signup
+    %input{ type: 'text' }
+    %button.secondary= svg_image 'arrow-right', alt: 'Submit'
+  %h2 Location
+  %p
+    We're based out of Eastern Washington, where the Tri-Cities tech community
+    is growing like wildfire. Starfactory is here to fan that flame.

@@ -17,9 +17,24 @@ article
         text-align: left
 
     h1 + nav
-        margin: -50px 0 0
+        margin: -45px 0 0
         position: absolute
         right: 0
+        .btn
+            font-size: 1em
+            height: 40px
+            line-height: 40px
+            padding: 0 15px
+            &.icon
+                padding-right: 35px
+            &.icon.prev
+                padding-right: 15px
+                padding-left: 35px
+            &.icon:before,
+            &.icon:after
+                height: 40px
+                line-height: 40px
+                width: 40px
 
 article .textual
 
@@ -68,7 +83,7 @@ article .textual
             +border_radius(0, 3px, 3px, 0)
             width: 70%
 
-    h1, h2, h3, p, ul, ol, dl, blockquote, form, table
+    h1, h2, h3, p, ul, ol, dl, blockquote, form, table, .field
         ~h1, ~h2, ~h3, ~p, ~ul, ~ol, ~dl, ~blockquote, ~form, ~table
             margin-top: 1.5em
 

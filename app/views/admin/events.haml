@@ -28,5 +28,6 @@
           %td.alignr= event.registrations_count
           %td.actions
             %div
+              = link_to 'View', event_url(event), class: 'view'
               = link_to 'Registrations', admin_event_registrations_url(event), class: 'registrations'
               = link_to 'Edit', edit_event_url(event), class: 'edit'

@@ -1,0 +1,30 @@
+%section.textual
+  %h1 Editing User
+  = form_for @user do |f|
+    .field
+      = f.label :email
+      = f.email_field :email, spellcheck: false
+    
+    - case
+    - when f.object.instructor?
+      %h3 Instructor Profile
+      = f.fields_for :instructor_profile do |ff|
+        .field
+          = ff.label :name
+          = ff.text_field :name
+        .field
+          = ff.label :bio
+          = ff.text_area :bio
+
+    - when f.object.student?
+      %h3 Student Profile
+      = f.fields_for :student_profile do |ff|
+        .field
+          = ff.label :name
+          = ff.text_field :name
+        .field
+          = ff.label :bio
+          = ff.text_area :bio
+
+    .actions
+      = button_tag 'Save'
