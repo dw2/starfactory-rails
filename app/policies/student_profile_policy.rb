@@ -15,7 +15,7 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
   def permitted_attributes
     case
     when user.admin?
-      [:id, :name, :bio, :avatar, :user_id, user_attributes: [:id, :email]]
+      [:id, :name, :bio, :avatar, :user_id]
     else
       []
     end

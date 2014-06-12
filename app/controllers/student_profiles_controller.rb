@@ -21,6 +21,7 @@ class StudentProfilesController < ApplicationController
   # GET /students/new
   def new
     @student_profile = policy_scope(StudentProfile).new
+    @student_profile.user_id = params[:user].to_i
     add_breadcrumb 'New'
     authorize @student_profile
     respond_with @student_profile
@@ -38,8 +39,11 @@ class StudentProfilesController < ApplicationController
   def create
     @student_profile = policy_scope(StudentProfile).new(student_profile_params)
     authorize @student_profile
-    @student_profile.save
-    respond_with @student_profile, location: @student_profile, error: 'Unable to add student.'
+    if @student_profile.save && current_user.admin?
+      flash[:notice] = "Student #{@student_profile.name} has been added."
+    end
+    url = current_user.admin? ? admin_students_url : root_url
+    respond_with @student_profile, location: url, error: 'Unable to add student.'
   end
 
   # PATCH/PUT /students/1

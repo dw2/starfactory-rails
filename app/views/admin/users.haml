@@ -15,7 +15,12 @@
         %tr
           %td= user.name
           %td= link_to user.email, "mailto:#{user.email}"
-          %td= user.kind
+          %td= user.kinds.join ', '
           %td.actions
             %div
+              - unless user.admin?
+                - unless user.instructor?
+                  = link_to 'Make Instructor', new_instructor_profile_url(user: user), class: 'instructor', data: { hint: 'Make an Instructor' }
+                - unless user.student?
+                  = link_to 'Make Student', new_student_profile_url(user: user), class: 'student', data: { hint: 'Make a Student' }
               = link_to 'Edit', edit_user_url(user), class: 'edit'

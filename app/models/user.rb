@@ -53,16 +53,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def kind
-    case
-    when admin?
-      'Admin'
-    when instructor?
-      'Instructor'
-    when student?
-      'Student'
-    else
-      ''
-    end
+  def kinds
+    kinds = []
+    kinds.push 'Admin' if admin?
+    kinds.push 'Instructor' if instructor?
+    kinds.push 'Student' if student?
+    kinds
   end
 end

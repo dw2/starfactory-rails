@@ -4,7 +4,7 @@ class CreateInstructorProfiles < ActiveRecord::Migration
       t.string :name
       t.text :bio
       t.string :avatar
-      t.references :user, index: true
+      t.references :user, index: true, unique: true
 
       t.timestamps
     end

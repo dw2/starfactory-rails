@@ -1,10 +1,11 @@
 .field
   = f.label :name
   = f.text_field :name
-= f.fields_for :user do |uf|
-  .field
-    = uf.label :email
-    = uf.email_field :email, spellcheck: false
+- if f.object.persisted?
+  = f.fields_for :user do |uf|
+    .field
+      = uf.label :email
+      = uf.email_field :email, spellcheck: false
 .field
   = f.label :bio
   = f.text_area :bio

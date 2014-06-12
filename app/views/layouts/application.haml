@@ -24,13 +24,12 @@
           - if logged_in?
             %dl
               %dt Account
-              - case
-              - when current_user.admin?
+              - if current_user.admin?
                 %dd= link_to 'Admin', admin_url
-              - when current_user.instructor?
-                %dd= link_to 'Profile', instructor_profile_url(current_user.instructor_profile)
-              - when current_user.student?
-                %dd= link_to 'Profile', student_profile_url(current_user.student_profile)
+              - if current_user.instructor?
+                %dd= link_to 'Instructor Profile', instructor_profile_url(current_user.instructor_profile)
+              - if current_user.student?
+                %dd= link_to 'Student Profile', student_profile_url(current_user.student_profile)
                 %dd= link_to 'Registrations', student_profile_registrations_url(current_user.student_profile)
               %dd= link_to 'Logout', logout_url
 

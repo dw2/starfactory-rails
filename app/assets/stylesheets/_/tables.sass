@@ -103,6 +103,7 @@ tbody
     td.actions
         font-size: 0
         padding: 0
+        text-align: right
         white-space: nowrap
         width: 1px
         a
@@ -114,6 +115,7 @@ tbody
             margin: .5em
             font-size: $baseFontSize
             position: relative
+            text-align: left
             text-indent: -999em
             +transition(background .2s linear, color .2s linear)
             width: 2em
@@ -135,12 +137,16 @@ tbody
                 content: '\f00d'
             &.edit:before
                 content: '\f040'
+            &.instructor:before
+                content: '\f19c'
             &.pay:before
                 content: '\f09d'
             &.registrations:before
                 content: '\f0c0'
             &.schedule:before
                 content: '\f08d'
+            &.student:before
+                content: '\f19d'
             &.view:before
                 content: '\f06e'
             &:hover,

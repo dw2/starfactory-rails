@@ -5,8 +5,7 @@
       = f.label :email
       = f.email_field :email, spellcheck: false
     
-    - case
-    - when f.object.instructor?
+    - if f.object.instructor?
       %h3 Instructor Profile
       = f.fields_for :instructor_profile do |ff|
         .field
@@ -16,7 +15,7 @@
           = ff.label :bio
           = ff.text_area :bio
 
-    - when f.object.student?
+    - if f.object.student?
       %h3 Student Profile
       = f.fields_for :student_profile do |ff|
         .field

@@ -16,16 +16,14 @@ class UserPolicy < Struct.new(:current_user, :user)
     case
     when current_user.admin?
       [:id, :email,
-        instructor_profile_attributes: [:id, :name, :bio],
-        student_profile_attributes: [:id, :name, :bio]]
+        instructor_profile_attributes: [:id, :user_id, :name, :bio],
+        student_profile_attributes: [:id, :user_id, :name, :bio]]
     when current_user.instructor?
       [:id, :email,
-        instructor_profile_attributes: [:id, :name, :bio]]
-    when current_user.student?
-      [:id, :email,
-        student_profile_attributes: [:id, :name, :bio]]
+        instructor_profile_attributes: [:id, :user_id, :name, :bio]]
     else
-      []
+      [:id, :email,
+        student_profile_attributes: [:id, :user_id, :name, :bio]]
     end
   end
 

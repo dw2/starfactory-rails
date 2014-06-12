@@ -22,6 +22,7 @@ class InstructorProfilesController < ApplicationController
   # GET /instructors/new
   def new
     @instructor_profile = policy_scope(InstructorProfile).new
+    @instructor_profile.user_id = params[:user].to_i
     add_breadcrumb 'New'
     authorize @instructor_profile
     respond_with @instructor_profile
@@ -39,8 +40,10 @@ class InstructorProfilesController < ApplicationController
   def create
     @instructor_profile = policy_scope(InstructorProfile).new(instructor_profile_params)
     authorize @instructor_profile
-    @instructor_profile.save
-    respond_with @instructor_profile, location: @instructor_profile, error: 'Unable to add instructor.'
+    if @instructor_profile.save
+      flash[:notice] = "Instructor #{@instructor_profile.name} has been added."
+    end
+    respond_with @instructor_profile, location: admin_instructors_url, error: 'Unable to add instructor.'
   end
 
   # PATCH/PUT /instructors/1
