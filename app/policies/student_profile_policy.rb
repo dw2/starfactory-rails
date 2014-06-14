@@ -3,11 +3,11 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
     def resolve
       case
       when !user
-        none
+        scope.none
       when user.admin?
         scope
       else
-        none
+        scope.none
       end
     end
   end
@@ -26,7 +26,7 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
   end
 
   def show?
-    true
+    !!user
   end
 
   def create?

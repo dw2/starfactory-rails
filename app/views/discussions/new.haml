@@ -1,9 +1,12 @@
 %section.textual
   %h1 New Discussion
   = form_for @discussion do |f|
-    .field
-      = f.label :workshop_id
-      = f.select :workshop_id, Workshop.active.all.map {|w| [w.name, w.id]}
+    - if @workshop.present?
+      = f.hidden_field :workshop_id, value: @workshop.id
+    - else
+      .field
+        = f.label :workshop_id
+        = f.select :workshop_id, @workshops_collection_for_select
     = render 'fields', f: f
     - case
     - when current_user.student?

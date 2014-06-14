@@ -10,5 +10,6 @@
 #
 
 class Vote < ActiveRecord::Base
-  belongs_to :workshop, counter_cache: true
+  belongs_to :workshop
+  counter_culture :workshop
 end

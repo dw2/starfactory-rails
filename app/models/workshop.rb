@@ -29,6 +29,7 @@ class Workshop < ActiveRecord::Base
 
   scope :active, -> { where { status.eq 'Active' } }
   scope :by_name, -> { order('name asc') }
+  scope :by_sort, -> { order('sort asc') }
   scope :voted, -> {
     includes(:events)
     .where( events: { id: nil })

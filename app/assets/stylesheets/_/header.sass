@@ -27,13 +27,13 @@ header
     header nav
         right: 35px
 
-@media screen and (max-width: 1235px) and (min-width: 600px)
+@media screen and (max-width: 1235px) and (min-width: 680px)
     body.loggedIn header nav
         padding-right: 40px !important
         dl
             right: -30px !important
 
-@media screen and (min-width: 600px)
+@media screen and (min-width: 680px)
     header nav
         line-height: 70px
         > a
@@ -52,34 +52,38 @@ header
             margin-left: 1em
         dl
             display: inline-block
-            overflow: hidden
             margin-left: 1em
             min-width: 70px
-            padding: 70px 0 0
+            padding: 65px 0 0
             position: absolute
             right: 0
             top: 0
             vertical-align: middle
             width: auto
-            z-index: 1
         dt
+            +border_radius(3px, 3px, 0, 0)
             cursor: pointer
             font-size: 2em
-            min-height: 60px
+            height: 50px
             position: absolute
-            right: 0
+            right: 5px
             text-indent: -999em
-            top: 0
+            +transition(box-shadow .2s linear)
+            top: 10px
+            width: 50px
             &:before
-                +border_radius(3px, 3px, 0, 0)
-                content: '\f013'
-                line-height: 60px
-                padding: 0 0 5px
+                background: image-url('avatar@50.png') 50% 50% no-repeat #5a5c64
+                +border_radius(3px)
+                color: $colorAccentDarker
+                content: ''
+                height: 50px
                 position: absolute
                 right: 0
                 text-align: center
-                top: 5px
-                width: 60px
+                top: 0
+                width: 50px
+            &:hover
+                +box_shadow(0 0 35px rgba($colorAccentDarker,.5))
         dd
             display: none
             a
@@ -102,15 +106,25 @@ header
             &:last-of-type a
                 +border_radius(0, 0, 3px, 3px)
         &.open
-            dt:before
-                background: #EBEDF0
-                color: $colorAccentDarker
+            dl
+                z-index: 1
+            dt
+                background-color: #EBEDF0
+                +box_shadow(none)
+                height: 60px
+                right: 0
+                top: 5px
+                width: 60px
+                &:before
+                    background-color: #fff
+                    right: 5px
+                    top: 5px
             dd
                 display: block
     body.loggedIn header nav
         padding-right: 70px
 
-@media screen and (max-width: 599px)
+@media screen and (max-width: 679px)
     header nav
         cursor: pointer
         overflow: hidden

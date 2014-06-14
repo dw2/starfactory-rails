@@ -16,7 +16,7 @@
       - @tracks.each do |track|
         %tr
           %td= link_to track.name, edit_track_url(track)
-          %td= track.workshops.count
+          %td= track.workshops.active.count
           %td= track.status
           %td.actions
             %div

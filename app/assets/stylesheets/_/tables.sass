@@ -69,15 +69,55 @@ tbody
     tr:hover
         td, th
             background: #202125
-    time
+
+    > time,
+    .datetime
         +border_radius(1em)
         color: #93979f
-        display: block
+        display: inline-block
         font-size: .9em
         font-weight: $heavy
         vertical-align: middle
         &.icon:before
             color: $colorAccentDarker
+    .datetime
+        &:before
+            color: $colorAccent2Darker
+            content: '\f017'
+        .day:after,
+        .year:after
+            color: #93979f
+            font-family: $primary
+            font-weight: $heavy
+        .day:after
+            content: ','
+        .year:after
+            content: ' @'
+
+    .author
+        background: rgba(#000,.2)
+        +border_radius(1em)
+        color: #90939b
+        display: inline-block
+        font-size: .9em
+        padding: .25em .5em
+        vertical-align: middle
+        cite
+            color: $colorAccentDarker
+
+    q.snippet,
+    .discussion
+        border-top: 1px solid rgba(#fff,.05)
+        display: block
+        margin-top: .5em
+        padding-top: .5em
+    q.snippet
+        text-overflow: ellipsis
+
+    td.clickrow .title a
+        color: #fff
+        font-size: 1.2em
+        text-decoration: none
 
     td .progress
         margin: 0

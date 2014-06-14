@@ -24,6 +24,15 @@ jQuery.confirm = (options) ->
     options.type = $.trim "#{options.type ? ''} confirm"
     new Skylite options
 
+$.location = (url) ->
+    handler = (-> window.onbeforeunload)()
+    window.onbeforeunload = null
+    document.location = url
+    setTimeout (->
+        $('body').busy()
+        window.onbeforeunload = handler
+    ), 100
+
 jQuery.fn.busy = (text='') ->
     @addClass 'busy'
     @attr 'data-busy', text if !!text
@@ -74,3 +83,23 @@ jQuery(document).ready ($) ->
     $('.field.datetime .day').change ->
         $(@).closest('.datetime')
             .attr 'data-val', "#{$(@).val()} @ #{$(@).siblings('select').val()}"
+
+    # Table row click
+    $('table .clickrow').each ->
+        href = $(@).find('a').attr 'href'
+        $tr = $(@).closest 'tr'
+        $tr.css cursor: 'pointer'
+        $tr.click (e) ->
+            $.location href
+            e.preventDefault
+            false
+
+    # Table cell click
+    $('table .clickcell').each ->
+        href = $(@).find('a').attr 'href'
+        $td = $(@).closest 'td'
+        $td.css cursor: 'pointer'
+        $td.click (e) ->
+            $.location href
+            e.preventDefault
+            false

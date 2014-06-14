@@ -1,21 +1,44 @@
 %section.textual
-  %h1 Discussions
+  %h1
+    Forum
+    = "/ #{@track.name}" if @track.present?
+    = "/ #{@workshop.name}" if @workshop.present?
   %nav
-    - url = @workshop.present? ? new_discussion_url(workshop: @workshop) : new_discussion_url
-    = link_to 'New', url, class: 'btn secondary icon new'
-  %table
-    %thead
-      %tr
-        %th= sort_link 'Name', 'discussions.name'
-        %th= sort_link 'Comments', 'discussions.comments_count'
-        %th= sort_link 'Created', 'discussions.created_at'
-    - if @discussions.total_pages > 1
-      %tfoot
-        %td{ colspan: 4 }= paginate @discussions
-    %tbody
-      - @discussions.each do |discussion|
+    - case
+    - when @track.present?
+      - url = new_discussion_url(track: @track)
+    - when @workshop.present?
+      - url = new_discussion_url(workshop: @workshop)
+    - else
+      - url = new_discussion_url
+    = link_to 'New Discussion', url, class: 'btn secondary icon new'
+  - if @discussions.blank?
+    %p
+      There aren't any discussions here yet.
+      = link_to('Create one', url) + '?'
+  - else
+    %table
+      %thead
         %tr
-          %td= link_to discussion.name, workshop_discussion_url(workshop_id: discussion.workshop, id: discussion)
-          %td= discussion.comments_count
-          %td
-            %time= discussion.created_at.strftime '%b %e, %Y @ %l:%M %P'
+          %th Discussion
+          %th Comments
+          %th Last Comment
+      - if @discussions.total_pages > 1
+        %tfoot
+          %td{ colspan: 4 }= paginate @discussions
+      %tbody
+        - @discussions.each do |discussion|
+          %tr
+            %td.clickrow
+              = link_to workshop_discussion_url(workshop_id: discussion.workshop, id: discussion) do
+                = discussion.name
+            %td= discussion.comments_count
+            %td
+              - if discussion.last_comment.present?
+                = render 'shared/datetime', t: discussion.last_comment.created_at
+                .author
+                  by
+                  %cite= discussion.last_comment.author_name
+                %q.snippet= discussion.last_comment.snippet
+              - else
+                &mdash;

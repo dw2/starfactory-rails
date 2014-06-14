@@ -3,11 +3,11 @@ class UserPolicy < Struct.new(:current_user, :user)
     def resolve
       case
       when !current_user
-        none
+        scope.none
       when current_user.admin?
         scope
       else
-        none
+        scope.none
       end
     end
   end

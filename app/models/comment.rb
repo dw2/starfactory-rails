@@ -16,12 +16,14 @@
 
 class Comment < ActiveRecord::Base
   belongs_to :discussion
+  counter_culture :discussion
   belongs_to :student_profile
   belongs_to :instructor_profile
   belongs_to :admin_profile
 
   VALID_STATUSES = %w(Published Locked Removed)
   DEFAULT_SORT_COLUMN = 'comments.created_at'
+  DEFAULT_SORT_DIRECTION = 'desc'
 
   delegate :name, to: :discussion, allow_nil: true
 
@@ -29,6 +31,13 @@ class Comment < ActiveRecord::Base
   scope :locked, -> { where { status.eq 'Locked' } }
   scope :removed, -> { where { status.eq 'Removed' } }
   scope :by_date, -> { order('created_at asc') }
+
+  def snippet
+    ActionController::Base.helpers.truncate(
+      ActionController::Base.helpers.strip_tags(
+        ApplicationController.helpers.format_markdown(body)),
+      length: 50, separator: ' ')
+  end
 
   def author_name
     case

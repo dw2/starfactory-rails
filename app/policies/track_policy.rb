@@ -3,11 +3,11 @@ class TrackPolicy < Struct.new(:user, :track)
     def resolve
       case
       when !user
-        none
+        scope.none
       when user.admin?
         scope
       else
-        none
+        scope
       end
     end
   end
@@ -26,7 +26,8 @@ class TrackPolicy < Struct.new(:user, :track)
   end
 
   def show?
-    true
+    track.status == 'Active' ||
+    (!!user && user.admin?)
   end
 
   def create?

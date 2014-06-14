@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614000946) do
+ActiveRecord::Schema.define(version: 20140614201849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140614000946) do
   create_table "discussions", force: true do |t|
     t.string   "name"
     t.string   "status",                default: "Active"
-    t.integer  "comments_count"
+    t.integer  "comments_count",        default: 0,        null: false
     t.integer  "workshop_id"
     t.integer  "student_profile_id"
     t.integer  "instructor_profile_id"
@@ -173,7 +173,8 @@ ActiveRecord::Schema.define(version: 20140614000946) do
     t.integer  "votes_count",       default: 0
     t.integer  "votes_goal",        default: 0
     t.integer  "track_id"
-    t.integer  "discussions_count"
+    t.integer  "discussions_count", default: 0,        null: false
+    t.integer  "sort",              default: 0
   end
 
   add_index "workshops", ["track_id"], name: "index_workshops_on_track_id", using: :btree

@@ -2,17 +2,26 @@ class DiscussionsController < ApplicationController
   respond_to :html
 
   before_action :load_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :load_track, only: [:index, :show]
   before_action :load_workshop, only: [:index, :show]
 
-  add_breadcrumb 'Discussions', :discussions_url
+  add_breadcrumb 'Forum', :forum_url
 
   def index
-    if @workshop.present?
+    case
+    when @workshop.present?
       add_breadcrumb @workshop.name
       authorize @workshop, :show?
       @discussions = Discussion
         .joins(:workshop)
         .where(workshop_id: @workshop.id)
+    when @track.present?
+      add_breadcrumb @track.name
+      authorize @track, :show?
+      workshop_ids = @track.workshops.active.pluck :id
+      @discussions = Discussion
+        .joins(:workshop)
+        .where{ workshop_id.in workshop_ids }
     else
       @discussions = Discussion.joins(:workshop)
     end
@@ -21,6 +30,11 @@ class DiscussionsController < ApplicationController
       .page params[:page]
     authorize @discussions
     respond_with @discussions
+  end
+
+  def forum
+    raise NotAuthorizedError unless logged_in?
+    @tracks = Track.active.by_name
   end
 
   # GET /discussions/1
@@ -40,11 +54,28 @@ class DiscussionsController < ApplicationController
     @discussion.instructor_profile_id = params[:instructor_profile].to_i
     authorize @discussion
 
-    @workshop = policy_scope(Workshop).find_by_id(params[:workshop].to_i)
-    if @workshop.present?
-      add_breadcrumb @workshop.name, workshop_url(@workshop)
-      @discussion.workshop_id = @workshop.id
-      authorize @workshop, :show?
+    case
+    when !!params[:track]
+      @track = policy_scope(Track).find_by_id(params[:track].to_i)
+      if @track.present?
+        add_breadcrumb @track.name, track_discussions_url(track_id: @track)
+        authorize @track, :show?
+        @workshops_collection_for_select =
+          @track.workshops.active.by_sort.map {|w| [w.name, w.id]}
+      end
+
+    when !!params[:workshop]
+      @workshop = policy_scope(Workshop).find_by_id(params[:workshop].to_i)
+      if @workshop.present?
+        add_breadcrumb @workshop.name, workshop_discussions_url(workshop_id: @workshop)
+        @discussion.workshop_id = @workshop.id
+        authorize @workshop, :show?
+      end
+    end
+
+    unless @workshop.present? || @workshops_collection_for_select.present?
+      @workshops_collection_for_select = Track.active.map{|t|
+        [t.name, t.workshops.active.by_sort.map {|w| [w.name, w.id]}]}
     end
 
     add_breadcrumb 'New'
@@ -101,6 +132,10 @@ class DiscussionsController < ApplicationController
 private
   def load_discussion
     @discussion = Discussion.find(params[:id])
+  end
+
+  def load_track
+    @track = Track.find_by_id(params[:track_id])
   end
 
   def load_workshop

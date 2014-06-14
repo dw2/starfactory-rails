@@ -1,0 +1,29 @@
+%section.textual
+  %h1 Forum
+  %nav
+    = link_to 'New Discussion', new_discussion_url, class: 'btn secondary icon new'
+  %table
+    %thead
+      %tr
+        %th= sort_link 'Category', 'workshops.name'
+        %th= sort_link 'Discussions', 'discussions.discussions_count'
+        %th Last comment
+    %tbody
+      - @tracks.each do |track|
+        %tr
+          %td.clickrow
+            .title= link_to track.name, track_discussions_url(track_id: track)
+          %td= track.workshops.active.pluck(:discussions_count).reduce(:+)
+          %td.clickcell
+            - if track.last_comment.present?
+              - discussion = track.last_comment.discussion
+              = render 'shared/datetime', t: track.last_comment.created_at
+              .author
+                by
+                %cite= track.last_comment.author_name
+              .discussion
+                in
+                = link_to workshop_discussion_url(workshop_id: discussion.workshop, id: discussion) do
+                  = discussion.name
+            - else
+              &mdash;

@@ -3,11 +3,11 @@ class WorkshopPolicy < Struct.new(:user, :workshop)
     def resolve
       case
       when !user
-        none
+        scope.none
       when user.admin?
         scope
       else
-        none
+        scope
       end
     end
   end
@@ -27,7 +27,8 @@ class WorkshopPolicy < Struct.new(:user, :workshop)
   end
 
   def show?
-    true
+    workshop.status == 'Active' ||
+    (!!user && user.admin?)
   end
 
   def create?

@@ -3,7 +3,7 @@ class CreateDiscussions < ActiveRecord::Migration
     create_table :discussions do |t|
       t.string :name
       t.string :status, default: 'Active'
-      t.integer :comments_count
+      t.integer :comments_count, null: false, default: 0
       t.references :workshop, index: true, unique: true
       t.references :student_profile, index: true, unique: true
       t.references :instructor_profile, index: true, unique: true

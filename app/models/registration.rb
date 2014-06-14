@@ -12,7 +12,8 @@
 #
 
 class Registration < ActiveRecord::Base
-  belongs_to :event, counter_cache: true
+  belongs_to :event
+  counter_culture :event
   belongs_to :student_profile
 
   VALID_STATUSES = %w(Pending Complete Passed)

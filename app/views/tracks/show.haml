@@ -5,7 +5,7 @@
 %aside.textual
   %h2 Workshops
   %ol.menu
-    - @track.workshops.each do |workshop|
+    - @track.workshops.active.by_sort.each do |workshop|
       %li= link_to workshop.name, workshop
   %hr
   = render 'shared/about'

@@ -5,4 +5,4 @@
       %li
         = link_to track do
           %h3= track.name
-          %dfn= pluralize track.workshops.count, 'Workshop', 'Workshops'
+          %dfn= pluralize track.workshops.active.count, 'Workshop', 'Workshops'

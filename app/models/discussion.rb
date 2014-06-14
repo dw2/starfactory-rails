@@ -16,6 +16,7 @@
 
 class Discussion < ActiveRecord::Base
   belongs_to :workshop
+  counter_culture :workshop
   belongs_to :student_profile
   belongs_to :instructor_profile
   belongs_to :admin_profile
@@ -45,5 +46,11 @@ class Discussion < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def last_comment
+    Comment
+      .where(discussion_id: id)
+      .by_date.last
   end
 end

@@ -3,7 +3,7 @@ class CommentPolicy < Struct.new(:user, :comment)
     def resolve
       case
       when !user
-        none
+        scope.none
       else
         scope
       end
@@ -29,7 +29,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def show?
-    false
+    !!user
   end
 
   def create?

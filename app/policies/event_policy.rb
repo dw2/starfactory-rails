@@ -3,11 +3,11 @@ class EventPolicy < Struct.new(:user, :event)
     def resolve
       case
       when !user
-        none
+        scope.none
       when user.admin?
         scope
       else
-        none
+        scope.none
       end
     end
   end
@@ -28,7 +28,8 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def show?
-    true
+    event.status == 'Active' ||
+    (!!user && user.admin?)
   end
 
   def create?

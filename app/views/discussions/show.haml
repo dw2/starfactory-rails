@@ -1,7 +1,5 @@
 %section.textual.discussion
   %h1= @discussion.name
-  %nav
-    = link_to 'New', new_discussion_url(workshop: @workshop), class: 'btn secondary icon new'
   .meta
     .author
       Posted by 
@@ -11,7 +9,7 @@
 
 %section.textual.comments
   - if @comments.any?
-    %h2 Comments
+    %h2 Discussion
     = render 'comments/list', comments: @comments
 
   %h2 Add a Comment

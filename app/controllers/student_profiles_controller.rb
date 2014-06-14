@@ -73,8 +73,6 @@ private
   def add_student_profile_breadcrumbs
     if logged_in? && current_user.admin?
       add_breadcrumb 'Students', :student_profiles_url
-    else
-      add_breadcrumb 'Students'
     end
   end
 end

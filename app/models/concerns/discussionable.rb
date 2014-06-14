@@ -2,6 +2,6 @@ module Discussionable
   extend ActiveSupport::Concern
 
   included do
-    has_many :discussions, counter_cache: true
+    has_many :discussions
   end
 end

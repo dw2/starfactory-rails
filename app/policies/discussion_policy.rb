@@ -3,7 +3,7 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
     def resolve
       case
       when !user
-        none
+        scope.none
       else
         scope
       end
@@ -26,6 +26,10 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
 
   def index?
     !!user
+  end
+
+  def forum?
+    index?
   end
 
   def show?

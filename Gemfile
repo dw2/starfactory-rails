@@ -6,6 +6,7 @@ gem 'rails', '4.0.2'
 gem 'annotate', group: [:development]
 gem 'breadcrumbs_on_rails'
 gem 'coffee-rails', '~> 4.0.0'
+gem 'counter_culture'
 gem 'factory_girl_rails'#, group: [:development, :test]
 gem 'haml'
 gem 'haml-rails'

@@ -3,13 +3,13 @@ class RegistrationPolicy < Struct.new(:user, :registration)
     def resolve
       case
       when !user
-        none
+        scope.none
       when user.admin?
         scope
       when user.student?
         scope
       else
-        none
+        scope.none
       end
     end
   end
