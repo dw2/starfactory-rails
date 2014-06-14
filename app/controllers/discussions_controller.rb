@@ -2,11 +2,11 @@ class DiscussionsController < ApplicationController
   respond_to :html
 
   before_action :load_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :load_workshop, only: [:index, :show]
 
   add_breadcrumb 'Discussions', :discussions_url
 
   def index
-    @workshop = Workshop.find_by_id(params[:workshop_id].to_i)
     if @workshop.present?
       add_breadcrumb @workshop.name
       authorize @workshop, :show?
@@ -29,6 +29,7 @@ class DiscussionsController < ApplicationController
     add_breadcrumb @discussion.workshop_name, workshop_discussions_url(@discussion.workshop)
     add_breadcrumb @discussion.name
     authorize @discussion
+    @comments = @discussion.comments.by_date.page params[:page]
     respond_with @discussion
   end
 
@@ -90,6 +91,7 @@ class DiscussionsController < ApplicationController
 
   # DELETE /discussions/1
   def destroy
+    @discussion.destroy
     location = workshop_discussion_url(workshop_id: @discussion.workshop)
     respond_with @discussion,
       location: location,
@@ -99,6 +101,10 @@ class DiscussionsController < ApplicationController
 private
   def load_discussion
     @discussion = Discussion.find(params[:id])
+  end
+
+  def load_workshop
+    @workshop = Workshop.find_by_id(params[:workshop_id])
   end
 
   def discussion_params

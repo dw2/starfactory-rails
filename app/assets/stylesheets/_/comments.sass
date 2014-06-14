@@ -1,0 +1,55 @@
+section.comments
+    margin-top: 2em
+
+    h2 + .pagination
+        margin-top: 1em
+
+    .pagination + ol
+        margin-top: 0
+
+    ol li
+        +border_radius(3px)
+        list-style: none
+        margin-left: 0
+        padding: 3.5em 3em 2.5em
+        position: relative
+        &:nth-child(odd)
+            background: #292B2F
+        &:nth-child(even)
+            background: #24262A
+        ~ li
+            border-top: 1px solid #2E3035
+        cite,
+        .datetime
+            background: rgba(#000,.2)
+            font-size: .9em
+            line-height: 2em
+            padding: 0 1em
+            position: absolute
+            top: 0
+        cite
+            +border_radius(3px, 0, 1em, 0)
+            color: #fff
+            left: 0
+        &.author cite:after
+            content: '\f06c'
+            padding-left: .5em
+        &.admin cite,
+        &.instructor cite
+            color: $colorAccentDarker
+        .datetime
+            +border_radius(0, 3px, 0, 1em)
+            color: #90939b
+            right: 0
+            .day,
+            .month,
+            .year
+                display: inline
+                &:after
+                    font-family: $primary
+            .day:after
+                content: ','
+            .year:after
+                color: #90939b
+                content: ' @'
+                font-weight: $heavy

@@ -1,0 +1,12 @@
+%section.textual
+  %h1 Editing Comment
+  = form_for @comment do |f|
+    = render 'fields', f: f
+    %fieldset
+      %legend Status
+      - Comment::VALID_STATUSES.each_with_index do |status, s|
+        .field.radio
+          = f.radio_button :status, status, id: "comment_status_#{s}", checked: status == f.object.status ? true : nil
+          = f.label :status, status, for: "comment_status_#{s}"
+    .actions
+      = button_tag 'Save'

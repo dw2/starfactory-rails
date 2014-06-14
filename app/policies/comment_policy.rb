@@ -1,4 +1,4 @@
-class DiscussionPolicy < Struct.new(:user, :discussion)
+class CommentPolicy < Struct.new(:user, :comment)
   class Scope < Struct.new(:user, :scope)
     def resolve
       case
@@ -13,11 +13,11 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   def permitted_attributes
     case
     when !!user && user.student?
-      [:id, :name, :body, :workshop_id, :status, :student_profile_id]
+      [:id, :body, :discussion_id, :student_profile_id]
     when !!user && user.instructor?
-      [:id, :name, :body, :workshop_id, :status, :instructor_profile_id]
+      [:id, :body, :discussion_id, :instructor_profile_id]
     when !!user && user.admin?
-      [:id, :name, :body, :workshop_id, :status,
+      [:id, :body, :discussion_id,
         :student_profile_id, :instructor_profile_id, :admin_profile_id]
     else
       []
@@ -25,19 +25,19 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   end
 
   def index?
-    !!user
+    false
   end
 
   def show?
-    !!user
+    false
   end
 
   def create?
-    new?
+    !!user
   end
 
   def new?
-    !!user
+    false
   end
 
   def update?
@@ -47,8 +47,8 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   def edit?
     !!user && (
       user.admin? ||
-      (discussion.student_profile.present? && user.student_profile == discussion.student_profile) ||
-      (discussion.instructor_profile.present? && user.instructor_profile == discussion.instructor_profile)
+      (comment.student_profile.present? && user.student_profile == comment.student_profile) ||
+      (comment.instructor_profile.present? && user.instructor_profile == comment.instructor_profile)
     )
   end
 
@@ -57,7 +57,7 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   end
 
   # Used by the admin controller
-  def discussions?
+  def comments?
     !!user && user.admin?
   end
 end

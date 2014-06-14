@@ -1,3 +1,29 @@
-%section.textual
+%section.textual.discussion
   %h1= @discussion.name
-  = @discussion.comments_count
+  %nav
+    = link_to 'New', new_discussion_url(workshop: @workshop), class: 'btn secondary icon new'
+  .meta
+    .author
+      Posted by 
+      %cite= @discussion.author_name
+    = render 'shared/datetime', t: @discussion.created_at
+  %blockquote= format_markdown @discussion.body
+
+%section.textual.comments
+  - if @comments.any?
+    %h2 Comments
+    = render 'comments/list', comments: @comments
+
+  %h2 Add a Comment
+  = form_for Comment.new, url: workshop_discussion_comments_url(workshop_id: @workshop, discussion_id: @discussion) do |f|
+    = render 'comments/fields', f: f
+    = f.hidden_field :discussion_id, value: @discussion.id
+    - case
+    - when current_user.student?
+      = f.hidden_field :student_profile_id, value: current_user.student_profile_id
+    - when current_user.instructor?
+      = f.hidden_field :instructor_profile_id, value: current_user.instructor_profile_id
+    - when current_user.admin?
+      = f.hidden_field :admin_profile_id, value: current_user.admin_profile_id
+    .actions
+      = button_tag 'Save'

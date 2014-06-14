@@ -4,6 +4,10 @@ Starfactory::Application.routes.draw do
     resources :votes, only: [:create, :destroy]
   end
 
+  concern :commentable do
+    resources :comments, only: [:create, :edit, :update, :destroy]
+  end
+
   get 'logout' => 'sessions#destroy', as: 'logout'
   get 'login' => 'sessions#new', as: 'login'
   get 'register' => 'users#new', as: 'register'
@@ -22,7 +26,7 @@ Starfactory::Application.routes.draw do
   end
   resources :tracks
   resources :workshops, concerns: :votable do
-    resources :discussions, only: [:index, :show]
+    resources :discussions, concerns: :commentable, only: [:index, :show]
   end
 
   scope :admin do

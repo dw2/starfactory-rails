@@ -1,0 +1,4 @@
+%li{ class: comment.css_classes }
+  %cite= comment.author_name
+  = render 'shared/datetime', t: comment.created_at
+  %blockquote= format_markdown comment.body

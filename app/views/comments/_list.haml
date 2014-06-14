@@ -1,0 +1,5 @@
+= paginate comments if comments.total_pages > 1
+%ol
+  - comments.each do |comment|
+    = render 'comments/list_item', comment: comment
+= paginate comments if comments.total_pages > 1

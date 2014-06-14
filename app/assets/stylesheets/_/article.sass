@@ -167,6 +167,58 @@ article ol.tiles
                 dfn
                     color: #fff
 
+section.discussion
+    .meta
+        font-size: .9em
+        .author,
+        .datetime
+            background: #292B2F
+            +border_radius(1em)
+            color: #90939b
+            display: inline-block
+            padding: .25em .5em
+            vertical-align: middle
+        .datetime
+            .day,
+            .month,
+            .year
+                display: inline
+                &:after
+                    font-family: $primary
+            .day:after
+                content: ','
+            .year:after
+                color: #90939b
+                content: ' @'
+                font-weight: $heavy
+        cite
+            color: $colorAccentDarker
+            &:after
+                content: '\f06c'
+                padding-left: .5em
+    blockquote
+        font-size: 1.2em
+
+article .pagination
+    background: #17181A
+    +border_radius(3px)
+    padding: 0 1em
+    span
+        display: inline-block
+        padding: 1em .5em
+    span a
+        background: #2E3035
+        +border_radius(1em)
+        color: #90939b
+        display: block
+        margin: -.2em -.5em
+        padding: .2em .5em
+        text-decoration: none
+        &:focus,
+        &:hover
+            background: $colorAccent
+            color: #fff
+
 section.callout
     background: $colorAccent2Darker
     +border_radius(3px)

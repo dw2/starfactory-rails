@@ -16,9 +16,6 @@
 #  failed_logins_count             :integer          default(0)
 #  lock_expires_at                 :datetime
 #  unlock_token                    :string(255)
-#  instructor_profile_id           :integer
-#  student_profile_id              :integer
-#  admin_profile_id                :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

@@ -5,7 +5,12 @@
       = f.label :workshop_id
       = f.select :workshop_id, Workshop.active.all.map {|w| [w.name, w.id]}
     = render 'fields', f: f
-    = f.hidden_field :student_profile_id
-    = f.hidden_field :instructor_profile_id
+    - case
+    - when current_user.student?
+      = f.hidden_field :student_profile_id, value: current_user.student_profile_id
+    - when current_user.instructor?
+      = f.hidden_field :instructor_profile_id, value: current_user.instructor_profile_id
+    - when current_user.admin?
+      = f.hidden_field :admin_profile_id, value: current_user.admin_profile_id
     .actions
       = button_tag 'Submit'
