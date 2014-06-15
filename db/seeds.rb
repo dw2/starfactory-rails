@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-# if Rails.env.development?
+if Rails.env.development?
   Rails.cache.clear
   %w(users tracks events).each do |part|
     require File.join(
@@ -13,4 +13,4 @@
       "/seeds/#{part}.rb"
     )
   end
-# end
+end
