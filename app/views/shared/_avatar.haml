@@ -1,0 +1,2 @@
+- default_image = image_url "avatar@#{size}.png"
+= gravatar_image_tag email, class: 'avatar', onerror: "this.onerror='';this.src='#{default_image}';this.className+=' default'", gravatar: { size: size, default: default_image }

@@ -9,9 +9,11 @@ section.comments
 
     ol li
         +border_radius(3px)
+        +box_sizing(border-box)
         list-style: none
         margin-left: 0
-        padding: 3.5em 3em 2.5em
+        min-height: 150px
+        padding: 3em 2em 2em 140px
         position: relative
         &:nth-child(odd)
             background: #292B2F
@@ -19,11 +21,24 @@ section.comments
             background: #24262A
         ~ li
             border-top: 1px solid #2E3035
+        .avatar
+            background: image-url('avatar@50.png') 50% 50% no-repeat #5a5c64
+            +border_radius(3px)
+            height: 100px
+            left: 10px
+            position: absolute
+            top: 40px
+            +transition(box-shadow .2s linear)
+            width: 100px
+            &.default
+                background-image: none
+        a:hover .avatar
+            +box_shadow(0 0 20px rgba($colorAccentDarker,.5))
         cite,
         .datetime
             background: rgba(#000,.2)
             font-size: .9em
-            line-height: 2em
+            line-height: 30px
             padding: 0 1em
             position: absolute
             top: 0
@@ -53,3 +68,16 @@ section.comments
                 color: #90939b
                 content: ' @'
                 font-weight: $heavy
+        blockquote
+            overflow: hidden
+            img
+                display: block
+                margin: 1em 0
+                max-width: 100%
+
+@media screen and (max-width: 540px)
+    section.comments ol li
+        padding-left: 80px
+        .avatar
+            height: 50px
+            width: 50px

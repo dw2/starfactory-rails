@@ -54,6 +54,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    gravatar_image_tag (1.2.0)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -182,6 +183,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   counter_culture
   factory_girl_rails
+  gravatar_image_tag
   haml
   haml-rails
   jbuilder (~> 1.2)

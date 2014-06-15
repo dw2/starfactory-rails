@@ -39,17 +39,25 @@ class Comment < ActiveRecord::Base
       length: 50, separator: ' ')
   end
 
-  def author_name
+  def author
     case
     when student_profile.present?
-      student_profile.name
+      student_profile
     when instructor_profile.present?
-      instructor_profile.name
+      instructor_profile
     when admin_profile.present?
-      admin_profile.name
+      admin_profile
     else
       nil
     end
+  end
+
+  def user
+    author.user
+  end
+
+  def author_name
+    author.name
   end
 
   def author_profile_class

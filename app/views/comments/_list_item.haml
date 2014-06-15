@@ -1,4 +1,5 @@
 %li{ class: comment.css_classes }
+  = link_to_unless comment.user.admin?, render('shared/avatar', email: comment.user.email, size: 100), comment.author
   %cite= comment.author_name
   = render 'shared/datetime', t: comment.created_at
   %blockquote= format_markdown comment.body

@@ -44,6 +44,9 @@ header
             +transition(color .2s linear, text-shadow .2s linear)
             vertical-align: middle
             z-index: 2
+            &.login
+                color: #fff
+                font-weight: $heavy
             &:hover,
             &:focus
                 color: $colorTextBold
@@ -71,17 +74,18 @@ header
             +transition(box-shadow .2s linear)
             top: 10px
             width: 50px
-            &:before
+            .avatar
                 background: image-url('avatar@50.png') 50% 50% no-repeat #5a5c64
                 +border_radius(3px)
-                color: $colorAccentDarker
-                content: ''
+                cursor: pointer
                 height: 50px
                 position: absolute
                 right: 0
                 text-align: center
                 top: 0
                 width: 50px
+                &.default
+                    background-image: none
             &:hover
                 +box_shadow(0 0 35px rgba($colorAccentDarker,.5))
         dd
@@ -115,7 +119,7 @@ header
                 right: 0
                 top: 5px
                 width: 60px
-                &:before
+                .avatar
                     background-color: #fff
                     right: 5px
                     top: 5px
