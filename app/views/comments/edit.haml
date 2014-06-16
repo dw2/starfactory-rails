@@ -1,7 +1,9 @@
 %section.textual
   %h1 Editing Comment
   = form_for @comment do |f|
-    = render 'fields', f: f
+    .field
+      = f.label :body
+      = f.text_area :body
     %fieldset
       %legend Status
       - Comment::VALID_STATUSES.each_with_index do |status, s|

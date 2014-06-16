@@ -17,7 +17,8 @@
 
   %h2 Add a Comment
   = form_for Comment.new, url: workshop_discussion_comments_url(workshop_id: @workshop, discussion_id: @discussion) do |f|
-    = render 'comments/fields', f: f
+    .field
+      = f.text_area :body
     = f.hidden_field :discussion_id, value: @discussion.id
     - case
     - when current_user.student?
@@ -26,5 +27,4 @@
       = f.hidden_field :instructor_profile_id, value: current_user.instructor_profile_id
     - when current_user.admin?
       = f.hidden_field :admin_profile_id, value: current_user.admin_profile_id
-    .actions
-      = button_tag 'Save'
+    = button_tag 'Comment'
