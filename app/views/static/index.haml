@@ -2,16 +2,18 @@
   %h1 Learn how to build websites and apps with real people.
 
 %section.workshops
-  .list.upcoming
-    %label Upcoming
-    %ol
-      - @active_events.each do |event|
-        = render 'events/list_item', event: event
-  .list.voted
-    %label On the horizon
-    %ol
-      - @voted_workshops.each do |workshop|
-        = render 'workshops/list_item', workshop: workshop
+  - if @active_events.any?
+    .list.upcoming
+      %label Upcoming
+      %ol
+        - @active_events.each do |event|
+          = render 'events/list_item', event: event
+  - if @voted_workshops.any?
+    .list.voted
+      %label On the horizon
+      %ol
+        - @voted_workshops.each do |workshop|
+          = render 'workshops/list_item', workshop: workshop
 
 %aside.textual
   %h2 Our workshops are small, intimate, and in person
