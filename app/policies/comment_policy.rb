@@ -25,7 +25,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def index?
-    false
+    !!user
   end
 
   def show?
@@ -37,11 +37,11 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def new?
-    false
+    !!user
   end
 
   def update?
-    edit?
+    !!user
   end
 
   def edit?

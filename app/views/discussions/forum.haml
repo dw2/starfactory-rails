@@ -5,8 +5,8 @@
   %table
     %thead
       %tr
-        %th= sort_link 'Category', 'workshops.name'
-        %th= sort_link 'Discussions', 'discussions.discussions_count'
+        %th Track
+        %th Discussions
         %th Last comment
     %tbody
       - @tracks.each do |track|

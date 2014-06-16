@@ -1,3 +1,6 @@
+- content_for :footer do
+  = javascript_include_tag 'comments'
+
 %section.textual.discussion
   %h1= @discussion.name
   .meta
@@ -7,7 +10,7 @@
     = render 'shared/datetime', t: @discussion.created_at
   %blockquote= format_markdown @discussion.body
 
-%section.textual.comments
+%section.textual.comments{ data: { page: params[:page] || 1 }}
   - if @comments.any?
     %h2 Discussion
     = render 'comments/list', comments: @comments

@@ -34,8 +34,7 @@ class Comment < ActiveRecord::Base
 
   def snippet
     ActionController::Base.helpers.truncate(
-      ActionController::Base.helpers.strip_tags(
-        ApplicationController.helpers.format_markdown(body)),
+      ActionController::Base.helpers.strip_tags(body_html),
       length: 50, separator: ' ')
   end
 
@@ -52,12 +51,29 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def user
+  def author_user
     author.user
   end
 
   def author_name
     author.name
+  end
+
+  def author_url
+    url_helpers = Rails.application.routes.url_helpers
+    case
+    when student_profile.present?
+      url_helpers.student_profile_url student_profile, host: app.root_url
+    when instructor_profile.present?
+      url_helpers.instructor_profile_url instructor_profile, host: app.root_url
+    else
+      nil
+    end
+  end
+
+  def author_avatar_html
+    ApplicationController.new.render_to_string(partial: 'shared/avatar', locals: {
+      email: author_user.email, size: 100 })
   end
 
   def author_profile_class
@@ -71,6 +87,14 @@ class Comment < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  def body_html
+    ApplicationController.helpers.format_markdown body
+  end
+
+  def created_at_formatted
+    created_at.strftime '%b %e, %Y @ %l:%M %P'
   end
 
   def is_discussion_author?

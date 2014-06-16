@@ -1,9 +1,15 @@
 class CommentsController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
 
   before_action :load_comment, only: [:update, :destroy]
   before_action :load_discussion
   before_action :load_workshop
+
+  def index
+    @comments = @discussion.comments.by_date.page params[:page]
+    @comments_remaining = @comments.num_pages > params[:page].to_i
+    respond_with @comments
+  end
 
   def edit
     add_breadcrumb @comment.workshop_name, workshop_url(@comment.workshop)

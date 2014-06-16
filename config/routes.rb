@@ -1,7 +1,7 @@
 Starfactory::Application.routes.draw do
 
   concern :commentable do
-    resources :comments, only: [:create, :edit, :update, :destroy]
+    resources :comments, except: [:new]
   end
 
   concern :discussionable do

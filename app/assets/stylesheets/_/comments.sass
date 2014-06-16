@@ -22,7 +22,8 @@ section.comments
         ~ li
             border-top: 1px solid #2E3035
         .avatar
-            background: image-url('avatar@50.png') 50% 50% no-repeat #5a5c64
+            background: image-url('avatar@100.png') 50% 50% no-repeat #5a5c64
+            +bg_size(100%)
             +border_radius(3px)
             height: 100px
             left: 10px
@@ -35,7 +36,7 @@ section.comments
         a:hover .avatar
             +box_shadow(0 0 20px rgba($colorAccentDarker,.5))
         cite,
-        .datetime
+        time
             background: rgba(#000,.2)
             font-size: .9em
             line-height: 30px
@@ -46,34 +47,43 @@ section.comments
             +border_radius(3px, 0, 1em, 0)
             color: #fff
             left: 0
+        time
+            +border_radius(0, 3px, 0, 1em)
+            color: #90939b
+            right: 0
         &.author cite:after
             content: '\f06c'
             padding-left: .5em
         &.admin cite,
         &.instructor cite
             color: $colorAccentDarker
-        .datetime
-            +border_radius(0, 3px, 0, 1em)
-            color: #90939b
-            right: 0
-            .day,
-            .month,
-            .year
-                display: inline
-                &:after
-                    font-family: $primary
-            .day:after
-                content: ','
-            .year:after
-                color: #90939b
-                content: ' @'
-                font-weight: $heavy
         blockquote
             overflow: hidden
             img
                 display: block
                 margin: 1em 0
                 max-width: 100%
+
+    a.more
+        background: #404247
+        +border_radius(1em)
+        color: #fff
+        display: block
+        font-size: .9em
+        font-weight: $heavy
+        margin: 0 auto
+        padding: .25em 1em .25em .5em
+        text-align: center
+        text-decoration: none
+        width: 200px
+        &:before
+            color: $colorAccent
+            padding: 0 .5em
+        &:hover
+            background: $colorAccent2
+            color: #000
+            &:before
+                color: #000
 
 @media screen and (max-width: 540px)
     section.comments ol li
