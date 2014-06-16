@@ -1,6 +1,7 @@
 jQuery(document).ready ($) ->
 
-    $('.pagination').remove()
+    $pagination = $('.pagination')
+    $pagination.filter(':last').remove() if $pagination.length > 1
     $more = $("<p><a class='more icon comments'>Load More Comments</a></p>")
         .insertAfter $('section.comments ol')
         .find('.more')
