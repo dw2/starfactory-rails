@@ -24,8 +24,10 @@ class CommentsController < ApplicationController
     @comment = policy_scope(Comment).new(comment_params)
     authorize @comment
     @comment.save
+    page = (@discussion.comments_count.to_f / Comment::PER_PAGE).ceil
     respond_with @comment,
-      location: workshop_discussion_url(workshop_id: @workshop, id: @discussion),
+      location: workshop_discussion_url(
+        workshop_id: @workshop, id: @discussion, page: (page == 1 ? nil : page)),
       error: 'Unable to create comment.'
   end
 

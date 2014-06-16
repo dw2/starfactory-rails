@@ -24,6 +24,9 @@ class Comment < ActiveRecord::Base
   VALID_STATUSES = %w(Published Locked Removed)
   DEFAULT_SORT_COLUMN = 'comments.created_at'
   DEFAULT_SORT_DIRECTION = 'desc'
+  PER_PAGE = 10
+
+  paginates_per PER_PAGE
 
   delegate :name, to: :discussion, allow_nil: true
 
