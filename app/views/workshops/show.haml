@@ -1,5 +1,8 @@
 %section.textual.workshop
   %h1= @workshop.name
+  - if current_user.admin?
+    %nav
+      = link_to 'Edit', edit_workshop_url(@workshop), class: 'btn secondary icon edit'
   = text_to_html @workshop.description
 
   %dl
@@ -33,5 +36,14 @@
           = link_to 'Vote', workshop_votes_url(@workshop.id), method: :post, class: 'btn icon vote'
       - else
         = link_to 'Vote', new_session_url, class: 'btn icon vote', data: { confirm: "Please login to vote.", buttontext: 'Login' }
+  - if logged_in?
+    - comments = Comment.where(discussion_id: @workshop.discussions.pluck(:id)).by_date.limit(3)
+    - if comments.any?
+      %h3 Recent conversation
+      %ol.menu
+        - comments.each do |comment|
+          %li
+            = link_to workshop_discussion_url(workshop_id: comment.workshop_id, id: comment.id) do
+              = comment.discussion_name
   %hr
   = render 'shared/about'

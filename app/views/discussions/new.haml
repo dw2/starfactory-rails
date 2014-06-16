@@ -1,5 +1,12 @@
 %section.textual
-  %h1 New Discussion
+  %h1
+    New
+    - case
+    - when @track.present?
+      = @track.name
+    - when @workshop.present?
+      = @workshop.name
+    Discussion
   = form_for @discussion do |f|
     - if @workshop.present?
       = f.hidden_field :workshop_id, value: @workshop.id

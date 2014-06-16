@@ -41,9 +41,11 @@ class RegistrationsController < ApplicationController
     @registration = policy_scope(Registration).new(registration_params)
     authorize @registration
     if @registration.save ||
-      (defined?(@registration.errors.messages[:student_profile_id]) &&
+      (!!@registration.errors.messages[:student_profile_id] &&
         @registration.errors.messages[:student_profile_id].first.match('taken'))
       flash[:notice] = 'Got it! Thanks for registering.'
+    elsif !!@registration.errors.messages[:base] &&
+      flash[:error] = @registration.errors.messages[:base].first
     else
       flash[:error] = 'Unable to complete registration.'
     end

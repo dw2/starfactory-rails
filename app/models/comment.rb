@@ -28,7 +28,9 @@ class Comment < ActiveRecord::Base
 
   paginates_per PER_PAGE
 
-  delegate :name, to: :discussion, allow_nil: true
+  delegate :name, to: :discussion, allow_nil: true, prefix: true
+  delegate :workshop, to: :discussion, allow_nil: true
+  delegate :id, to: :workshop, prefix: true
 
   scope :published, -> { where { status.eq 'Published' } }
   scope :locked, -> { where { status.eq 'Locked' } }
@@ -75,8 +77,8 @@ class Comment < ActiveRecord::Base
   end
 
   def author_avatar_html
-    ApplicationController.new.render_to_string(partial: 'shared/avatar', locals: {
-      email: author_user.email, size: 100 })
+    ApplicationController.new.render_to_string(partial: 'shared/avatar',
+      locals: { email: author.email, size: 100 })
   end
 
   def author_profile_class

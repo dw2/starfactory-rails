@@ -34,6 +34,13 @@ class Registration < ActiveRecord::Base
   delegate :instructor_profiles, to: :event, prefix: true
 
   validates_uniqueness_of :student_profile_id, scope: :event_id
+  validate :event_starts_at_cannot_be_in_the_past
+
+  def event_starts_at_cannot_be_in_the_past
+    if event.starts_at < Time.now
+      errors.add(:base, "You can't register for past events.")
+    end
+  end
 
   def amount_paid_in_dollars
     amount_paid_in_cents.to_d / 100.0

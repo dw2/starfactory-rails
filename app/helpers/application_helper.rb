@@ -7,7 +7,10 @@ module ApplicationHelper
       under_camel("#{params[:controller]}_#{params[:action]}")
     ]
     classes.push 'hasQueryString' unless request.query_string.blank?
-    if (classes & ['staticIndex', 'workshopsShow', 'tracksShow', 'eventsShow']).count > 0
+    if (classes & [
+        'staticIndex', 'workshopsShow', 'tracksShow', 'eventsShow',
+        'instructorProfilesShow', 'studentProfilesShow'
+      ]).count > 0
       classes.push 'withSidebar'
     end
     classes.push 'loggedIn' if logged_in?

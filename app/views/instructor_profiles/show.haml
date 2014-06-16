@@ -1,3 +1,31 @@
-%section.textual
+%section.textual.bio
   %h1= @instructor_profile.name
-  = text_to_html @instructor_profile.bio
+  - if current_user.admin? || (current_user.instructor_profile == @instructor_profile)
+    %nav
+      = link_to 'Edit', edit_instructor_profile_url(@instructor_profile), class: 'btn secondary icon edit'
+  - if @instructor_profile.bio.present?
+    = text_to_html @instructor_profile.bio
+  - else
+    %h3 This instructor hasn't created their bio yet.
+    %p
+      We think you should totally
+      %strong bug them about it.
+  - if @instructor_profile.workshops.any?
+    %br
+    %dl
+      %dt Teaches
+      %dd
+        %ul
+          - @instructor_profile.workshops.each do |workshops|
+            %li= link_to workshops.name, workshops
+
+%aside.textual
+  = render 'shared/avatar', email: @instructor_profile.email, size: 300
+  - if @instructor_profile.events.current.any?
+    %h3 Upcoming Workshops
+    %ol.menu
+      - @instructor_profile.events.current.each do |event|
+        %li.event
+          = link_to event do
+            %strong= event.workshop_name
+            = render 'shared/datetime', t: event.starts_at

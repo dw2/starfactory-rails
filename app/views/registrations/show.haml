@@ -1,5 +1,8 @@
 %section.textual
   %h1= @registration.student_profile_name
+  - if current_user.admin?
+    %nav
+      = link_to 'Edit', edit_registration_url(@registration), class: 'btn secondary icon edit'
   %dl
     %dt Workshop
     %dd= link_to @registration.event_workshop_name, @registration.event_workshop

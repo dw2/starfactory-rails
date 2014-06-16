@@ -14,6 +14,7 @@ article
             color: #3dc6ae
 
     section
+        position: relative
         text-align: left
 
     h1 + nav
@@ -37,7 +38,6 @@ article
                 width: 40px
 
 article .textual
-
     h1,
     h2,
     h3
@@ -107,65 +107,61 @@ article
     ol.menu > li
         margin-left: 0
         list-style: none
+        ~ li
+            margin-top: 2px
         a
             background: #292B2F
             +border_radius(3px)
             color: $colorAccentDarker
             display: block
             padding: 1em
+            position: relative
             text-decoration: none
             &:hover,
             &:focus
                 background: #24262A
                 color: $colorAccent
-        ~ li
-            margin-top: 2px
-
-article ul.tiles,
-article ol.tiles
-    font-size: 0
-    margin: 20px -5px !important
-    > li
-        display: inline-block
-        font-size: $baseFontSize
-        height: 200px
-        list-style: none
-        margin-left: 0
-        padding: 5px 0
-        vertical-align: top
-        > a,
-        > h3
-            background: #36383D
-            +border_radius(3px)
-            display: block
-            height: 100%
-            margin: 0 5px
-        > h3 a
-            display: block
-            height: 100%
-            width: 100%
-        a
-            border-left: 5px solid $colorAccentDarker
-            +border_radius(3px)
-            +box_sizing(border-box)
-            color: $colorAccent2Darker
-            overflow: hidden
-            padding: 1em
-            text-decoration: none
-            +transition(background .2s linear, border .2s linear)
-            time,
-            dfn
-                color: #90939b
-                display: block
-            &:hover,
-            &:focus
-                background: #3B3D42
-                border-color: $colorAccent
-                border-left-width: 10px
-                color: $colorAccent2
-                time,
-                dfn
+        &.event a
+            min-height: 3.25em
+            padding-right: 5em
+            strong
+                color: $colorText
+            .year
+                display: none
+            .day,
+            .month
+                color: #fff
+                line-height: 1.5em
+                position: absolute
+                text-align: center
+            .day
+                background: #36383D
+                +border_radius(0, 0, 3px, 3px)
+                font-size: 2em
+                font-weight: $light
+                right: .2em
+                top: .95em
+                width: 2em
+            .month
+                background: #47494F
+                +border_radius(3px, 3px, 0, 0)
+                font-weight: $heavy
+                right: .4em
+                top: .4em
+                width: 4em
+            time
+                color: $colorAccentDarker
+            &:hover
+                strong
                     color: #fff
+                .day
+                    background: $colorAccent
+                    color: #fff
+                .month
+                    background: $colorAccentDarker
+                    color: #fff
+                time
+                    color: $colorAccent
 
 section.discussion
     .meta
@@ -251,23 +247,15 @@ body.usersNew
             float: none
             width: auto
 
-@media screen and (min-width: 800px)
-    article ul.tiles,
-    article ol.tiles
-        > li
-            width: 33.33%
-
-@media screen and (max-width: 799px) and (min-width: 540px)
-    article ul.tiles,
-    article ol.tiles
-        > li
-            width: 50%
+@media screen and (min-width: 540px)
+    body.studentProfilesShow h1,
+    body.instructorProfilesShow h1
+        padding-right: 125px
 
 @media screen and (max-width: 539px)
-    article ul.tiles,
-    article ol.tiles
-        > li
-            width: 100%
+    body.studentProfilesShow h1,
+    body.instructorProfilesShow h1
+        padding-right: 100px
 
 @media screen and (max-width: 1023px) and (min-width: 900px)
     body.withSidebar

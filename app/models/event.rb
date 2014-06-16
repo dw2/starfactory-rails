@@ -27,6 +27,7 @@ class Event < ActiveRecord::Base
   scope :active, -> { where { status.eq 'Active' } }
   scope :upcoming, -> { where { starts_at.gteq Time.now } }
   scope :current, -> { where { ends_at.gt Time.now } }
+  scope :passed, -> { where { ends_at.lt Time.now } }
   scope :ongoing, -> { where { (starts_at.lteq Time.now) & (ends_at.gteq Time.now) } }
   scope :by_soonest, -> { order('starts_at asc') }
   scope :registered, -> {
@@ -70,35 +71,36 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def starts_at_day
-    starts_at.present? ? starts_at.strftime('%Y-%m-%d') : ''
+  def spots_left
+    spots = registrations_max - registrations_count
+    spots = 0 if spots < 0
+    spots
   end
 
-  def starts_at_day=(val)
-    self.starts_at = DateTime.parse "#{val} #{starts_at_time}"
+  def passed?
+    ends_at < Time.now
   end
 
-  def starts_at_time
-    starts_at.present? ? starts_at.strftime('%H:%M') : ''
+  def registration_closed?
+    check_time = registration_ends_at.present? ? registration_ends_at : starts_at
+    spots_left == 0 || check_time < Time.now
   end
 
-  def starts_at_time=(val)
-    self.starts_at = DateTime.parse "#{starts_at_day} #{val}"
-  end
+  %w(starts_at ends_at registration_ends_at).each do |x|
+    define_method "#{x}_day" do
+      send(x).present? ? send(x).strftime('%Y-%m-%d') : ''
+    end
 
-  def ends_at_day
-    ends_at.present? ? ends_at.strftime('%Y-%m-%d') : ''
-  end
+    define_method "#{x}_day=" do |val|
+      self.send("#{x}=", DateTime.parse(val + ' ' + send("#{x}_time")))
+    end
 
-  def ends_at_day=(val)
-    self.ends_at = DateTime.parse "#{val} #{ends_at_time}"
-  end
+    define_method "#{x}_time" do
+      send(x).present? ? send(x).strftime('%H:%M') : ''
+    end
 
-  def ends_at_time
-    ends_at.present? ? ends_at.strftime('%H:%M') : ''
-  end
-
-  def ends_at_time=(val)
-    self.ends_at = DateTime.parse "#{ends_at_day} #{val}"
+    define_method "#{x}_time=" do |val|
+      self.send("#{x}=", DateTime.parse(send("#{x}_day") + ' ' + val))
+    end
   end
 end

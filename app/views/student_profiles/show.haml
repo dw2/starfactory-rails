@@ -1,3 +1,30 @@
 %section.textual
   %h1= @student_profile.name
-  = text_to_html @student_profile.bio
+  - if current_user.admin? || (current_user.student_profile == @student_profile)
+    %nav
+      = link_to 'Edit', edit_student_profile_url(@student_profile), class: 'btn secondary icon edit'
+  - if @student_profile.bio.present?
+    = text_to_html @student_profile.bio
+  - else
+    %h3 This student_profile hasn't created their bio yet.
+    %p
+      We think you should totally
+      %strong bug them about it.
+  - if @student_profile.tracks.any?
+    %br
+    %dl
+      %dt Interests
+      %dd
+        - @student_profile.tracks.each do |track|
+          = link_to track.name, track
+
+%aside.textual
+  = render 'shared/avatar', email: @student_profile.email, size: 300
+  - total_events_passed_count = Event.passed.size
+  - if total_events_passed_count > 0
+    %h3 Course Completion
+    .progress
+      - events_passed_count = @student_profile.events.passed.size
+      - percent = events_passed_count / total_events_passed_count.to_d * 100
+      .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
+        = events_passed_count

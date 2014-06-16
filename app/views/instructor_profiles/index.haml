@@ -1,6 +1,9 @@
-%section.textual
+%section.textual.tiles
   %h1 Instructors
-  %ul.tiles
+  %ul
     - @instructor_profiles.each do |instructor_profile|
       %li
-        %h3= link_to instructor_profile.name, instructor_profile
+        %h3
+          = link_to instructor_profile do
+            = instructor_profile.name
+            = render 'shared/avatar', email: 'doug@dougwaltman.com', size: 100

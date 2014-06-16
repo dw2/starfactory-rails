@@ -1,0 +1,109 @@
+section.tiles ul,
+section.tiles ol
+    font-size: 0
+    margin: 20px -5px !important
+    > li
+        display: inline-block
+        font-size: $baseFontSize
+        list-style: none
+        margin-left: 0
+        padding: 5px 0
+        vertical-align: top
+        > a,
+        > h3
+            background: #36383D
+            +border_radius(3px)
+            display: block
+            min-height: 150px
+            margin: 0 5px
+            position: relative
+        > h3 a
+            display: block
+            height: 100%
+            width: 100%
+        a
+            border-left: 5px solid $colorAccentDarker
+            +border_radius(3px)
+            +box_sizing(border-box)
+            color: $colorAccent2Darker
+            overflow: hidden
+            padding: 1em
+            position: relative
+            text-decoration: none
+            +transition(background .2s linear, border .2s linear)
+            time,
+            dfn
+                color: #90939b
+                display: block
+            &:hover,
+            &:focus
+                background: #3B3D42
+                border-color: $colorAccent
+                border-left-width: 10px
+                color: $colorAccent2
+                time,
+                dfn
+                    color: #fff
+    > li.icon
+        a
+            padding-right: 3.5em
+        a:after
+            color: #90939b
+            font-size: 2em
+            position: absolute
+            right: .5em
+            top: .5em
+        a:hover:after
+            color: #fff
+        &.css a:after
+            content: '\f0d0'
+        &.design a:after
+            content: '\f03e'
+        &.data a:after
+            content: '\f1c0'
+        &.general a:after
+            content: '\f126'
+        &.javascript a:after
+            content: '\f0f4'
+        &.rubyOnRails a:after
+            content: '\f120'
+        &.wordpress a:after
+            content: '\f19a'
+
+body.instructorProfilesIndex section.tiles ul > li
+    min-height: 100px
+    a,
+    h3
+        min-height: 100px
+    a
+        padding-left: 120px
+    img
+        height: 100px
+        left: 0
+        +opacity(.9)
+        position: absolute
+        top: 0
+        +transition(opacity .5s linear)
+        width: 100px
+    a:hover img,
+    a:focus img
+        +opacity(1)
+
+@media screen and (min-width: 800px)
+    section.tiles ul > li,
+    section.tiles ol > li
+        width: 33.33%
+    body.instructorProfilesIndex section.tiles ul > li
+        width: 50%
+
+@media screen and (max-width: 799px) and (min-width: 540px)
+    section.tiles ul > li,
+    section.tiles ol > li
+        width: 50%
+    body.instructorProfilesIndex section.tiles ul > li
+        width: 100%
+
+@media screen and (max-width: 539px)
+    section.tiles ul > li,
+    section.tiles ol > li
+        width: 100%

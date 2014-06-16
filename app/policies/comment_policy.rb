@@ -45,11 +45,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def edit?
-    !!user && (
-      user.admin? ||
-      (comment.student_profile.present? && user.student_profile == comment.student_profile) ||
-      (comment.instructor_profile.present? && user.instructor_profile == comment.instructor_profile)
-    )
+    !!user && user.admin?
   end
 
   def destroy?

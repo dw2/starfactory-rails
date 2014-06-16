@@ -2,6 +2,9 @@
 
 %section.textual.workshop
   %h1= @event.workshop_name
+  - if current_user.admin?
+    %nav
+      = link_to 'Edit', edit_event_url(@event), class: 'btn secondary icon edit'
   = text_to_html @event.workshop_description
 
   %dl
@@ -18,31 +21,46 @@
 
 %aside.textual
   %time.big
-    .monthday= @event.starts_at.strftime '%b %e'
+    .monthday
+      = @event.starts_at.strftime('%b %e') + ((@event.passed? || @event.registration_closed?) ? '*' : '')
     .hourspan
       = @event.starts_at.strftime '%l:%M%P'
       &mdash;
       = @event.ends_at.strftime '%l:%M%P'
-  .progress
-    - percent = @event.registrations_count.to_d / @event.registrations_max.to_d * 100
-    .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
-      = @event.registrations_count
-  - unless already_registered
-    %p
-      This only has
-      %strong #{pluralize (@event.registrations_max - @event.registrations_count), 'spot', 'spots'}
-      left. Register now to save your spot.
-  %h3
-    - if already_registered
-      You're registered for this workshop
-    - else
-      = @event.formatted_cost
-  - if logged_in? && current_user.student?
-    = form_for Registration.new do |f|
-      = f.hidden_field :event_id, value: @event.id
-      = f.hidden_field :student_profile_id, value: current_user.student_profile_id
-      = button_tag 'Register'
-  - elsif !logged_in?
-    %p= link_to 'Register', login_url, class: 'btn', data: { confirm: "Please login to register.", buttontext: 'Login' }
+  - case
+  - when @event.passed?
+    %br
+    %h3 *Event has passed
+  - when @event.registration_closed?
+    %br
+    %h3 *Registration closed
+  - else
+    .progress
+      - percent = @event.registrations_count.to_d / @event.registrations_max.to_d * 100
+      .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
+        = @event.registrations_count
+    - unless already_registered
+      %p
+        This event only has
+        %strong #{pluralize (@event.spots_left), 'spot', 'spots'}
+        left.
+        - if current_user.student?
+          Register now to save your spot.
+    %h3
+      - if already_registered
+        You're registered for this workshop
+      - else
+        = @event.formatted_cost
+    - if !logged_in?
+      %p= link_to 'Register', login_url, class: 'btn', data: { confirm: "Please login to register.", buttontext: 'Login' }
+    - elsif current_user.student? && !already_registered
+      = form_for Registration.new do |f|
+        = f.hidden_field :event_id, value: @event.id
+        = f.hidden_field :student_profile_id, value: current_user.student_profile_id
+        = button_tag 'Register'
+    - if @event.registration_ends_at.present?
+      %p
+        Registration ends in
+        %strong #{time_ago_in_words @event.registration_ends_at}
   %hr
   = render 'shared/about'

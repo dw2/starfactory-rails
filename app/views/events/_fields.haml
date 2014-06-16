@@ -11,6 +11,11 @@
   %br
   = f.text_field :ends_at_day, class: 'day'
   = f.select :ends_at_time, (0..95).map{|n| (Time.now.beginning_of_day + (n * 15).minutes).strftime('%H:%M') }
+.field.datetime{ data: { val: f.object.registration_ends_at.present? ? f.object.registration_ends_at.strftime('%Y-%m-%d @ %H:%M') : nil } }
+  %label Registration Cutoff
+  %br
+  = f.text_field :registration_ends_at_day, class: 'day'
+  = f.select :registration_ends_at_time, (0..95).map{|n| (Time.now.beginning_of_day + (n * 15).minutes).strftime('%H:%M') }
 .field
   = f.label :cost_in_dollars
   = f.number_field :cost_in_dollars, step: 0.01, value: f.object.cost_in_dollars ? "%0.2f" % f.object.cost_in_dollars : '' 

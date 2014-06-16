@@ -1,8 +1,8 @@
-%section.textual
+%section.textual.tiles
   %h1 Tracks
-  %ul.tiles
+  %ul
     - @tracks.each do |track|
-      %li
+      %li.icon{ class: under_camel(track.name.downcase) }
         = link_to track do
           %h3= track.name
           %dfn= pluralize track.workshops.active.count, 'Workshop', 'Workshops'

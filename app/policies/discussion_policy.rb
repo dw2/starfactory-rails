@@ -49,11 +49,7 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   end
 
   def edit?
-    !!user && (
-      user.admin? ||
-      (discussion.student_profile.present? && user.student_profile == discussion.student_profile) ||
-      (discussion.instructor_profile.present? && user.instructor_profile == discussion.instructor_profile)
-    )
+    !!user && user.admin?
   end
 
   def destroy?

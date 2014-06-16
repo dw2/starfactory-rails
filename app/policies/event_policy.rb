@@ -16,8 +16,9 @@ class EventPolicy < Struct.new(:user, :event)
     case
     when user.admin?
       [:starts_at, :starts_at_day, :starts_at_time, :ends_at, :ends_at_day,
-        :ends_at_time, :registrations_max, :cost_in_cents, :cost_in_dollars,
-        :workshop_id, :status, :instructor_profile_ids => []]
+        :ends_at_time, :registration_ends_at, :registration_ends_at_day,
+        :registration_ends_at_time, :registrations_max, :cost_in_cents,
+        :cost_in_dollars, :workshop_id, :status, :instructor_profile_ids => []]
     else
       []
     end

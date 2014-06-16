@@ -38,6 +38,11 @@ article aside
                 +box_shadow(0 0 35px rgba(#000,.3))
                 padding: 0 0 0 6px
 
+    .avatar
+        background: #2E3035
+        +border_radius(3px)
+        display: block
+
 article aside time.big
     color: #fff
     display: block
@@ -73,9 +78,24 @@ article aside time.big
 @media screen and (min-width: 900px)
     article aside
         float: right
+        .avatar
+            height: auto
+            margin: 0 auto 1.5em
+            max-width: 100%
     body.staticIndex article aside
         margin-top: 70px
 
 @media screen and (max-width: 899px)
     article aside
         margin-top: 35px
+        .avatar
+            height: 100px
+            position: absolute
+            right: 0
+            top: 0
+            width: 100px
+
+@media screen and (max-width: 539px)
+    article aside .avatar
+        height: 75px
+        width: 75px
