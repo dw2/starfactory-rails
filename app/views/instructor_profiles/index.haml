@@ -6,4 +6,4 @@
         %h3
           = link_to instructor_profile do
             = instructor_profile.name
-            = render 'shared/avatar', email: 'doug@dougwaltman.com', size: 100
+            = render 'shared/avatar', email: instructor_profile.email, size: 100
