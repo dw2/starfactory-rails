@@ -35,7 +35,7 @@ class Comment < ActiveRecord::Base
   scope :published, -> { where { status.eq 'Published' } }
   scope :locked, -> { where { status.eq 'Locked' } }
   scope :removed, -> { where { status.eq 'Removed' } }
-  scope :by_date, -> { order('created_at asc') }
+  scope :by_date, -> { order('comments.created_at asc') }
 
   def snippet
     ActionController::Base.helpers.truncate(

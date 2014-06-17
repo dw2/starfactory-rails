@@ -22,7 +22,7 @@ class StudentProfile < ActiveRecord::Base
 
   accepts_nested_attributes_for :user
 
-  scope :by_name, -> { order('name asc') }
+  scope :by_name, -> { order('student_profiles.name asc') }
 
   validates :name, presence: true
   validates :user, presence: true

@@ -32,8 +32,8 @@ class Workshop < ActiveRecord::Base
     includes(:track)
     .where { status.eq('Active') & track.status.eq('Active') }
   }
-  scope :by_name, -> { order('name asc') }
-  scope :by_sort, -> { order('sort asc') }
+  scope :by_name, -> { order('tracks.name asc') }
+  scope :by_sort, -> { order('tracks.sort asc') }
   scope :voted, -> {
     includes(:events)
     .where( events: { id: nil })

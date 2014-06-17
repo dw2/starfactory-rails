@@ -19,8 +19,8 @@ class Track < ActiveRecord::Base
   DEFAULT_SORT_COLUMN = 'sort'
 
   scope :active, -> { where { status.eq 'Active' } }
-  scope :by_name, -> { order('name asc') }
-  scope :by_sort, -> { order('sort asc') }
+  scope :by_name, -> { order('tracks.name asc') }
+  scope :by_sort, -> { order('tracks.sort asc') }
 
   def last_comment
     Comment
