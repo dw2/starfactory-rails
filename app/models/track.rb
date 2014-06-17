@@ -16,7 +16,7 @@ class Track < ActiveRecord::Base
   has_many :discussions, through: :workshops
 
   VALID_STATUSES = %w(Active Disabled)
-  DEFAULT_SORT_COLUMN = 'sort'
+  DEFAULT_SORT_COLUMN = 'tracks.name'
 
   scope :active, -> { where { status.eq 'Active' } }
   scope :by_name, -> { order('tracks.name asc') }

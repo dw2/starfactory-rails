@@ -5,9 +5,9 @@
   %table
     %thead
       %tr
-        %th= sort_link 'Name', 'name'
+        %th= sort_link 'Name', 'tracks.name'
         %th Workshops
-        %th= sort_link 'Status', 'status'
+        %th= sort_link 'Status', 'tracks.status'
         %th
     - if @tracks.total_pages > 1
       %tfoot

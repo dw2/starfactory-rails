@@ -7,10 +7,10 @@
   %table
     %thead
       %tr
-        %th= sort_link 'Track', 'tracks.name'
         %th= sort_link 'Name', 'workshops.name'
         %th= sort_link 'Votes', 'workshops.votes_count'
         %th Scheduled
+        %th= sort_link 'Track', 'tracks.name'
         %th= sort_link 'Status', 'workshops.status'
         %th
     - if @workshops.total_pages > 1
@@ -19,11 +19,6 @@
     %tbody
       - @workshops.each do |workshop|
         %tr
-          %td
-            - if workshop.track.present?
-              = workshop.track_name
-            - else
-              &mdash;
           %td= link_to workshop.name, edit_workshop_url(workshop)
           %td
             .progress
@@ -38,7 +33,14 @@
             - else
               &mdash;
           %td
-            %mark.icon{ class: under_camel(workshop.status) }= workshop.status
+            - if workshop.track.present?
+              %mark.icon{ class: under_camel(workshop.track_status) }
+                = workshop.track_name
+            - else
+              &mdash;
+          %td
+            %mark.icon{ class: under_camel(workshop.status) }
+              = workshop.status
           %td.actions
             %div
               = link_to 'View', workshop, class: 'view'

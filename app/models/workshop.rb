@@ -24,7 +24,7 @@ class Workshop < ActiveRecord::Base
   has_many :events
 
   VALID_STATUSES = %w(Active Disabled)
-  DEFAULT_SORT_COLUMN = 'tracks.sort'
+  DEFAULT_SORT_COLUMN = 'tracks.name'
 
   include Discussionable
 
@@ -41,4 +41,5 @@ class Workshop < ActiveRecord::Base
   }
 
   delegate :name, to: :track, prefix: true
+  delegate :status, to: :track, prefix: true
 end
