@@ -5,13 +5,14 @@
 #  id                    :integer          not null, primary key
 #  name                  :string(255)
 #  status                :string(255)      default("Active")
-#  comments_count        :integer
+#  comments_count        :integer          default(0), not null
 #  workshop_id           :integer
 #  student_profile_id    :integer
 #  instructor_profile_id :integer
 #  created_at            :datetime
 #  updated_at            :datetime
-#  body                  :text
+#  body                  :text             default("")
+#  admin_profile_id      :integer
 #
 
 class Discussion < ActiveRecord::Base

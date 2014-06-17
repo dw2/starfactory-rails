@@ -10,6 +10,9 @@
     .field.radio
       = f.radio_button :track_id, track.id, id: "workshop_track_id_#{t}", checked: track.id == f.object.track_id ? true : nil
       = f.label :track_id, track.name, for: "workshop_track_id_#{t}"
+.field
+  = f.label :sort
+  = f.number_field :sort, step: 1
 %fieldset
   %legend Status
   - Workshop::VALID_STATUSES.each_with_index do |status, s|

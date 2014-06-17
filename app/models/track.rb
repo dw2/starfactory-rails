@@ -8,6 +8,7 @@
 #  status      :string(255)      default("Active")
 #  created_at  :datetime
 #  updated_at  :datetime
+#  sort        :integer          default(0)
 #
 
 class Track < ActiveRecord::Base
@@ -15,10 +16,11 @@ class Track < ActiveRecord::Base
   has_many :discussions, through: :workshops
 
   VALID_STATUSES = %w(Active Disabled)
-  DEFAULT_SORT_COLUMN = 'name'
+  DEFAULT_SORT_COLUMN = 'sort'
 
   scope :active, -> { where { status.eq 'Active' } }
   scope :by_name, -> { order('name asc') }
+  scope :by_sort, -> { order('sort asc') }
 
   def last_comment
     Comment

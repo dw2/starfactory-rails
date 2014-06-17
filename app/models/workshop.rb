@@ -13,7 +13,8 @@
 #  votes_count       :integer          default(0)
 #  votes_goal        :integer          default(0)
 #  track_id          :integer
-#  discussions_count :integer
+#  discussions_count :integer          default(0), not null
+#  sort              :integer          default(0)
 #
 
 class Workshop < ActiveRecord::Base
@@ -23,7 +24,7 @@ class Workshop < ActiveRecord::Base
   has_many :events
 
   VALID_STATUSES = %w(Active Disabled)
-  DEFAULT_SORT_COLUMN = 'tracks.name'
+  DEFAULT_SORT_COLUMN = 'tracks.sort'
 
   include Discussionable
 

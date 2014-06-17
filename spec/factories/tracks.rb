@@ -8,6 +8,7 @@
 #  status      :string(255)      default("Active")
 #  created_at  :datetime
 #  updated_at  :datetime
+#  sort        :integer          default(0)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
