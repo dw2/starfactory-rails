@@ -45,3 +45,5 @@
               = link_to 'Discussions', admin_discussions_url(workshop: workshop), class: 'discussions', data: { hint: pluralize(workshop.discussions_count, 'Discussion', 'Discussions') }
               = link_to 'Schedule', new_event_url(workshop: workshop), class: 'schedule', data: { hint: 'Schedule this Workshop' }
               = link_to 'Edit', edit_workshop_url(workshop), class: 'edit'
+              - unless workshop.discussions.any?
+                = link_to 'Delete', workshop_url(workshop), class: 'delete', method: 'delete', data: { confirm: 'Delete this workshop?' }

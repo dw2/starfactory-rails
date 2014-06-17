@@ -55,9 +55,11 @@ class WorkshopsController < ApplicationController
 
   # DELETE /workshops/1
   def destroy
-    @workshop.destroy
+    if @workshop.destroy
+      flash[:notice] = "#{@workshop.name} has been deleted."
+    end
     respond_with @workshop,
-      location: @workshop,
+      location: admin_workshops_url,
       error: 'Unable to remove workshop.'
   end
 

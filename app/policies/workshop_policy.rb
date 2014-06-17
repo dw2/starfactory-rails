@@ -41,7 +41,7 @@ class WorkshopPolicy < Struct.new(:user, :workshop)
   end
 
   def destroy?
-    false
+    !!user && user.admin? && !workshop.events.any? && !workshop.discussions.any?
   end
 
   # Used by the admin controller
