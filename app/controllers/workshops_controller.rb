@@ -67,7 +67,7 @@ private
   end
 
   def load_current_user_vote
-    if current_user
+    if logged_in?
       @vote = @workshop.votes.find_by_user_id current_user.id
     else
       @vote = nil

@@ -7,7 +7,7 @@ class UserPolicy < Struct.new(:current_user, :user)
       when current_user.admin?
         scope
       else
-        scope.none
+        scope
       end
     end
   end

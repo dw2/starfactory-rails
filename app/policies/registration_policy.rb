@@ -9,7 +9,7 @@ class RegistrationPolicy < Struct.new(:user, :registration)
       when user.student?
         scope
       else
-        scope.none
+        scope
       end
     end
   end

@@ -1,14 +1,7 @@
 class InstructorProfilePolicy < Struct.new(:user, :instructor_profile)
   class Scope < Struct.new(:user, :scope)
     def resolve
-      case
-      when !user
-        scope.none
-      when user.admin?
-        scope
-      else
-        scope.none
-      end
+      scope
     end
   end
 

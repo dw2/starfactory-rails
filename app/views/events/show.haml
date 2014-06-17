@@ -44,7 +44,7 @@
         This event only has
         %strong #{pluralize (@event.spots_left), 'spot', 'spots'}
         left.
-        - if current_user.student?
+        - if logged_in? && current_user.student?
           Register now to save your spot.
     %h3
       - if already_registered

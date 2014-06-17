@@ -5,7 +5,7 @@
   .about
     %h3= link_to workshop.name, workshop
     %dfn
-      - if current_user
+      - if logged_in?
         - if current_user.voted_on(workshop)
           %mark.icon.vote
           You voted for this class

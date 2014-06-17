@@ -28,7 +28,7 @@
       This class needs at least #{pluralize @workshop.votes_goal, 'vote', 'votes'}
       before it gets scheduled.
     %p
-      - if current_user
+      - if logged_in?
         - if current_user.voted_on(@workshop)
           = link_to 'Remove Vote', workshop_vote_url(@workshop.id, @vote.id), method: :delete
         - else

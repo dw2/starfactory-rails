@@ -7,7 +7,7 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
       when user.admin?
         scope
       else
-        scope.none
+        scope
       end
     end
   end
