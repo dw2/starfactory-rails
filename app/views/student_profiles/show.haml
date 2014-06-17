@@ -1,6 +1,6 @@
 %section.textual
   %h1= @student_profile.name
-  - if current_user.admin? || (current_user.student_profile == @student_profile)
+  - if logged_in? && (current_user.admin? || (current_user.student_profile == @student_profile))
     %nav
       = link_to 'Edit', edit_student_profile_url(@student_profile), class: 'btn secondary icon edit'
   - if @student_profile.bio.present?

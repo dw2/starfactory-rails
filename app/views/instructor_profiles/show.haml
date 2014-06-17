@@ -1,6 +1,6 @@
 %section.textual.bio
   %h1= @instructor_profile.name
-  - if current_user.admin? || (current_user.instructor_profile == @instructor_profile)
+  - if logged_in? && (current_user.admin? || (current_user.instructor_profile == @instructor_profile))
     %nav
       = link_to 'Edit', edit_instructor_profile_url(@instructor_profile), class: 'btn secondary icon edit'
   - if @instructor_profile.bio.present?

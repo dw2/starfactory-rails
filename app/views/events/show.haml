@@ -2,7 +2,7 @@
 
 %section.textual.workshop
   %h1= @event.workshop_name
-  - if current_user.admin?
+  - if logged_in? && current_user.admin?
     %nav
       = link_to 'Edit', edit_event_url(@event), class: 'btn secondary icon edit'
   = text_to_html @event.workshop_description

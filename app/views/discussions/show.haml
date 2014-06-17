@@ -3,7 +3,7 @@
 
 %section.textual.discussion
   %h1= @discussion.name
-  - if current_user.admin?
+  - if logged_in? && current_user.admin?
     %nav
       = link_to 'Edit', edit_discussion_url(@discussion), class: 'btn secondary icon edit'
   .meta
