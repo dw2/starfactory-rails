@@ -10,6 +10,7 @@ class DiscussionsController < ApplicationController
   def index
     case
     when @workshop.present?
+      add_breadcrumb @workshop.track_name, track_discussions_url(track_id: @workshop.track)
       add_breadcrumb @workshop.name
       authorize @workshop, :show?
       @discussions = Discussion
@@ -40,6 +41,7 @@ class DiscussionsController < ApplicationController
   # GET /discussions/1
   def show
     @page_title = @discussion.name
+    add_breadcrumb @discussion.workshop.track_name, track_discussions_url(track_id: @discussion.workshop.track)
     add_breadcrumb @discussion.workshop_name, workshop_discussions_url(@discussion.workshop)
     add_breadcrumb @discussion.name
     authorize @discussion

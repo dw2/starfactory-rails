@@ -21,17 +21,21 @@
       %thead
         %tr
           %th Discussion
+          - if @workshop.blank?
+            %th Workshop
           %th Comments
           %th Last Comment
       - if @discussions.total_pages > 1
         %tfoot
-          %td{ colspan: 4 }= paginate @discussions
+          %td{ colspan: (@workshop.blank? ? 5 : 4) }= paginate @discussions
       %tbody
         - @discussions.each do |discussion|
           %tr
             %td.clickrow
               = link_to workshop_discussion_url(workshop_id: discussion.workshop, id: discussion) do
                 = discussion.name
+            - if @workshop.blank?
+              %td= discussion.workshop_name
             %td= discussion.comments_count
             %td
               - if discussion.last_comment.present?
