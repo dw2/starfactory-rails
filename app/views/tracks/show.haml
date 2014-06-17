@@ -6,7 +6,7 @@
   = text_to_html @track.description
 
 %aside.textual
-  %h2 Workshops
+  %h2 In this track&hellip;
   %ol.menu
     - @track.workshops.active.by_sort.each do |workshop|
       %li= link_to workshop.name, workshop
