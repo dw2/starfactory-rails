@@ -27,7 +27,10 @@ class Workshop < ActiveRecord::Base
 
   include Discussionable
 
-  scope :active, -> { where { status.eq 'Active' } }
+  scope :active, -> {
+    includes(:track)
+    .where { status.eq('Active') & track.status.eq('Active') }
+  }
   scope :by_name, -> { order('name asc') }
   scope :by_sort, -> { order('sort asc') }
   scope :voted, -> {

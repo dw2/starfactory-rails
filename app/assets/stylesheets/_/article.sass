@@ -84,8 +84,10 @@ article .textual
             width: 70%
 
     h1, h2, h3, p, ul, ol, dl, blockquote, form, table, .field
-        ~h1, ~h2, ~h3, ~p, ~ul, ~ol, ~dl, ~blockquote, ~form, ~table
+        ~h1, ~h2, ~h3, ~p, ~ul, ~ol, ~blockquote, ~form, ~table
             margin-top: 1.5em
+        ~dl
+            margin-top: 3em
 
 article .progress
     background: #47494F
@@ -246,6 +248,12 @@ body.usersNew
         article section.callout
             float: none
             width: auto
+
+@media screen and (max-width: 899px)
+    body.studentProfilesShow,
+    body.instructorProfilesShow
+        article h1 + nav
+            right: 110px
 
 @media screen and (min-width: 540px)
     body.studentProfilesShow h1,
