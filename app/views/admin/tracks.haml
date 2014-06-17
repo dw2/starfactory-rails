@@ -17,8 +17,10 @@
         %tr
           %td= link_to track.name, edit_track_url(track)
           %td= track.workshops.active.count
-          %td= track.status
+          %td
+            %mark.icon{ class: under_camel(track.status) }= track.status
           %td.actions
             %div
               = link_to 'Edit', track, class: 'view'
+              = link_to 'Workshops', admin_track_workshops_url(track), class: 'workshops'
               = link_to 'View', edit_track_url(track), class: 'edit'

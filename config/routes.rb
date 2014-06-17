@@ -44,6 +44,7 @@ Starfactory::Application.routes.draw do
     get 'events/:event_id/registrations' => 'admin#registrations', as: :admin_event_registrations
     get 'students' => 'admin#student_profiles', as: :admin_students
     get 'workshops' => 'admin#workshops', as: :admin_workshops
+    get 'tracks/:id/workshops' => 'admin#workshops', as: :admin_track_workshops
   end
 
   get 'contact' => 'static#contact', as: :contact
