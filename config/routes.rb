@@ -49,6 +49,7 @@ Starfactory::Application.routes.draw do
   get 'contact' => 'static#contact', as: :contact
   get 'privacy' => 'static#privacy', as: :privacy
   get 'terms' => 'static#terms', as: :terms
+  get 'conduct' => 'static#conduct', as: :conduct
 
   get '403' => 'static#status403', as: :status_403
   get '404' => 'static#status404', as: :status_404
