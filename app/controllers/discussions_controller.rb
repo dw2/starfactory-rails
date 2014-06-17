@@ -110,7 +110,7 @@ class DiscussionsController < ApplicationController
   # PATCH/PUT /discussions/1
   def update
     if @discussion.update(discussion_params)
-      location = workshop_discussions_url(workshop_id: @discussion.workshop_id)
+      location = workshop_discussions_url(workshop_id: @discussion.workshop)
       flash[:notice] = "#{@discussion.name} has been updated."
     else
       location = @discussion
@@ -123,7 +123,10 @@ class DiscussionsController < ApplicationController
   # DELETE /discussions/1
   def destroy
     @discussion.destroy
-    location = workshop_discussion_url(workshop_id: @discussion.workshop)
+    location = workshop_discussions_url(workshop_id: @discussion.workshop)
+    if @discussion.destroy
+      flash[:notice] = "#{@discussion.name} has been updated."
+    end
     respond_with @discussion,
       location: location,
       error: 'Unable to remove discussion.'

@@ -41,7 +41,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def update?
-    !!user
+    !!user && user.admin?
   end
 
   def edit?
@@ -49,7 +49,7 @@ class CommentPolicy < Struct.new(:user, :comment)
   end
 
   def destroy?
-    edit?
+    !!user && user.admin?
   end
 
   # Used by the admin controller

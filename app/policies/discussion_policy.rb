@@ -45,7 +45,7 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   end
 
   def update?
-    edit?
+    !!user && user.admin?
   end
 
   def edit?
@@ -53,7 +53,7 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   end
 
   def destroy?
-    edit?
+    !!user && user.admin?
   end
 
   # Used by the admin controller

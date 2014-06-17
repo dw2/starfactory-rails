@@ -30,3 +30,4 @@
               %div
                 = link_to 'View', workshop_discussion_url(workshop_id: discussion.workshop, id: discussion), class: 'view'
                 = link_to 'Edit', edit_discussion_url(discussion), class: 'edit'
+                = link_to 'Delete', discussion_url(discussion), class: 'delete', data: { method: 'delete', confirm: 'Delete this discussion and all associated comments?' }
