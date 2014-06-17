@@ -36,13 +36,13 @@
       - else
         = link_to 'Vote', new_session_url, class: 'btn icon vote', data: { confirm: "Please login to vote.", buttontext: 'Login' }
   - if logged_in?
-    - comments = Comment.where(discussion_id: @workshop.discussions.pluck(:id)).by_date.limit(3)
-    - if comments.any?
+    - discussions = @workshop.discussions.includes(:comments).order('comments.created_at desc').limit(3)
+    - if discussions.any?
       %h3 Recent conversation
       %ol.menu
-        - comments.each do |comment|
+        - discussions.each do |discussion|
           %li
-            = link_to workshop_discussion_url(workshop_id: comment.workshop_id, id: comment.id) do
-              = comment.discussion_name
+            = link_to workshop_discussion_url(workshop_id: discussion.workshop, id: discussion) do
+              = discussion.name
   %hr
   = render 'shared/about'
