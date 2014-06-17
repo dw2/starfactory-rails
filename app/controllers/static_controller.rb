@@ -16,6 +16,10 @@ class StaticController < ApplicationController
     add_breadcrumb 'Terms of Service'
   end
 
+  def conduct
+    add_breadcrumb 'Code of Conduct'
+  end
+
   def status403
     add_breadcrumb 'Status 403'
   end
