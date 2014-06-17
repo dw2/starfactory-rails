@@ -22,5 +22,5 @@
           %td.actions
             %div
               = link_to 'Edit', track, class: 'view'
-              = link_to 'Workshops', admin_track_workshops_url(track), class: 'workshops'
+              = link_to 'Workshops', admin_track_workshops_url(track), class: 'workshops', data: { hint: 'Workshops' }
               = link_to 'View', edit_track_url(track), class: 'edit'

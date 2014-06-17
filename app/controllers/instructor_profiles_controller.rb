@@ -60,7 +60,7 @@ class InstructorProfilesController < ApplicationController
 
 private
   def load_instructor_profile
-    @instructor_profile = InstructorProfile.find(params[:id])
+    @instructor_profile = policy_scope(InstructorProfile).find(params[:id])
   end
 
   def instructor_profile_params

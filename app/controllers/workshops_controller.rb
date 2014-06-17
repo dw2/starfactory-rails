@@ -63,7 +63,7 @@ class WorkshopsController < ApplicationController
 
 private
   def load_workshop
-    @workshop = Workshop.find(params[:id])
+    @workshop = policy_scope(Workshop).find(params[:id])
   end
 
   def load_current_user_vote

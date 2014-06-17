@@ -60,7 +60,7 @@ class StudentProfilesController < ApplicationController
 
 private
   def load_student_profile
-    @student_profile = StudentProfile.find(params[:id])
+    @student_profile = policy_scope(StudentProfile).find(params[:id])
     authorize @student_profile
   end
 

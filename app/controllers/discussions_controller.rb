@@ -136,15 +136,15 @@ class DiscussionsController < ApplicationController
 
 private
   def load_discussion
-    @discussion = Discussion.find(params[:id])
+    @discussion = policy_scope(Discussion).find(params[:id])
   end
 
   def load_track
-    @track = Track.find_by_id(params[:track_id])
+    @track = policy_scope(Track).find_by_id(params[:track_id])
   end
 
   def load_workshop
-    @workshop = Workshop.find_by_id(params[:workshop_id])
+    @workshop = policy_scope(Workshop).find_by_id(params[:workshop_id])
   end
 
   def discussion_params

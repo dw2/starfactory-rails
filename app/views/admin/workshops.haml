@@ -1,5 +1,7 @@
 %section.textual
-  %h1 Workshops
+  %h1
+    = @track.name if @track.present?
+    Workshops
   %nav
     = link_to 'New', new_workshop_url, class: 'btn secondary icon new'
   %table
@@ -32,7 +34,7 @@
             - if workshop.events.current.any?
               - workshop.events.current.each do |event|
                 %time.icon.event
-                  = link_to event.starts_at.strftime('%b %e, %Y %l:%M %P'), event
+                  = link_to event.starts_at.strftime('%b %e, %Y @ %l:%M %P'), event
             - else
               &mdash;
           %td

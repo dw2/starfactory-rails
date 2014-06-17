@@ -70,7 +70,7 @@ tbody
         td, th
             background: #202125
 
-    > time,
+    td > time,
     .datetime
         +border_radius(1em)
         color: #93979f
@@ -80,6 +80,9 @@ tbody
         vertical-align: middle
         &.icon:before
             color: $colorAccentDarker
+    td > time a
+        color: #93979f
+        text-decoration: none
     .datetime
         &:before
             color: $colorAccent2Darker
@@ -181,15 +184,17 @@ tbody
             &[data-hint]:hover:after,
             &[data-hint]:focus:after
                 background: #47494F
-                +border_radius(1em, 1em, 0, 1em)
-                bottom: 1.75em
+                +border_radius(1em, 1em, 1em, 0)
+                bottom: 1.5em
+                +box_shadow(2px 2px 10px rgba(#000,.2))
                 color: #fff
                 content: attr(data-hint)
                 font-weight: $heavy
+                left: 1.5em
                 line-height: 1em
                 padding: .5em 1em
                 position: absolute
-                right: 1.75em
                 text-align: center
+                z-index: 2
         a ~ a
             margin-left: 0

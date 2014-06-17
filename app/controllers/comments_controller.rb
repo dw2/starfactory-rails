@@ -49,15 +49,15 @@ class CommentsController < ApplicationController
 
 private
   def load_comment
-    @comment = Comment.find(params[:id])
+    @comment = policy_scope(Comment).find(params[:id])
   end
 
   def load_discussion
-    @discussion = Discussion.find(params[:discussion_id])
+    @discussion = policy_scope(Discussion).find(params[:discussion_id])
   end
 
   def load_workshop
-    @workshop = Workshop.find(params[:workshop_id])
+    @workshop = policy_scope(Workshop).find(params[:workshop_id])
   end
 
   def comment_params

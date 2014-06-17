@@ -70,7 +70,7 @@ class RegistrationsController < ApplicationController
 
 private
   def load_registration
-    @registration = Registration.find(params[:id])
+    @registration = policy_scope(Registration).find(params[:id])
   end
 
   def add_breadcrumbs

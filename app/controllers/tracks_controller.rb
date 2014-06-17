@@ -59,7 +59,7 @@ class TracksController < ApplicationController
 
 private
   def load_track
-    @track = Track.find(params[:id])
+    @track = policy_scope(Track).find(params[:id])
   end
 
   def track_params

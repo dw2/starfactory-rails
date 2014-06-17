@@ -89,9 +89,14 @@ class AdminController < ApplicationController
   def workshops
     @workshops = Workshop.joins(:track)
     if !!params[:id]
-      @workshops = @workshops.where(track_id: params[:id])
-      add_breadcrumb 'Tracks', admin_tracks_url
-      add_breadcrumb "#{@workshops.first.track_name} Workshops"
+      @track = policy_scope(Track).find_by_id params[:id]
+      if @track.present?
+        @workshops = @workshops.where(track_id: @track)
+        add_breadcrumb 'Tracks', admin_tracks_url
+        add_breadcrumb "#{@workshops.first.track_name} Workshops"
+      else
+        add_breadcrumb 'Workshops'
+      end
     else
       add_breadcrumb 'Workshops'
     end
