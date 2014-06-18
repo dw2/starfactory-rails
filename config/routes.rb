@@ -52,6 +52,7 @@ Starfactory::Application.routes.draw do
     get 'tracks/:id/workshops' => 'admin#workshops', as: :admin_track_workshops
   end
 
+  get 'faq' => 'static#faq', as: :faq
   get 'contact' => 'static#contact', as: :contact
   get 'privacy' => 'static#privacy', as: :privacy
   get 'terms' => 'static#terms', as: :terms

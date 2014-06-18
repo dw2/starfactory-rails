@@ -32,6 +32,7 @@
                 %dd= link_to 'Registrations', student_profile_registrations_url(current_user.student_profile)
               %dd= link_to 'Logout', logout_url
           - else
+            = link_to 'FAQ', faq_url
             = link_to 'Login', login_url, class: 'login'
 
     #body
