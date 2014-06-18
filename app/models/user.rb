@@ -16,6 +16,9 @@
 #  failed_logins_count             :integer          default(0)
 #  lock_expires_at                 :datetime
 #  unlock_token                    :string(255)
+#  activation_state                :string(255)
+#  activation_token                :string(255)
+#  activation_token_expires_at     :datetime
 #
 
 class User < ActiveRecord::Base
@@ -28,8 +31,12 @@ class User < ActiveRecord::Base
   include Adminable, Instructorable, Studentable
 
   validates_presence_of :email
-  validates_presence_of :password, on: :create
   validates_uniqueness_of :email, message: '%{value} already has a Starfactory account.'
+  validates :password, length: { minimum: 8 }, if: :validate_password?
+
+  def validate_password?
+    crypted_password.blank? || password.present?
+  end
 
   def voted_on(resource)
     resource_id = resource.id

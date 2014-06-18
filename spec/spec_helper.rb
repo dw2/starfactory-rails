@@ -15,6 +15,7 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 RSpec.configure do |config|
   # Factory girl
   config.include FactoryGirl::Syntax::Methods
+  config.include Sorcery::TestHelpers::Rails
 
   # ## Mock Framework
   #

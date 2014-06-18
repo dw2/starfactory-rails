@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   add_flash_types :error, :notice
   before_filter :add_breadcrumbs
-  before_filter :set_mailer_host
 
 private
   def user_not_authorized(exception)
@@ -21,10 +20,6 @@ private
       ['new', 'create', 'edit', 'update', 'destroy'].include?(params[:action])
       add_breadcrumb 'Admin', :admin_url
     end
-  end
-
-  def set_mailer_host
-    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
   def model_class

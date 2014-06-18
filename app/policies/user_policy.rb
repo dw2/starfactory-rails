@@ -9,6 +9,7 @@ class UserPolicy < Struct.new(:current_user, :user)
     case
     when !!current_user && current_user.admin?
       [:email, :password,
+        admin_profile_attributes: [:id, :user_id, :name, :bio],
         instructor_profile_attributes: [:id, :user_id, :name, :bio],
         student_profile_attributes: [:id, :user_id, :name, :bio]]
     when !!current_user && current_user.instructor?

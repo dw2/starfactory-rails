@@ -21,7 +21,7 @@ class UserMailer < ActionMailer::Base
 
 private
   def host
-    ActionMailer::Base.default_url_options[:host]
+    ENV['STARFACTORY_HOST_URL']
   end
 
   def send_mail(view)
