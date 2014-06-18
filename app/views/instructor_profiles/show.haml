@@ -11,10 +11,10 @@
       = link_to edit_instructor_profile_url(@instructor_profile), class: 'btn' do
         Add your bio
   - else
-    This instructor hasn't created their bio yet.
+    %h3 This instructor hasn't created their bio yet.
     %p
       We think you should totally
-        %strong bug them about it.
+      %strong bug them about it.
   - if @instructor_profile.workshops.any?
     %dl
       %dt Teaches
