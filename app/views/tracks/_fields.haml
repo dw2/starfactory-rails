@@ -1,9 +1,11 @@
 .field
   = f.label :name
   = f.text_field :name
+  = render 'shared/field_errors', f: f, field: :name
 .field
   = f.label :description
   = f.text_area :description
+  = render 'shared/field_errors', f: f, field: :description
 %fieldset
   %legend Status
   - Track::VALID_STATUSES.each_with_index do |status, s|

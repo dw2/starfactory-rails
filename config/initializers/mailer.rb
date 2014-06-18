@@ -1,0 +1,1 @@
+ActionMailer::Base.layout 'mailer'

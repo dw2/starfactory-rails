@@ -36,6 +36,9 @@ class Discussion < ActiveRecord::Base
   delegate :track, to: :workshop, prefix: true
   delegate :track_name, to: :workshop, prefix: true
 
+  validates_presence_of :name
+  validates_presence_of :workshop
+
   def author_name
     case
     when student_profile.present?

@@ -7,7 +7,7 @@ class WorkshopPolicy < Struct.new(:user, :workshop)
 
   def permitted_attributes
     case
-    when user.admin?
+    when !!user && user.admin?
       [:name, :description, :status, :banner, :icon, :sort,
         :track_ids => [], :instructor_profile_ids => []]
     else

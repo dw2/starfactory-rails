@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def new
     @page_title = 'Register'
     @user = User.new
+    @user.student_profile = StudentProfile.new
     add_breadcrumb 'Register'
   end
 
@@ -16,12 +17,14 @@ class UsersController < ApplicationController
   end
     
   def create
-    @user = User.new(params[:user])
+    @user = policy_scope(User).new(user_params)
     if @user.save
+      flash[:notice] = 'Thanks for registering. Check your email to confirm your new Starfactory account.'
       redirect_to root_url
+    else
+      add_breadcrumb 'Register'
+      respond_with @user
     end
-    add_breadcrumb 'Register'
-    respond_with @user
   end
 
   def update
@@ -29,6 +32,16 @@ class UsersController < ApplicationController
       flash[:notice] = "#{@user.name} saved."
     end
     respond_with @user, location: admin_users_url, error: 'Unable to update user.'
+  end
+
+  def activate
+    if @user = User.load_from_activation_token(params[:token])
+      @user.activate!
+      flash[:notice] = 'Your Starfactory account has been activated. Please login.'
+      redirect_to login_path
+    else
+      not_authenticated
+    end
   end
 
 private

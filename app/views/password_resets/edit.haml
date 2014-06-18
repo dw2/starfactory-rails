@@ -1,0 +1,12 @@
+%section.textual
+  %h1 Create a New Password
+  %h3= @user.email
+  = form_for @user, url: password_reset_url(@user), method: :put do |f|
+    = hidden_field_tag :token, @token
+    = f.hidden_field :email, value: @user.email
+    .field
+      = f.label :password, 'New Password'
+      = f.password_field :password
+      = render 'shared/field_errors', f: f, field: :password
+    .actions
+      = button_tag 'Save Password'

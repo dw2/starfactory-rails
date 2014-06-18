@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if !!@user
       redirect_to root_url
     else
-      flash[:error] = 'Email or password was invalid.'
+      flash[:error] = 'Incorrect email or password.'
       redirect_to login_url
     end
   end

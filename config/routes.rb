@@ -1,5 +1,8 @@
 Starfactory::Application.routes.draw do
 
+  get "password_resets/create"
+  get "password_resets/edit"
+  get "password_resets/update"
   concern :commentable do
     resources :comments, except: [:new]
   end
@@ -16,7 +19,9 @@ Starfactory::Application.routes.draw do
   get 'login' => 'sessions#new', as: :login
   get 'register' => 'users#new', as: :register
   resources :users
+  get 'users/:token/activate' => 'users#activate', as: :user_token_activate
   resources :sessions
+  resources :password_resets, path: 'passwords'
 
   resources :discussions, except: [:index, :show]
   get 'forum' => 'discussions#forum', as: :forum

@@ -5,8 +5,13 @@
       = link_to 'Edit', edit_student_profile_url(@student_profile), class: 'btn secondary icon edit'
   - if @student_profile.bio.present?
     = text_to_html @student_profile.bio
+  - elsif logged_in? && current_user.student_profile == @student_profile
+    %h3 You haven't added your student bio yet.
+    %p
+      = link_to edit_student_profile_url(@student_profile), class: 'btn' do
+        Add your bio
   - else
-    %h3 This student_profile hasn't created their bio yet.
+    %h3 This student hasn't created their bio yet.
     %p
       We think you should totally
       %strong bug them about it.
@@ -19,11 +24,12 @@
 
 %aside.textual
   = render 'shared/avatar', email: @student_profile.email, size: 300
+  - attended_events_passed_count = @student_profile.events.passed.size
   - total_events_passed_count = Event.passed.size
-  - if total_events_passed_count > 0
+  - if attended_events_passed_count > 0 && total_events_passed_count > 0
     %h3 Course Completion
     .progress
-      - events_passed_count = @student_profile.events.passed.size
+      - events_passed_count = attended_events_passed_count
       - percent = events_passed_count / total_events_passed_count.to_d * 100
       .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
         = events_passed_count

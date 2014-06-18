@@ -20,12 +20,10 @@ class InstructorProfile < ActiveRecord::Base
 
   DEFAULT_SORT_COLUMN = 'instructor_profiles.name'
 
-  accepts_nested_attributes_for :user
-
   scope :by_name, -> { order('instructor_profiles.name asc') }
 
-  validates :name, presence: true
-  validates :user, presence: true
-
   delegate :email, to: :user, allow_nil: true
+
+  validates_presence_of :name
+  validates_presence_of :user
 end

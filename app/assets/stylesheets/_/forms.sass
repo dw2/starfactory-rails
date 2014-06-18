@@ -146,13 +146,35 @@ article form
     .field ~ fieldset
         margin-top: 1.5em
 
+    .field mark.error
+        color: $colorAccent
+        display: block
+        font-size: .9em
+        font-weight: $heavy
+        padding: .25em
+        + mark.error
+            margin-top: -.25em
+
     .actions
         border-top: 1px solid #3B3D42
         margin: 2em 0 0
         padding: 1em 0 0
+        a,
+        .btn,
+        button,
+        input[type="button"],
+        input[type="submit"]
+            ~ a,
+            ~ .btn,
+            ~ button,
+            ~ input[type="button"],
+            ~ input[type="submit"]
+                margin-left: 1em
 
 body.sessions,
-body.usersNew
+body.usersNew,
+body.usersCreate,
+body.passwordResets
     article form
         margin: 2em auto
         max-width: 25em

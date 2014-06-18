@@ -4,6 +4,7 @@
     .field
       = f.label :email
       = f.email_field :email, spellcheck: false
+      = render 'shared/field_errors', f: f, field: :email
     
     - if f.object.instructor?
       %h3 Instructor Profile
@@ -11,9 +12,11 @@
         .field
           = ff.label :name
           = ff.text_field :name
+          = render 'shared/field_errors', f: ff, field: :name
         .field
           = ff.label :bio
           = ff.text_area :bio
+          = render 'shared/field_errors', f: ff, field: :bio
 
     - if f.object.student?
       %h3 Student Profile
@@ -21,9 +24,11 @@
         .field
           = ff.label :name
           = ff.text_field :name
+          = render 'shared/field_errors', f: ff, field: :name
         .field
           = ff.label :bio
           = ff.text_area :bio
+          = render 'shared/field_errors', f: ff, field: :bio
 
     .actions
       = button_tag 'Save'

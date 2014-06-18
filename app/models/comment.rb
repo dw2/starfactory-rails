@@ -37,6 +37,9 @@ class Comment < ActiveRecord::Base
   scope :removed, -> { where { status.eq 'Removed' } }
   scope :by_date, -> { order('comments.created_at asc') }
 
+  validates_presence_of :name
+  validates_presence_of :discussion
+
   def snippet
     ActionController::Base.helpers.truncate(
       ActionController::Base.helpers.strip_tags(body_html),

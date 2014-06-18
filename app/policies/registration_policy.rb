@@ -4,9 +4,9 @@ class RegistrationPolicy < Struct.new(:user, :registration)
       case
       when !user
         scope.none
-      when user.admin?
+      when !!user && user.admin?
         scope
-      when user.student?
+      when !!user && user.student?
         scope
       else
         scope
@@ -17,9 +17,9 @@ class RegistrationPolicy < Struct.new(:user, :registration)
   def permitted_attributes
     case
     when user.admin?
-      [:id, :event_id, :student_profile_id, :status, :amount_paid_in_cents]
+      [:event_id, :student_profile_id, :status, :amount_paid_in_cents]
     when user.student?
-      [:id, :event_id, :student_profile_id]
+      [:event_id, :student_profile_id]
     else
       []
     end

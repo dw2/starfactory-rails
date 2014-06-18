@@ -4,7 +4,7 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
       case
       when !user
         scope.none
-      when user.admin?
+      when !!user && user.admin?
         scope
       else
         scope
@@ -14,8 +14,10 @@ class StudentProfilePolicy < Struct.new(:user, :student_profile)
 
   def permitted_attributes
     case
-    when user.admin?
-      [:id, :name, :bio, :avatar, :user_id]
+    when !!user && user.admin?
+      [:name, :bio, :avatar, :user_id]
+    when !!user && user.student?
+      [:name, :bio, :avatar]
     else
       []
     end

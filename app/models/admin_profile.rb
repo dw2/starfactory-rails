@@ -15,8 +15,6 @@ class AdminProfile < ActiveRecord::Base
 
   DEFAULT_SORT_COLUMN = 'admin_profiles.name'
 
-  accepts_nested_attributes_for :user
-
-  validates :name, presence: true
-  validates :user, presence: true
+  validates_presence_of :name
+  validates_presence_of :user
 end

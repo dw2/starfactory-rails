@@ -4,6 +4,7 @@
     .field
       = f.label :body
       = f.text_area :body
+      = render 'shared/field_errors', f: f, field: :body
     %fieldset
       %legend Status
       - Comment::VALID_STATUSES.each_with_index do |status, s|

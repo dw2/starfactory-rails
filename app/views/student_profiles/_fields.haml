@@ -1,11 +1,8 @@
 .field
   = f.label :name
   = f.text_field :name
-- if f.object.persisted?
-  = f.fields_for :user do |uf|
-    .field
-      = uf.label :email
-      = uf.email_field :email, spellcheck: false
+  = render 'shared/field_errors', f: f, field: :name
 .field
   = f.label :bio
   = f.text_area :bio
+  = render 'shared/field_errors', f: f, field: :bio

@@ -1,0 +1,43 @@
+- normal_text_style = 'text-align:left;color:#2E3035;font-size:16px;font-family:Arial, Helvetica, sans-serif;font-style:normal;line-height:20px;'
+- footer_text_style = 'text-align:center;color:#c9ccd6;font-size:13px;font-family:Arial, Helvetica, sans-serif;font-style:normal;line-height:18px;'
+%html
+  %head
+    %meta{ http: {equiv: 'Content-Type'}, content: 'text/html; charset=UTF-8' }
+  %body{ bgcolor: '#2E3035', leftmargin: '0', topmargin: '0', marginwidth: '0', marginheight: '0' }
+    %table{ bgcolor: '#2E3035', border: '0', cellspacing: '0', cellpadding: '30', style: 'width:100%' }
+      %tbody
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ width: '660', bgcolor: '#ffffff', border: '0', cellspacing: '0', cellpadding: '0', style: 'background:#ffffff;width:660px' }
+              %tbody
+                %tr
+                  %td{ height: '220', colspan: '3', style: 'height:220px' }
+                    = image_tag 'starfactory-email-header.jpg', alt: 'Starfactory'
+                %tr
+                  %td{ height: '30', colspan: '3', style: 'height:30px' }
+                %tr
+                  %td{ width: '30', style: 'width:30px' }
+                  %td{ width: '600', style: "width:600px;#{normal_text_style}" }
+                    = yield
+                  %td{ width: '30', style: 'width:30px' }
+                %tr
+                  %td{ height: '30', colspan: '3', style: 'height:30px' }
+            %table{ width: '660', border: '0', cellspacing: '0', cellpadding: '0', style: 'width:660px' }
+              %tbody
+                %tr
+                  %td{ height: '30', colspan: '3', style: 'height:30px' }
+                %tr
+                  %td{ width: '30', style: 'width:30px' }
+                  %td{ width: '600', style: "width:600px;#{footer_text_style}" }
+                    %p
+                      You are recieving this automated email as part of your account at
+                      - url = 'http://starfactory.co'
+                      = link_to url, url, style: 'color:#ffffff'
+                      %br
+                      For help and support email
+                      - email = 'support@starfactory.co'
+                      = link_to email, "mailto:#{email}", style: 'color:#ffffff'
+                    %p &copy; #{Time.now.year} Starfactory.co
+                  %td{ width: '30', style: 'width:30px' }
+                %tr
+                  %td{ height: '30', colspan: '3', style: 'height:30px' }

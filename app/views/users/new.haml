@@ -2,12 +2,19 @@
   %p
     Already have any account?
     = link_to 'Login', new_session_url
-  = form_for :user, url: users_url do |f|
+  = form_for @user, url: users_url do |f|
+    = f.fields_for :student_profile do |pf|
+      .field
+        = pf.label :name
+        = pf.text_field :name
+        = render 'shared/field_errors', f: pf, field: :name
     .field
       = f.label :email
       = f.email_field :email, spellcheck: false
+      = render 'shared/field_errors', f: f, field: :email
     .field
       = f.label :password
       = f.password_field :password
+      = render 'shared/field_errors', f: f, field: :password
     .actions
       = button_tag 'Register'

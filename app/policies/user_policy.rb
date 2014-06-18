@@ -1,28 +1,22 @@
 class UserPolicy < Struct.new(:current_user, :user)
   class Scope < Struct.new(:current_user, :scope)
     def resolve
-      case
-      when !current_user
-        scope.none
-      when current_user.admin?
-        scope
-      else
-        scope
-      end
+      scope
     end
   end
 
   def permitted_attributes
     case
-    when current_user.admin?
-      [:id, :email,
+    when !!current_user && current_user.admin?
+      [:email, :password,
         instructor_profile_attributes: [:id, :user_id, :name, :bio],
         student_profile_attributes: [:id, :user_id, :name, :bio]]
-    when current_user.instructor?
-      [:id, :email,
-        instructor_profile_attributes: [:id, :user_id, :name, :bio]]
+    when !!current_user && current_user.instructor?
+      [:email, :password,
+        instructor_profile_attributes: [:id, :user_id, :name, :bio],
+        student_profile_attributes: [:id, :user_id, :name, :bio]]
     else
-      [:id, :email,
+      [:email, :password,
         student_profile_attributes: [:id, :user_id, :name, :bio]]
     end
   end

@@ -7,7 +7,7 @@ class TrackPolicy < Struct.new(:user, :track)
 
   def permitted_attributes
     case
-    when user.admin?
+    when !!user && user.admin?
       [:name, :description, :sort, :status]
     else
       []

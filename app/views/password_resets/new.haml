@@ -1,0 +1,8 @@
+%section.textual
+  %h1 Reset Password
+  = form_tag password_resets_url do
+    .field
+      = label_tag :email
+      = email_field_tag :email, params[:email], spellcheck: false
+    .actions
+      = button_tag 'Reset Password'

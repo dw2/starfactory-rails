@@ -1,0 +1,10 @@
+%p Hello #{@user.email},
+%p
+  Welcome, and thank you for joining Starfactory.
+%p
+  %strong Before you get started, please confirm your account.
+  Just follow the link below:
+%p
+  %strong= link_to @url, @url
+
+= render 'user_mailer/signature'

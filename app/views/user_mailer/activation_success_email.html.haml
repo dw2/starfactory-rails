@@ -1,0 +1,14 @@
+%p Hello #{@user.name},
+%p
+  %strong Your Starfactory account has been activated.
+  You can now engage our community by...
+%ul
+  %li Voting on which workshops will be taught next
+  %li Joining in on workshop-specific discussions
+  %li Registering for workshops as they get announced
+%p
+  We're excited to have you onboard. To get started, you can login here:
+%p
+  %strong= link_to @url, @url
+
+= render 'user_mailer/signature'

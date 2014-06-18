@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  user_mailer:
+    reset_password_email:
+      subject: 'Reset your Starfactory Password'
+    activation_needed_email:
+      subject: 'Activate your Starfactory Account'
+    activation_success_email:
+      subject: 'Welcome to Starfactory'

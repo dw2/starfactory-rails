@@ -14,6 +14,7 @@
       .field
         = f.label :workshop_id
         = f.select :workshop_id, @workshops_collection_for_select
+        = render 'shared/field_errors', f: f, field: :workshop_id
     = render 'fields', f: f
     - case
     - when current_user.student?

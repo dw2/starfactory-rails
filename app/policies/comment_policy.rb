@@ -13,11 +13,11 @@ class CommentPolicy < Struct.new(:user, :comment)
   def permitted_attributes
     case
     when !!user && user.student?
-      [:id, :body, :discussion_id, :student_profile_id]
+      [:body, :discussion_id, :student_profile_id]
     when !!user && user.instructor?
-      [:id, :body, :discussion_id, :instructor_profile_id]
+      [:body, :discussion_id, :instructor_profile_id]
     when !!user && user.admin?
-      [:id, :body, :discussion_id,
+      [:body, :discussion_id,
         :student_profile_id, :instructor_profile_id, :admin_profile_id]
     else
       []

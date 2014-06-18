@@ -13,11 +13,11 @@ class DiscussionPolicy < Struct.new(:user, :discussion)
   def permitted_attributes
     case
     when !!user && user.student?
-      [:id, :name, :body, :workshop_id, :status, :student_profile_id]
+      [:name, :body, :workshop_id, :status, :student_profile_id]
     when !!user && user.instructor?
-      [:id, :name, :body, :workshop_id, :status, :instructor_profile_id]
+      [:name, :body, :workshop_id, :status, :instructor_profile_id]
     when !!user && user.admin?
-      [:id, :name, :body, :workshop_id, :status,
+      [:name, :body, :workshop_id, :status,
         :student_profile_id, :instructor_profile_id, :admin_profile_id]
     else
       []
