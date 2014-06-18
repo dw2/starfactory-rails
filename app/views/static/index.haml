@@ -23,9 +23,7 @@
     brings back the human element to web-tech education.
   %h2 Sound pretty rad?
   %p Join our non-spammy email list:
-  %form.signup
-    %input{ type: 'text' }
-    %button.secondary= svg_image 'arrow-right', alt: 'Submit'
+  = render 'mailchimp_form'
   %h2 Location
   %p
     We're based out of Eastern Washington, where the Tri-Cities tech community
