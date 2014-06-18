@@ -28,8 +28,4 @@
   - total_events_passed_count = Event.passed.size
   - if attended_events_passed_count > 0 && total_events_passed_count > 0
     %h3 Course Completion
-    .progress
-      - events_passed_count = attended_events_passed_count
-      - percent = events_passed_count / total_events_passed_count.to_d * 100
-      .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
-        = events_passed_count
+    = render 'shared/progress_bar', val: attended_events_passed_count, max: total_events_passed_count

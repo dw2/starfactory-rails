@@ -21,10 +21,7 @@
         %tr
           %td= link_to workshop.name, edit_workshop_url(workshop)
           %td
-            .progress
-              - percent = workshop.votes.count.to_d / workshop.votes_goal.to_d * 100
-              .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
-                = workshop.votes.count
+            = render 'shared/progress_bar', val: workshop.votes.count, max: workshop.votes_goal
           %td
             - if workshop.events.current.any?
               - workshop.events.current.each do |event|

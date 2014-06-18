@@ -1,0 +1,4 @@
+.progress
+  - percent = val.to_d / max.to_d * 100
+  .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
+    = val

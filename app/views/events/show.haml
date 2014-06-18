@@ -35,10 +35,7 @@
     %br
     %h3 *Registration closed
   - else
-    .progress
-      - percent = @event.registrations_count.to_d / @event.registrations_max.to_d * 100
-      .bar{ style: "width: #{percent < 100 ? percent : 100}%" }
-        = @event.registrations_count
+    = render 'shared/progress_bar', val: @event.registrations_count, max: @event.registrations_max
     - unless already_registered
       %p
         This event only has
