@@ -13,6 +13,7 @@
 #  registrations_count  :integer          default(0)
 #  registrations_max    :integer          default(0)
 #  registration_ends_at :datetime
+#  location_id          :integer
 #
 
 class Event < ActiveRecord::Base
@@ -21,6 +22,8 @@ class Event < ActiveRecord::Base
   has_many :instructor_profiles, through: :instructor_profiles_events
   has_many :registrations
   has_many :student_profiles, through: :registrations
+  belongs_to :location
+  counter_culture :location
 
   VALID_STATUSES = %w(Active Disabled)
   DEFAULT_SORT_COLUMN = 'events.starts_at'
@@ -40,6 +43,9 @@ class Event < ActiveRecord::Base
   delegate :name, to: :workshop, prefix: true
   delegate :description, to: :workshop, prefix: true
   delegate :track_name, to: :workshop, prefix: true
+  delegate :name, to: :location, prefix: true, allow_nil: true
+  delegate :address, to: :location, prefix: true, allow_nil: true
+  delegate :google_maps_url, to: :location, prefix: true, allow_nil: true
 
   def cost_in_dollars
     cost_in_cents.to_d / 100.0
@@ -93,7 +99,8 @@ class Event < ActiveRecord::Base
     end
 
     define_method "#{x}_day=" do |val|
-      self.send("#{x}=", DateTime.parse(val + ' ' + send("#{x}_time")))
+      time = send("#{x}_time")
+      self.send("#{x}=", DateTime.parse(val + ' ' + time)) if time.present?
     end
 
     define_method "#{x}_time" do
@@ -101,7 +108,8 @@ class Event < ActiveRecord::Base
     end
 
     define_method "#{x}_time=" do |val|
-      self.send("#{x}=", DateTime.parse(send("#{x}_day") + ' ' + val))
+      day = send("#{x}_day")
+      self.send("#{x}=", DateTime.parse(day + ' ' + val)) if day.present?
     end
   end
 end

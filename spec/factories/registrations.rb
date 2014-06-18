@@ -9,6 +9,7 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  amount_paid_in_cents :integer          default(0)
+#  stripe_token         :string(255)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

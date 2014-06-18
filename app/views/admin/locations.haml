@@ -1,0 +1,31 @@
+%section.textual
+  %h1 Locations
+  %nav
+    = link_to 'New', new_location_url, class: 'btn secondary icon new'
+  %table
+    %thead
+      %tr
+        %th= sort_link 'Location', 'locations.name'
+        %th Address
+        %th Lat
+        %th Lon
+        %th= sort_link 'Events', 'location.events_count'
+        %th
+    - if @locations.total_pages > 1
+      %tfoot
+        %td{ colspan: 6 }= paginate @locations
+    %tbody
+      - @locations.each do |location|
+        %tr
+          %td= link_to location.name, edit_location_url(location)
+          %td
+            %address= simple_format location.address
+          %td= location.latitude
+          %td= location.longitude
+          %td= location.events_count
+          %td.actions
+            %div
+              = link_to 'View', location_url(location), class: 'view'
+              = link_to 'Edit', edit_location_url(location), class: 'edit'
+              - if location.events_count == 0
+                = link_to 'Delete', location_url(location), class: 'delete', method: :delete

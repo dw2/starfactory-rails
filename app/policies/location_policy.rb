@@ -1,4 +1,4 @@
-class EventPolicy < Struct.new(:user, :event)
+class LocationPolicy < Struct.new(:user, :location)
   class Scope < Struct.new(:user, :scope)
     def resolve
       scope
@@ -8,23 +8,18 @@ class EventPolicy < Struct.new(:user, :event)
   def permitted_attributes
     case
     when !!user && user.admin?
-      [:starts_at, :starts_at_day, :starts_at_time, :ends_at, :ends_at_day,
-        :ends_at_time, :registration_ends_at, :registration_ends_at_day,
-        :registration_ends_at_time, :registrations_max, :cost_in_cents,
-        :cost_in_dollars, :workshop_id, :location_id, :status,
-        :instructor_profile_ids => []]
+      [:name, :address]
     else
       []
     end
   end
 
   def index?
-    true
+    !!user && user.admin?
   end
 
   def show?
-    event.status == 'Active' ||
-    (!!user && user.admin?)
+    true
   end
 
   def create?
@@ -44,11 +39,11 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def destroy?
-    false
+    !!user && user.admin? && location.events_count == 0
   end
 
   # Used by the admin controller
-  def events?
+  def locations?
     !!user && user.admin?
   end
 end

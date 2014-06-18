@@ -43,6 +43,15 @@ class AdminController < ApplicationController
     respond_with @instructor_profiles
   end
 
+  def locations
+    add_breadcrumb 'Locations'
+    @locations = Location
+      .order("#{sort_column} #{sort_direction}")
+      .page params[:page]
+    authorize @locations
+    respond_with @locations
+  end
+
   def registrations
     @event = Event.find_by_id params[:event_id]
     @registrations = Registration

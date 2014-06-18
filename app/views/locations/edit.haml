@@ -1,0 +1,6 @@
+%section.textual
+  %h1 Editing Location
+  = form_for @location do |f|
+    = render 'fields', f: f
+    .actions
+      = button_tag 'Save'

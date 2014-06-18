@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618185339) do
+ActiveRecord::Schema.define(version: 20140618215653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,10 @@ ActiveRecord::Schema.define(version: 20140618185339) do
     t.integer  "registrations_count",  default: 0
     t.integer  "registrations_max",    default: 0
     t.datetime "registration_ends_at"
+    t.integer  "location_id"
   end
 
+  add_index "events", ["location_id"], name: "index_events_on_location_id", using: :btree
   add_index "events", ["workshop_id"], name: "index_events_on_workshop_id", using: :btree
 
   create_table "instructor_profiles", force: true do |t|
@@ -103,6 +105,16 @@ ActiveRecord::Schema.define(version: 20140618185339) do
   end
 
   add_index "instructor_profiles_events", ["instructor_profile_id", "event_id"], name: "rel_instructor_profiles_events", unique: true, using: :btree
+
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "events_count", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "registrations", force: true do |t|
     t.integer  "event_id"

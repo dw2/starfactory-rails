@@ -67,5 +67,11 @@
       %p
         Registration ends in
         %strong #{time_ago_in_words @event.registration_ends_at}
+  - if @event.location.present?
+    %address
+      = link_to @event.location_google_maps_url, target: '_blank' do
+        %strong= @event.location_name
+        = simple_format @event.location_address
+      = render 'shared/map_image', location: @event.location, size: '290x200'
   %hr
   = render 'shared/about'

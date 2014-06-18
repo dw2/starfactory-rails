@@ -46,6 +46,54 @@ article aside
         +border_radius(3px)
         display: block
 
+    address
+        background: #292B2F
+        +border_radius(3px)
+        display: block
+        margin-top: 3em
+        padding: 1em
+        position: relative
+        a
+            color: $colorText
+            text-decoration: none
+            &:before
+                bottom: 0
+                content: ''
+                left: 0
+                position: absolute
+                right: 0
+                top: 0
+                z-index: 2
+            &:after
+                color: $colorAccentDarker
+                content: '\f041'
+                line-height: 1.5em
+                font-size: 1.5em
+                position: absolute
+                right: 0
+                text-align: center
+                top: 0
+                width: 1.5em
+            &:hover
+                color: $colorText
+                &:before
+                    background: rgba(#000,.05)
+                &:after
+                    color: $colorAccent
+        strong
+            display: block
+            padding-right: 2em
+        img
+            +border_radius(3px)
+            display: block
+            +grayscale()
+            margin: 1em 0 0
+            max-width: 100%
+            +opacity(.75)
+            +transition(opacity .2s linear)
+        a:hover ~ img
+            +opacity(.99)
+
 article aside time.big
     color: #fff
     display: block

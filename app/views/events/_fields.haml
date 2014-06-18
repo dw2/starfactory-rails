@@ -3,6 +3,11 @@
   = f.select :workshop_id, Workshop.active.map{|w| [w.name, w.id]}, include_blank: true
   = render 'shared/field_errors', f: f, field: :workshop_id
 
+.field
+  = f.label :location_id
+  = f.select :location_id, Location.all.map{|l| [l.name, l.id]}, include_blank: true
+  = render 'shared/field_errors', f: f, field: :location_id
+
 .field.datetime{ data: { val: f.object.starts_at.present? ? f.object.starts_at.strftime('%Y-%m-%d @ %H:%M') : nil } }
   %label Start
   %br

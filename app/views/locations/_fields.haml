@@ -1,0 +1,8 @@
+.field
+  = f.label :name
+  = f.text_field :name
+  = render 'shared/field_errors', f: f, field: :name
+.field
+  = f.label :address
+  = f.text_area :address
+  = render 'shared/field_errors', f: f, field: :address

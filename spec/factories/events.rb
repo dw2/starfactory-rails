@@ -13,6 +13,7 @@
 #  registrations_count  :integer          default(0)
 #  registrations_max    :integer          default(0)
 #  registration_ends_at :datetime
+#  location_id          :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

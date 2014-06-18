@@ -30,6 +30,7 @@ Starfactory::Application.routes.draw do
   end
   get 'events/:year/:month' => 'events#index', as: :events_month
   resources :instructor_profiles, path: 'instructors'
+  resources :locations
   resources :registrations, except: [:show, :new, :edit]
   resources :student_profiles, path: 'students' do
     resources :registrations, only: [:index, :show]
@@ -44,6 +45,7 @@ Starfactory::Application.routes.draw do
     get 'discussions' => 'admin#discussions', as: :admin_discussions
     get 'events' => 'admin#events', as: :admin_events
     get 'instructors' => 'admin#instructor_profiles', as: :admin_instructors
+    get 'locations' => 'admin#locations', as: :admin_locations
     get 'users' => 'admin#users', as: :admin_users
     get 'tracks' => 'admin#tracks', as: :admin_tracks
     get 'events/:event_id/registrations' => 'admin#registrations', as: :admin_event_registrations
