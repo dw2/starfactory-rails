@@ -1,5 +1,12 @@
 - already_registered = registered_for_event?(@event)
 
+- if logged_in? && !already_registered
+  - content_for :footer do
+    %script{ id: 'stripeData', type: 'x-config/x-data', data: { key: ENV['STARFACTORY_STRIPE_KEY'], image: image_url('starfactory-avatar@64.png') } }
+    %script{ id: 'eventData', type: 'x-config/x-data', data: { name: @event.workshop_name, cost: @event.cost_in_cents, email: current_user.email } }
+    = javascript_include_tag 'https://checkout.stripe.com/checkout.js'
+    = javascript_include_tag 'registration'
+
 %section.textual.workshop
   %h1= @event.workshop_name
   - if logged_in? && current_user.admin?
@@ -54,6 +61,7 @@
       = form_for Registration.new do |f|
         = f.hidden_field :event_id, value: @event.id
         = f.hidden_field :student_profile_id, value: current_user.student_profile_id
+        = f.hidden_field :stripe_token
         = button_tag 'Register'
     - if @event.registration_ends_at.present?
       %p

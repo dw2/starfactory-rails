@@ -24,8 +24,7 @@
                 = registration.event_starts_at.strftime '%b %e, %Y'
             %td= registration.formatted_amount_paid
             %td= registration.formatted_amount_due
-            %td= registration.status
+            %td= render 'shared/status', status: registration.status
             %td.actions
               %div
                 = link_to 'View', student_profile_registration_url(student_profile_id: current_user.student_profile_id, id: registration.id), class: 'btn secondary icon view'
-                = link_to 'Pay', '#', class: 'btn icon pay'

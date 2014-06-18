@@ -9,11 +9,14 @@
     %dd= @registration.event_starts_at.strftime '%b %e, %Y @ %l:%M %P'
     %dt Length
     %dd= @registration.event_smart_length
-    %dt Paid
-    %dd= @registration.formatted_amount_paid
     %dt Due
     %dd= @registration.formatted_amount_due
+    %dt Paid
+    %dd= @registration.formatted_amount_paid
   = form_for @registration do |f|
+    .field
+      = f.label :amount_paid_in_dollars, 'Amount Paid'
+      = f.number_field :amount_paid_in_dollars
     %fieldset
       %legend Status
       - Registration::VALID_STATUSES.each_with_index do |status, s|

@@ -15,7 +15,12 @@
       %strong= @registration.event_starts_at.strftime '%b %e, %Y @ %l:%M %P'
     %dt Length
     %dd= @registration.event_smart_length
-    %dt Paid
-    %dd= @registration.formatted_amount_paid
-    %dt Due
-    %dd= @registration.formatted_amount_due
+    %dt Status
+    %dd
+      = render 'shared/status', status: @registration.status
+      &mdash;
+      - if @registration.amount_due > 0
+        %strong= @registration.formatted_amount_due
+        is due
+      - else
+        = @registration.formatted_amount_paid

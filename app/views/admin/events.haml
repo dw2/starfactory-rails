@@ -24,10 +24,11 @@
           %td
             %time.icon.event
               = event.ends_at.strftime '%b %e, %Y @ %l:%M %P'
-          %td= event.status
+          %td
+            = render 'shared/status', status: event.status
           %td.alignr= event.registrations_count
           %td.actions
             %div
               = link_to 'View', event_url(event), class: 'view'
-              = link_to 'Registrations', admin_event_registrations_url(event), class: 'registrations'
+              = link_to 'Registrations', admin_event_registrations_url(event_id: event), class: 'registrations'
               = link_to 'Edit', edit_event_url(event), class: 'edit'

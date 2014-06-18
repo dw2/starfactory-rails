@@ -18,7 +18,7 @@
         - @registrations.each do |registration|
           %tr
             %td= registration.student_profile_name
-            %td= registration.status
+            %td= render 'shared/status', status: registration.status
             %td= registration.formatted_amount_paid
             %td= registration.formatted_amount_due
             %td.actions

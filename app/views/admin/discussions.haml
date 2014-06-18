@@ -25,7 +25,8 @@
             %td= discussion.comments_count
             %td
               %time= discussion.created_at.strftime '%b %e, %Y @ %l:%M %P'
-            %td= discussion.status
+            %td
+              = render 'shared/status', status: discussion.status
             %td.actions
               %div
                 = link_to 'View', workshop_discussion_url(workshop_id: discussion.workshop, id: discussion), class: 'view'

@@ -16,7 +16,9 @@ class Registration < ActiveRecord::Base
   counter_culture :event
   belongs_to :student_profile
 
-  VALID_STATUSES = %w(Pending Complete Passed)
+  before_save :update_status_by_amount_due
+
+  VALID_STATUSES = %w(Pending Paid)
   DEFAULT_SORT_COLUMN = 'registrations.status'
 
   scope :pending, -> { where { status.eq 'Pending' } }
@@ -32,6 +34,7 @@ class Registration < ActiveRecord::Base
   delegate :ends_at, to: :event, prefix: true
   delegate :smart_length, to: :event, prefix: true
   delegate :instructor_profiles, to: :event, prefix: true
+  delegate :cost_in_cents, to: :event, prefix: true
 
   validates_uniqueness_of :student_profile_id, scope: :event_id
   validate :event_starts_at_cannot_be_in_the_past
@@ -55,8 +58,22 @@ class Registration < ActiveRecord::Base
       amount_paid_in_dollars, precision: 2, locale: :en)
   end
 
+  def amount_due
+    event.cost_in_dollars - amount_paid_in_dollars
+  end
+
   def formatted_amount_due
     ActionController::Base.helpers.number_to_currency(
-      event.cost_in_dollars - amount_paid_in_dollars, precision: 2, locale: :en)
+      amount_due, precision: 2, locale: :en)
+  end
+
+private
+
+  def update_status_by_amount_due
+    if amount_due > 0
+      self.status = 'Pending'
+    else
+      self.status = 'Paid'
+    end
   end
 end

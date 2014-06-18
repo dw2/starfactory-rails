@@ -40,6 +40,11 @@ class RegistrationsController < ApplicationController
   def create
     @registration = policy_scope(Registration).new(registration_params)
     authorize @registration
+
+    if @registration.stripe_token.present?
+      @registration.amount_paid_in_cents = @registration.event_cost_in_cents
+    end
+
     if @registration.save ||
       (!!@registration.errors.messages[:student_profile_id] &&
         @registration.errors.messages[:student_profile_id].first.match('taken'))
@@ -49,6 +54,7 @@ class RegistrationsController < ApplicationController
     else
       flash[:error] = 'Unable to complete registration.'
     end
+
     redirect_to event_url(registration_params[:event_id])
   end
 
@@ -56,7 +62,7 @@ class RegistrationsController < ApplicationController
   def update
     @registration.update(registration_params)
     respond_with @registration,
-    location: @registration,
+      location: admin_event_registrations_url(event_id: @registration.event_id),
       error: 'Unable to update registration.'
   end
 
@@ -71,13 +77,14 @@ class RegistrationsController < ApplicationController
 private
   def load_registration
     @registration = policy_scope(Registration).find(params[:id])
+    @event = @registration.event
   end
 
   def add_breadcrumbs
     add_breadcrumb 'Starfactory', root_url
     if logged_in? && current_user.admin?
       add_breadcrumb 'Admin', admin_url
-      add_breadcrumb 'Registrations', admin_event_registrations_url(@event)
+      add_breadcrumb 'Registrations', admin_event_registrations_url(event_id: @event)
     else
       add_breadcrumb 'Events', events_url
       add_breadcrumb @event.workshop_name, event_url(@event) if defined?(@event)
