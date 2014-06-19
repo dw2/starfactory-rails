@@ -5,22 +5,25 @@
     - next_month = @month + 1.month
     = link_to prev_month.strftime('%b'), events_month_url(prev_month.year, prev_month.month), class: 'btn secondary icon prev'
     = link_to next_month.strftime('%b'), events_month_url(next_month.year, next_month.month), class: 'btn secondary icon next'
+  - if @events.blank?
+    %p There aren't any workshops scheduled for this month.
 
-%section.calendar{ class: "offset#{@month.strftime('%u').to_i - 1}" }
-  .labels
-    - ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].each do |day|
-      %mark= day
-  .days
-    - @events_by_day.each do |day, events|
-      - classes = []
-      - classes.push 'empty' unless events.any?
-      - classes.push 'past' if @month <= Time.now.beginning_of_month && day < Time.now.day
-      - classes.push 'today' if @month == Time.now.beginning_of_month && day == Time.now.day
-      .day{ class: classes }
+- if @events.any?
+  %section.calendar{ class: "offset#{@month.strftime('%u').to_i - 1}" }
+    .labels
+      - ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].each do |day|
         %mark= day
-        %ol.events
-          - events.each do |event|
-            %li
-              = link_to event do
-                %time= event.starts_at.strftime('%l:%M')
-                %dfn= event.workshop_name
+    .days
+      - @events_by_day.each do |day, events|
+        - classes = []
+        - classes.push 'empty' unless events.any?
+        - classes.push 'past' if @month <= Time.now.beginning_of_month && day < Time.now.day
+        - classes.push 'today' if @month == Time.now.beginning_of_month && day == Time.now.day
+        .day{ class: classes }
+          %mark= day
+          %ol.events
+            - events.each do |event|
+              %li
+                = link_to event do
+                  %time= event.starts_at.strftime('%l:%M')
+                  %dfn= event.workshop_name
