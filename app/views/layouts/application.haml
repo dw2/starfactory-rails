@@ -60,6 +60,9 @@
             = link_to 'Code of Conduct', conduct_url
           .legal
             Starfactory is Copyright &copy; #{Time.now.year}, Douglas Waltman II
+          .social
+            = link_to 'Facebook', facebook_url, class: 'facebook', target: '_blank'
+            = link_to 'Twitter', twitter_url, class: 'twitter', target: '_blank'
 
     = javascript_include_tag 'application'
     = yield :footer

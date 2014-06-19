@@ -29,6 +29,14 @@ module ApplicationHelper
     sanitize Kramdown::Document.new(text).to_html
   end
 
+  def twitter_url
+    'https://twitter.com/starfactory'
+  end
+
+  def facebook_url
+    'https://www.facebook.com/starfactory.co'
+  end
+
   def svg_image(src, options={})
     options[:onerror] = "this.src='#{image_url src+'.png'}';this.onerror=null;"
     image_tag "#{src}.svg", options
