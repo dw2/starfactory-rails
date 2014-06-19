@@ -83,6 +83,36 @@ body > .modal
 body > .modal.active
     display: block
 
+body > .modal.newsletter
+    .field
+        background: #EBEDF0
+        +border_radius(4px)
+        position: relative
+        ~ .field
+            margin-top: 10px
+        label,
+        input
+            +box_sizing(border-box)
+            font-weight: $heavy
+            line-height: 1em
+        label
+            background: #DCE0E5
+            color: #53565d
+            position: absolute
+        input
+            background: #EBEDF0
+            +border_radius(3px)
+            color: #000
+            height: 2.5em
+            margin: 0
+            padding: .75em
+            min-width: 0
+            position: relative
+            width: 100%
+            z-index: 2
+            &:focus
+                +box_shadow(0 0 1px 2px $colorAccent2)
+
 @media screen and (max-width: 620px)
     body.hasMask > header
         +filter(none)
@@ -92,3 +122,32 @@ body > .modal.active
         margin-left: 0
         right: 10px
         width: auto
+
+@media screen and (min-width: 540px)
+    body > .modal.newsletter
+        form
+            margin-top: 2em
+        .field
+            margin-left: 120px
+            label
+                +border_radius(3px, 0, 0, 3px)
+                height: 2.5em
+                padding: .75em
+                right: 100%
+                text-align: right
+                top: 0
+                width: 120px
+
+@media screen and (max-width: 539px)
+    body > .modal.newsletter
+        form
+            margin-top: 3em
+        .field
+            margin-top: 30px !important
+            label
+                +border_radius(3px, 3px, 0, 0)
+                bottom: 100%
+                font-size: .9em
+                left: 0
+                margin-bottom: -3px
+                padding: 5px 10px 8px

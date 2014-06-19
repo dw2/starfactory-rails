@@ -1,6 +1,6 @@
 - action = 'http://starfactory.us8.list-manage.com/subscribe/post?u=4b767ee9dbd5acbf012240c4d&amp;id=2d91565504'
 = form_tag action, class: 'signup' do
   = email_field_tag :EMAIL
-  = hidden_field_tag :subscribe, value: 'Subscribe'
+  = hidden_field_tag :subscribe, 'Subscribe'
   = text_field_tag :b_4b767ee9dbd5acbf012240c4d_2d91565504, '', tabindex: -1
   %button.secondary= svg_image 'arrow-right', alt: 'Submit'
