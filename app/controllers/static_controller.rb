@@ -1,7 +1,7 @@
 class StaticController < ApplicationController
   def index
     @active_events = Event.active.upcoming.limit 3
-    @voted_workshops = Workshop.active.voted.limit 5
+    @voted_workshops = Workshop.active.voted.limit 3
   end
 
   def contact

@@ -1,6 +1,11 @@
 %section.callout
   %h1 Learn how to build websites and apps with real people.
 
+%section.landing
+  %span= image_tag 'home-header-01.jpg'
+  %span= image_tag 'home-header-03.jpg'
+  %span= image_tag 'home-header-02.jpg'
+
 %section.workshops
   - if @active_events.any?
     .list.upcoming
@@ -8,12 +13,14 @@
       %ol
         - @active_events.each do |event|
           = render 'events/list_item', event: event
+      %p= link_to 'Full Calendar', events_url, class: 'more icon calendar'
   - if @voted_workshops.any?
     .list.voted
       %label On the horizon
       %ol
         - @voted_workshops.each do |workshop|
           = render 'workshops/list_item', workshop: workshop
+      %p= link_to 'All Workshops', workshops_url, class: 'more icon bars'
 
 %aside.textual
   %h2 Our workshops are small, intimate, and in person

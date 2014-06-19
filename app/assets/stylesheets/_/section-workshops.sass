@@ -74,6 +74,25 @@ article section.workshops
                     font-weight: $heavy
                     margin: .1em 0 0
 
+        li:last-child,
+        li:last-of-type
+            +border_radius(3px, 3px, 0, 3px)
+
+        .more
+            background: #3B3D42
+            +border_radius(0, 0, 3px, 2em)
+            color: $colorText
+            display: block
+            float: right
+            font-size: .9em
+            padding: .25em 1em .5em 1.5em
+            text-decoration: none
+            &:hover,
+            &:focus
+                color: #fff
+                &:before
+                    color: $colorAccent
+
 @media screen and (min-width: 600px)
     article section.workshops .list li
         padding: 30px 35px 30px 215px

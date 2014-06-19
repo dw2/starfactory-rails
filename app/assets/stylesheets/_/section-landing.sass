@@ -1,0 +1,44 @@
+body.withSidebar article section.landing
+    float: none
+    font-size: 0
+    width: auto
+    span
+        +box_sizing(border-box)
+        display: inline-block
+        width: 33.33%
+        vertical-align: top
+    img
+        display: block
+        +border_radius(3px)
+        width: 100%
+
+@media screen and (min-width: 1024px)
+    body.withSidebar article section.landing
+        margin: 30px -395px 0 -15px
+        span
+            padding: 0 15px
+
+@media screen and (max-width: 1023px) and (min-width: 900px)
+    body.withSidebar article section.landing
+        margin: 20px -320px 0 -10px
+        span
+            padding: 0 10px
+
+@media screen and (max-width: 899px) and (min-width: 700px)
+    body.withSidebar article section.landing
+        margin: 20px -10px 0
+        span
+            padding: 0 10px
+
+@media screen and (max-width: 699px)
+    body.withSidebar article section.landing
+        margin: 10px -5px 0
+        span
+            padding: 0 5px
+
+@media screen and (max-width: 540px)
+    body.withSidebar article section.landing
+        span
+            width: 50%
+        span:last-child
+            display: none
