@@ -36,11 +36,15 @@ jQuery(document).ready ($) ->
             title: 'Newsletter Signup'
             body: 'Get updates on Starfactory workshops and events.'
             html: formHTML
-            ready: (modal) ->
+            ready: ($modal) ->
+                $modal.css
+                    marginTop: 0
+                    position: 'absolute'
+                    top: "#{30 + $('body').scrollTop()}px"
                 if !email
-                    modal.find('#newsletterEmail').focus()
+                    $modal.find('#newsletterEmail').focus()
                 else
-                    modal.find('#newsletterFName').focus()
+                    $modal.find('#newsletterFName').focus()
             actions:
                 'Cancel': -> true
                 'Signup': (modal) ->
