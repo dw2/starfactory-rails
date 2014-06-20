@@ -2,16 +2,25 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   protect_from_forgery with: :exception
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   add_flash_types :error, :notice
+
   before_filter :add_breadcrumbs
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
 private
+  def record_not_found
+    add_breadcrumb 'Page not found'
+    render 'static/status404', status: 404
+  end
+
   def user_not_authorized(exception)
+    add_breadcrumb 'Unauthorized'
     policy_name = exception.policy.class.to_s.underscore
     error = I18n.t "pundit.#{policy_name}.#{exception.query}", default: ''
     flash[:error] = error unless error.blank?
-    render 'static/status403'
+    render 'static/status403', status: 403
   end
 
   def add_breadcrumbs
