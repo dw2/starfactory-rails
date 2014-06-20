@@ -98,12 +98,8 @@ body.instructorProfilesIndex section.tiles ul > li
     a:focus img
         +opacity(1)
 
-@media screen and (min-width: 800px)
-    section.tiles ul > li,
-    section.tiles ol > li
-        width: 33.33%
-    body.instructorProfilesIndex section.tiles ul > li
-        width: 50%
+body.tracksShow section.tiles
+    clear: both
 
 @media screen and (max-width: 799px) and (min-width: 540px)
     section.tiles ul > li,
@@ -116,3 +112,23 @@ body.instructorProfilesIndex section.tiles ul > li
     section.tiles ul > li,
     section.tiles ol > li
         width: 100%
+
+@media screen and (min-width: 1024px)
+    body.withSidebar article section.tiles
+        margin-right: -380px
+
+@media screen and (min-width: 900px)
+    body.withSidebar article section.tiles
+        float: none
+        width: auto
+
+@media screen and (max-width: 1023px) and (min-width: 900px)
+    body.withSidebar article section.tiles
+        margin-right: -310px
+
+@media screen and (min-width: 800px)
+    section.tiles ul > li,
+    section.tiles ol > li
+        width: 33.33%
+    body.instructorProfilesIndex section.tiles ul > li
+        width: 50%

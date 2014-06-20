@@ -7,7 +7,7 @@
     %dfn
       - if logged_in?
         - if current_user.voted_on(workshop)
-          %mark.icon.vote
+          %mark.icon.voted
           You voted for this class
         - else
           = link_to 'Vote', workshop_votes_url(workshop.id), method: :post

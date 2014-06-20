@@ -5,7 +5,14 @@
       = link_to 'Edit', edit_track_url(@track), class: 'btn secondary icon edit'
   = text_to_html @track.description
 
+%aside.textual
+  %h2.icon.vote Voting
+  %p
+    Find and vote for workshops you'd like to take. The workshops that receive
+    The most votes get scheduled soonest.
+
 %section.textual.tiles
+  %hr
   %h1 Workshops in this track:
   %ul
     - @track.workshops.active.by_sort.each do |workshop|
