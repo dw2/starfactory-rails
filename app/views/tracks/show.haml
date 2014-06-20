@@ -5,10 +5,16 @@
       = link_to 'Edit', edit_track_url(@track), class: 'btn secondary icon edit'
   = text_to_html @track.description
 
-%aside.textual
-  %h2 In this track&hellip;
-  %ol.menu
+%section.textual.tiles
+  %h1 Workshops in this track:
+  %ul
     - @track.workshops.active.by_sort.each do |workshop|
-      %li= link_to workshop.name, workshop
-  %hr
-  = render 'shared/about'
+      %li{ class: workshop.events.upcoming.any? ? 'icon bookmark' : nil }
+        = link_to workshop do
+          %h3= workshop.name
+          %dfn
+            - if workshop.events.upcoming.any?
+              Coming
+              %time= workshop.events.upcoming.first.starts_at.strftime '%b %e, %Y'
+            - else
+              Needs #{pluralize workshop.votes_goal, 'more vote', 'more votes'}

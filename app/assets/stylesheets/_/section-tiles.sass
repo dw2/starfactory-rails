@@ -35,6 +35,10 @@ section.tiles ol
             dfn
                 color: #90939b
                 display: block
+            dfn time
+                color: #fff
+                display: inline-block
+                font-weight: $heavy
             &:hover,
             &:focus
                 background: #3B3D42
@@ -45,6 +49,8 @@ section.tiles ol
                 dfn
                     color: #fff
     > li.icon
+        &:before
+            display: none
         a
             padding-right: 3.5em
         a:after
@@ -55,6 +61,8 @@ section.tiles ol
             top: .5em
         a:hover:after
             color: #fff
+        &.bookmark a:after
+            content: '\f097'
         &.css a:after
             content: '\f0d0'
         &.design a:after

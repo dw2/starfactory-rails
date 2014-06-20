@@ -8,7 +8,7 @@ module ApplicationHelper
     ]
     classes.push 'hasQueryString' unless request.query_string.blank?
     if (classes & [
-        'staticIndex', 'workshopsShow', 'tracksShow', 'eventsShow',
+        'staticIndex', 'workshopsShow', 'eventsShow',
         'instructorProfilesShow', 'studentProfilesShow'
       ]).count > 0
       classes.push 'withSidebar'

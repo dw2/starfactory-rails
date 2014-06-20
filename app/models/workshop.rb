@@ -42,4 +42,11 @@ class Workshop < ActiveRecord::Base
 
   delegate :name, to: :track, prefix: true
   delegate :status, to: :track, prefix: true
+
+
+  def snippet
+    ActionController::Base.helpers.truncate(
+      ActionController::Base.helpers.strip_tags(description),
+      length: 30, separator: ' ')
+  end
 end
