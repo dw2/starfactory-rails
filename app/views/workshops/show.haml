@@ -14,7 +14,7 @@
 
 %aside.textual
   - if @workshop.events.current.any?
-    %h3 Schedule
+    %h3 Register before&hellip;
     %ol.menu
       - @workshop.events.current.each do |event|
         %li= link_to event.starts_at.strftime('%b %e, %Y @ %l:%M %P'), event

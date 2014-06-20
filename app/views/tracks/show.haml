@@ -17,11 +17,11 @@
   %ul
     - @track.workshops.active.by_sort.each do |workshop|
       %li{ class: workshop.events.upcoming.any? ? 'icon bookmark' : nil }
-        = link_to workshop do
+        = link_to (workshop.events.upcoming.any? ? workshop.events.first : workshop) do
           %h3= workshop.name
           %dfn
             - if workshop.events.upcoming.any?
-              Coming
+              Register before
               %time= workshop.events.upcoming.first.starts_at.strftime '%b %e, %Y'
             - else
               Needs #{pluralize workshop.votes_to_go, 'more vote', 'more votes'}
