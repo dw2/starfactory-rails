@@ -6,16 +6,18 @@
         %th= sort_link 'Name', 'instructor_profiles.name'
         %th= sort_link 'Email', 'users.email'
         %th Current Workshops
+        %th= sort_link 'Membership', 'instructor_profiles.created_at'
         %th
     - if @instructor_profiles.total_pages > 1
       %tfoot
-        %td{ colspan: 4 }= paginate @instructor_profiles
+        %td{ colspan: 5 }= paginate @instructor_profiles
     %tbody
       - @instructor_profiles.each do |instructor_profile|
         %tr
           %td= link_to instructor_profile.name, edit_instructor_profile_url(instructor_profile)
           %td= link_to instructor_profile.email, "mailto:#{instructor_profile.email}"
           %td= instructor_profile.events.current.count
+          %td= time_ago_in_words instructor_profile.created_at
           %td.actions
             %div
               = link_to 'View', instructor_profile, class: 'view'

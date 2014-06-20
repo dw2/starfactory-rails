@@ -5,15 +5,17 @@
       %tr
         %th= sort_link 'Name', 'student_profiles.name'
         %th= sort_link 'Email', 'users.email'
+        %th= sort_link 'Membership', 'student_profiles.created_at'
         %th
     - if @student_profiles.total_pages > 1
       %tfoot
-        %td{ colspan: 3 }= paginate @student_profiles
+        %td{ colspan: 4 }= paginate @student_profiles
     %tbody
       - @student_profiles.each do |student_profile|
         %tr
           %td= link_to student_profile.name, edit_student_profile_url(student_profile)
           %td= link_to student_profile.email, "mailto:#{student_profile.email}"
+          %td= time_ago_in_words student_profile.created_at
           %td.actions
             %div
               = link_to 'View', student_profile, class: 'view'
