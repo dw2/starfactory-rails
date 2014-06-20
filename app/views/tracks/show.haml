@@ -17,4 +17,4 @@
               Coming
               %time= workshop.events.upcoming.first.starts_at.strftime '%b %e, %Y'
             - else
-              Needs #{pluralize workshop.votes_goal, 'more vote', 'more votes'}
+              Needs #{pluralize workshop.votes_to_go, 'more vote', 'more votes'}
