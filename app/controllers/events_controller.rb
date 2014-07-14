@@ -110,6 +110,10 @@ private
       params[:event][:ends_at] = DateTime.strptime(
         "#{params[:event][:ends_at_day]}T#{params[:event][:ends_at_time]}:00#{zone}")
     end
+    if params[:event][:registration_ends_at].blank? && params[:event][:registration_ends_at_day].present?
+      params[:event][:registration_ends_at] = DateTime.strptime(
+        "#{params[:event][:registration_ends_at_day]}T#{params[:event][:registration_ends_at_time]}:00#{zone}")
+    end
     params.require(:event).permit(
       *policy(@event || Event).permitted_attributes
     )
