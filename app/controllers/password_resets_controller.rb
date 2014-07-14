@@ -1,4 +1,3 @@
-# app/controllers/password_resets_controller.rb
 class PasswordResetsController < ApplicationController
 
   def new

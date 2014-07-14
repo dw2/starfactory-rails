@@ -86,6 +86,15 @@ private
   end
 
   def event_params
+    zone = '-07:00'
+    if params[:event][:starts_at].blank? && params[:event][:starts_at_day].present?
+      params[:event][:starts_at] = DateTime.strptime(
+        "#{params[:event][:starts_at_day]}T#{params[:event][:starts_at_time]}:00#{zone}")
+    end
+    if params[:event][:ends_at].blank? && params[:event][:ends_at_day].present?
+      params[:event][:ends_at] = DateTime.strptime(
+        "#{params[:event][:ends_at_day]}T#{params[:event][:ends_at_time]}:00#{zone}")
+    end
     params.require(:event).permit(
       *policy(@event || Event).permitted_attributes
     )
