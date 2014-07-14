@@ -26,6 +26,21 @@ class EventsController < ApplicationController
     }
     authorize @events
 
+    # Redirect to next month if there are no events this month, but are some next month
+    if @events.size == 0
+      next_month = @month + 1.month
+      month_start = next_month.beginning_of_month
+      month_end = next_month.end_of_month
+      next_month_events = Event.active.where {
+        ((starts_at.gte month_start) & (starts_at.lte month_end)) |
+        ((ends_at.gte month_start) & (ends_at.lte month_end))
+      }
+      if next_month_events.size > 0
+        redirect_to events_month_url(next_month.year, next_month.month), status: 302
+        return
+      end
+    end
+
     @events_by_day = {}
     (1..@month.end_of_month.day).each{|d| @events_by_day[d] = [] }
     @events.each do |event|
