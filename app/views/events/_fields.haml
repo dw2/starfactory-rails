@@ -34,6 +34,11 @@
   = f.number_field :cost_in_dollars, step: 0.01, value: f.object.cost_in_dollars ? "%0.2f" % f.object.cost_in_dollars : '' 
   = render 'shared/field_errors', f: f, field: :cost_in_cents
 
+.field
+  = f.label :registrations_max, 'Max Students'
+  = f.number_field :registrations_max, step: 1
+  = render 'shared/field_errors', f: f, field: :registrations_max
+
 %fieldset
   %legend Status
   - Event::VALID_STATUSES.each_with_index do |status, s|
