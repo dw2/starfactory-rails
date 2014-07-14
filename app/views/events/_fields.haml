@@ -40,6 +40,13 @@
   = render 'shared/field_errors', f: f, field: :registrations_max
 
 %fieldset
+  %legend Instructors
+  = f.collection_check_boxes :instructor_profile_ids, InstructorProfile.all, :id, :name do |b|
+    .field.radio
+      = b.check_box
+      = b.label
+
+%fieldset
   %legend Status
   - Event::VALID_STATUSES.each_with_index do |status, s|
     .field.radio
