@@ -6,6 +6,8 @@
     %h3= link_to event.workshop_name, event
     - if event.instructor_profiles.any?
       %dfn
-        Led by
-        - event.instructor_profiles.each do |instructor_profile|
-          = link_to instructor_profile.name, instructor_profile
+        - if event.spots_left > 0
+          Only #{pluralize (event.spots_left), 'spot', 'spots'} left.
+          %em Register now
+        - else
+          Sold Out!
