@@ -48,7 +48,7 @@ class TracksController < ApplicationController
   # PATCH/PUT /tracks/1
   def update
     @track.update(track_params)
-    respond_with @track, location: @track, error: 'Unable to add track.'
+    respond_with @track, location: @track, error: 'Unable to save track.'
   end
 
   # DELETE /tracks/1
