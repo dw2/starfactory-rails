@@ -49,7 +49,7 @@ class StudentProfilesController < ApplicationController
   # PATCH/PUT /students/1
   def update
     @student_profile.update(student_profile_params)
-    respond_with @student_profile, location: @student_profile, error: 'Unable to add student.'
+    respond_with @student_profile, location: @student_profile, error: 'Unable to save student.'
   end
 
   # DELETE /students/1

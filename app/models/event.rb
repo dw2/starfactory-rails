@@ -89,8 +89,9 @@ class Event < ActiveRecord::Base
   end
 
   def registration_closed?
-    check_time = registration_ends_at.present? ? registration_ends_at : starts_at
-    spots_left == 0 || check_time < Time.now
+    now_time = Time.now + Time.now.in_time_zone('Pacific Time (US & Canada)').utc_offset.seconds
+    reg_time = registration_ends_at.present? ? registration_ends_at : starts_at
+    spots_left == 0 || reg_time < now_time
   end
 
   %w(starts_at ends_at registration_ends_at).each do |x|

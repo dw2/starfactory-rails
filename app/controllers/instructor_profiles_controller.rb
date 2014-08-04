@@ -49,7 +49,7 @@ class InstructorProfilesController < ApplicationController
   # PATCH/PUT /instructors/1
   def update
     @instructor_profile.update(instructor_profile_params)
-    respond_with @instructor_profile, location: @instructor_profile, error: 'Unable to add instructor.'
+    respond_with @instructor_profile, location: @instructor_profile, error: 'Unable to save instructor.'
   end
 
   # DELETE /instructors/1

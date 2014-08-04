@@ -33,11 +33,11 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      flash[:notice] = 'Comment has been updated.'
+      flash[:notice] = 'Comment has been saved.'
     end
     respond_with @comment,
       location: workshop_discussion_url(workshop_id: @workshop, id: @discussion),
-      error: 'Unable to update comment.'
+      error: 'Unable to save comment.'
   end
 
   def destroy

@@ -50,7 +50,7 @@ class WorkshopsController < ApplicationController
     @workshop.update(workshop_params)
     respond_with @workshop,
       location: @workshop,
-      error: 'Unable to update workshop.'
+      error: 'Unable to save workshop.'
   end
 
   # DELETE /workshops/1

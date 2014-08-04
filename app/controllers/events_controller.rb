@@ -86,7 +86,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   def update
     @event.update(event_params)
-    respond_with @event, location: @event, error: 'Unable to add event.'
+    respond_with @event, location: @event, error: 'Unable to save event.'
   end
 
   # DELETE /events/1
@@ -101,7 +101,9 @@ private
   end
 
   def event_params
-    zone = '-07:00'
+    zone = (Time.zone.utc_offset() < 0 ? '-' : '+') +
+      '%.2d' % (Time.zone.utc_offset() / 3600) + ':00'
+
     if params[:event][:starts_at].blank? && params[:event][:starts_at_day].present?
       params[:event][:starts_at] = DateTime.strptime(
         "#{params[:event][:starts_at_day]}T#{params[:event][:starts_at_time]}:00#{zone}")
@@ -114,6 +116,7 @@ private
       params[:event][:registration_ends_at] = DateTime.strptime(
         "#{params[:event][:registration_ends_at_day]}T#{params[:event][:registration_ends_at_time]}:00#{zone}")
     end
+
     params.require(:event).permit(
       *policy(@event || Event).permitted_attributes
     )

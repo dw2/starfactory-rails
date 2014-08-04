@@ -114,7 +114,7 @@ class DiscussionsController < ApplicationController
     @discussion.update(discussion_params)
     respond_with @discussion,
       location: workshop_discussions_url(workshop_id: @discussion.workshop),
-      error: 'Unable to update discussion.'
+      error: 'Unable to save discussion.'
   end
 
   # DELETE /discussions/1
