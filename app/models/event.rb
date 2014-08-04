@@ -25,14 +25,15 @@ class Event < ActiveRecord::Base
   belongs_to :location
   counter_culture :location
 
+  OFFSET_SECONDS = Time.now.in_time_zone('Pacific Time (US & Canada)').utc_offset.seconds
   VALID_STATUSES = %w(Active Disabled)
   DEFAULT_SORT_COLUMN = 'events.starts_at'
 
   scope :active, -> { where { status.eq 'Active' } }
-  scope :upcoming, -> { where { starts_at.gteq Time.now } }
-  scope :current, -> { where { ends_at.gt Time.now } }
-  scope :passed, -> { where { ends_at.lt Time.now } }
-  scope :ongoing, -> { where { (starts_at.lteq Time.now) & (ends_at.gteq Time.now) } }
+  scope :upcoming, -> { where { starts_at.gteq(Time.now + OFFSET_SECONDS) } }
+  scope :current, -> { where { ends_at.gt(Time.now + OFFSET_SECONDS) } }
+  scope :passed, -> { where { ends_at.lt(Time.now + OFFSET_SECONDS) } }
+  scope :ongoing, -> { where { (starts_at.lteq(Time.now + OFFSET_SECONDS)) & (ends_at.gteq(Time.now + OFFSET_SECONDS)) } }
   scope :by_soonest, -> { order('events.starts_at asc') }
   scope :registered, -> {
     includes(:registrations)
@@ -85,11 +86,11 @@ class Event < ActiveRecord::Base
   end
 
   def passed?
-    ends_at < Time.now
+    ends_at < Time.now + OFFSET_SECONDS
   end
 
   def registration_closed?
-    now_time = Time.now + Time.now.in_time_zone('Pacific Time (US & Canada)').utc_offset.seconds
+    now_time = Time.now + OFFSET_SECONDS
     reg_time = registration_ends_at.present? ? registration_ends_at : starts_at
     spots_left == 0 || reg_time < now_time
   end
