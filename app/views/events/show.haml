@@ -59,7 +59,7 @@
 
       - if @event.registration_ends_at.present?
         Registration ends in
-        %strong #{time_ago_in_words @event.registration_ends_at}
+        %strong #{time_ago_in_words @event.registration_ends_at}.
 
     %h3{ role: 'price' }
       - if already_registered
