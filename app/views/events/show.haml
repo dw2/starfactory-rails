@@ -76,7 +76,7 @@
         %strong= @coupon.code
         has been applied.
 
-    - unless logged_in? && current_user.student? && already_registered
+    - unless logged_in? && (!current_user.student? || already_registered)
       = form_for Registration.new do |f|
         = f.hidden_field :event_id, value: @event.id
         = f.hidden_field :student_profile_id, value: @registrant_data[:student_profile_id], role: 'student'
