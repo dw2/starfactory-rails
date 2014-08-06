@@ -56,7 +56,7 @@ class EventsController < ApplicationController
     add_breadcrumb @event.workshop_name
     authorize @event
 
-    @coupon = !!params[:coupon_code] ? Coupon.find_by_code(params[:coupon_code]) : nil
+    @coupon = !!params[:coupon_code] ? @event.coupons.find_by_code(params[:coupon_code]) : nil
     @stripe_data = {
       key: ENV['STARFACTORY_STRIPE_KEY'],
       image: view_context.image_url('starfactory-avatar@64.png')

@@ -35,22 +35,32 @@
       = @event.starts_at.strftime '%l:%M%P'
       &mdash;
       = @event.ends_at.strftime '%l:%M%P'
+
   - case
   - when @event.passed?
     %br
     %h3 *Event has passed
+
   - when @event.registration_closed?
     %br
     %h3 *Registration closed
+
   - else
     = render 'shared/progress_bar', val: @event.registrations_count, max: @event.registrations_max
-    - unless already_registered
-      %p
+    
+    %p
+      - unless already_registered
         This event only has
         %strong #{pluralize (@event.spots_left), 'spot', 'spots'}
         left.
         - if logged_in? && current_user.student?
           Register now to save your spot.
+        %br
+
+      - if @event.registration_ends_at.present?
+        Registration ends in
+        %strong #{time_ago_in_words @event.registration_ends_at}
+
     %h3{ role: 'price' }
       - if already_registered
         You're registered for this workshop
@@ -59,11 +69,13 @@
         = cents_to_formatted_dollars @event.cost_in_cents - @coupon.amount_in_cents
       - else
         = @event.formatted_cost
+
     - if @coupon.present?
       %p
         Coupon
         %strong= @coupon.code
         has been applied.
+
     - unless logged_in? && current_user.student? && already_registered
       = form_for Registration.new do |f|
         = f.hidden_field :event_id, value: @event.id
@@ -75,15 +87,13 @@
           %p.coupon{ role: 'coupon' }
             %input{ type: 'text', placeholder: 'Coupon code?' }
             %a.btn Check
-    - if @event.registration_ends_at.present?
-      %p
-        Registration ends in
-        %strong #{time_ago_in_words @event.registration_ends_at}
+
   - if @event.location.present?
     %address
       = link_to @event.location_google_maps_url, target: '_blank' do
         %strong= @event.location_name
         = simple_format @event.location_address
       = render 'shared/map_image', location: @event.location, size: '290x200'
+
   %hr
   = render 'shared/about'
