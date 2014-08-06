@@ -5,7 +5,7 @@
   = form_for @user, url: users_url do |f|
     = f.fields_for :student_profile do |pf|
       .field
-        = pf.label :name
+        = pf.label :name, 'Full Name'
         = pf.text_field :name
         = render 'shared/field_errors', f: pf, field: :name
     .field

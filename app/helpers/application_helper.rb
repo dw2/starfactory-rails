@@ -42,6 +42,18 @@ module ApplicationHelper
     image_tag "#{src}.svg", options
   end
 
+  def cents_to_formatted_dollars(cents)
+    dollars = cents / 100
+    if cents <= 0
+      'Free'
+    elsif dollars.to_i != dollars
+      ActionController::Base.helpers.number_to_currency(
+        dollars, precision: 2, locale: :en)
+    else
+      "$#{dollars.to_i}"
+    end
+  end
+
   def sort_link(text, column, resource=nil, anchor=nil)
     # Is this the default column?
     if !resource

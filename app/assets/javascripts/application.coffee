@@ -12,7 +12,6 @@ jQuery.ajaxSetup
         $.alert error ? 'An unkown error occurred.'
 
 jQuery.alert = (options) ->
-    $('.modal').removeClass 'active'
     if typeof(options) is 'string'
         options = title: options ? 'An unexpected error occurred.'
     options.type = $.trim "#{options.type ? ''} alert"
@@ -32,6 +31,61 @@ $.location = (url) ->
         $('body').busy()
         window.onbeforeunload = handler
     ), 100
+
+jQuery.register = (options={}, fields={}) ->
+    authToken = $('head meta[name="csrf-token"]').attr 'content'
+    new Skylite $.extend {
+        type: 'register'
+        title: 'Register'
+        lockMask: true
+        body: """
+            <p>
+                Already have an account?
+                <a href="/login">Login</a>
+            </p>
+            <hr/>
+            <form accept-charset="UTF-8" action="/users" method="post">
+                <input name="utf8" type="hidden" value="✓">
+                <input name="authenticity_token" type="hidden" value="#{authToken}">
+                <input name="register_event_id" type="hidden" value="#{fields.eventId}">
+                <input name="register_coupon_code" type="hidden" value="#{fields.couponCode}">
+                <div class="field">
+                    <label for="modal_user_student_profile_attributes_name">Full Name</label>
+                    <input id="modal_user_student_profile_attributes_name" name="user[student_profile_attributes][name]" type="text">
+                </div>
+                <div class="field">
+                    <label for="modal_user_email">Email</label>
+                    <input id="modal_user_email" name="user[email]" spellcheck="false" type="email">
+                </div>
+                <div class="field">
+                    <label for="modal_user_password">Password</label>
+                    <input id="modal_user_password" name="user[password]" type="password">
+                </div>
+            </form>
+            """
+        ready: ($modal) ->
+            $modal.css
+                marginTop: 0
+                position: 'absolute'
+                top: 30 + $('body').scrollTop()
+        actions:
+            'Cancel': -> true
+            'Submit': (modal) ->
+                if !$('#modal_user_student_profile_attributes_name').val()
+                    $.alert "Woops. You forgot to fill in your name."
+                else if !$('#modal_user_email').val()
+                    $.alert "Woops. You forgot to fill in your email address."
+                else if $('#modal_user_password').val().length < 8
+                    $.alert "Select a password at least 8 characters long."
+                else
+                    $('body')
+                        .busy('Submitting Registration')
+                        .removeClass 'hasMask'# Make this happen immediately
+                    modal.unmask()
+                    modal.$modal.find('form').submit()
+                    modal.$modal.fadeOut()
+                false
+    }, options
 
 jQuery.fn.busy = (text='') ->
     @addClass 'busy'

@@ -48,7 +48,7 @@ jQuery(document).ready ($) ->
             actions:
                 'Cancel': -> true
                 'Signup': (modal) ->
-                    $('body').busy()
+                    $('body').busy 'Submitting Subscription'
                     modal.$modal.find('form').submit()
 
         e.preventDefault()

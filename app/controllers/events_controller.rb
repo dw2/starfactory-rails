@@ -55,7 +55,24 @@ class EventsController < ApplicationController
     @page_title = @event.workshop_name
     add_breadcrumb @event.workshop_name
     authorize @event
-    respond_with @events
+
+    @coupon = !!params[:coupon_code] ? Coupon.find_by_code(params[:coupon_code]) : nil
+    @stripe_data = {
+      key: ENV['STARFACTORY_STRIPE_KEY'],
+      image: view_context.image_url('starfactory-avatar@64.png')
+    }
+    @event_data = {
+      id: @event.id,
+      name: @event.workshop_name,
+      cost: @event.cost_in_cents,
+      discount: @coupon.present? ? @coupon.amount_in_cents : 0
+    }
+    @registrant_data = {
+      email: (logged_in? ? current_user.email : ''),
+      fart: 'yes',
+      student_profile_id: ((logged_in? && current_user.student?) ? current_user.student_profile_id : 0)
+    }
+    respond_with @event
   end
 
   # GET /events/new

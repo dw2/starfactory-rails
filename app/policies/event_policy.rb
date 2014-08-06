@@ -23,8 +23,7 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def show?
-    event.status == 'Active' ||
-    (!!user && user.admin?)
+    event.status == 'Active' || (!!user && user.admin?)
   end
 
   def create?

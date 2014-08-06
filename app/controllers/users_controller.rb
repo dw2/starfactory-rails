@@ -19,8 +19,16 @@ class UsersController < ApplicationController
   def create
     @user = policy_scope(User).new(user_params)
     if @user.save
-      flash[:notice] = 'Thanks for registering. Check your email to confirm your new Starfactory account.'
-      redirect_to root_url
+      flash[:notice] = 'Welcome to Starfactory. Check your email to activate your new account.'
+      if !!params[:register_event_id] && @event = Event.upcoming.find_by_id(params[:register_event_id])
+        auto_login @user
+        redirect_to event_url(@event,
+          register: true,
+          coupon_code: params[:register_coupon_code] || nil
+        )
+      else
+        redirect_to root_url
+      end
     else
       add_breadcrumb 'Register'
       respond_with @user

@@ -28,8 +28,8 @@ body.busy:before
     bottom: 50%
     color: #fff
     content: attr(data-busy)
-    font: 4em Sintony, sans-serif
-    font-weight: 200
+    font: 2em $primary
+    font-weight: $heavy
     left: 0
     line-height: 1em
     margin: 0 0 70px
@@ -59,13 +59,21 @@ body > .modal
     z-index: 99
     h1
         color: $colorAccent
-        font-size: 2em
+        font-size: 2.5em
         font-weight: 200
         line-height: 1em
         + p
             margin-top: 2em
     p
         font-size: 1.1em
+        a
+            color: $colorAccentDarker
+            text-decoration: underline
+            &:hover,
+            &:focus
+                color: $colorAccent
+    hr
+        border-color: #EBEDF0
     .actions
         background: #EBEDF0
         +border_radius(0, 0, 3px, 3px)
@@ -77,12 +85,18 @@ body > .modal
             &:hover,
             &:focus
                 background: $colorAccent2 !important
+            &.cancel
+                background: #999
+                &:hover,
+                &:focus
+                    background: #aaa !important
         button + button
             margin-left: 10px
 
 body > .modal.active
     display: block
 
+body > .modal.register,
 body > .modal.newsletter
     .field
         background: #EBEDF0
@@ -124,6 +138,7 @@ body > .modal.newsletter
         width: auto
 
 @media screen and (min-width: 540px)
+    body > .modal.register,
     body > .modal.newsletter
         form
             margin-top: 2em
@@ -139,6 +154,7 @@ body > .modal.newsletter
                 width: 120px
 
 @media screen and (max-width: 539px)
+    body > .modal.register,
     body > .modal.newsletter
         form
             margin-top: 3em

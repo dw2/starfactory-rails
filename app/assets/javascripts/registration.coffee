@@ -2,10 +2,11 @@ jQuery(document).ready ($) ->
 
     stripeData = $('#stripeData').data()
     eventData = $('#eventData').data()
-    $price = $('[role=price]')
-    $coupon = $('[role=coupon]')
-    $code = $('[role=code]')
-    discount = 0
+    registrantData = $('#registrantData').data()
+    $price = $('aside [role=price]')
+    $studentProfileId = $('aside [role=student]')
+    $coupon = $('aside [role=coupon]')
+    $code = $('aside [role=code]')
 
     stripeHandler = StripeCheckout.configure
         key: stripeData.key
@@ -13,7 +14,7 @@ jQuery(document).ready ($) ->
         token: (token, args) ->
             if !!token.id
                 $('#registration_stripe_token').val token.id
-                $('body').busy()
+                $('body').busy 'Sending Payment'
                 $('#new_registration')
                     .data(paid: true)
                     .submit()
@@ -33,14 +34,23 @@ jQuery(document).ready ($) ->
                         'Contact us': -> $.location '/contact'
 
     $('#new_registration').submit (e) ->
-        if !$(@).data('paid')
+        if parseInt($studentProfileId.val(), 10) is 0
+            e.preventDefault()
+            $.register {
+                title: "Register for #{eventData.name}"
+            }, {
+                eventId: eventData.id
+                couponCode: $code.val()
+            }
+        else if !$(@).data('paid')
+            e.preventDefault()
             stripeHandler.open
                 name: 'Starfactory'
                 description: eventData.name
-                amount: parseInt(eventData.cost, 10) - discount
-                email: eventData.email
-            e.preventDefault()
-            false
+                amount: parseInt(eventData.cost, 10) - eventData.discount
+                email: registrantData.email
+
+    $('#new_registration').submit() if location.search.match(/register=true/i)
 
     formatCost = (cents) ->
         dollars = cents / 100
@@ -73,9 +83,9 @@ jQuery(document).ready ($) ->
                     $input.val ''
                 else
                     $code.val data.coupon.code
-                    discount = parseInt data.coupon.amount_in_cents, 10
+                    eventData.discount = parseInt data.coupon.amount_in_cents, 10
                     cost = parseInt eventData.cost, 10
-                    newCost = cost - discount
+                    newCost = cost - eventData.discount
                     $("<p>Coupon <strong>#{code}</strong> has been applied.</p>")
                         .hide().insertAfter($price).slideDown 500
                     $price.html """

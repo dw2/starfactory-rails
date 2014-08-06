@@ -1,9 +1,10 @@
 - already_registered = registered_for_event?(@event)
 
-- if logged_in? && !already_registered
+- unless already_registered
   - content_for :footer do
-    %script{ id: 'stripeData', type: 'x-config/x-data', data: { key: ENV['STARFACTORY_STRIPE_KEY'], image: image_url('starfactory-avatar@64.png') } }
-    %script{ id: 'eventData', type: 'x-config/x-data', data: { id: @event.id, name: @event.workshop_name, cost: @event.cost_in_cents, email: current_user.email } }
+    = render 'shared/xdata', name: 'stripe', data: @stripe_data
+    = render 'shared/xdata', name: 'event', data: @event_data
+    = render 'shared/xdata', name: 'registrant', data: @registrant_data
     = javascript_include_tag 'https://checkout.stripe.com/checkout.js'
     = javascript_include_tag 'registration'
 
@@ -53,20 +54,27 @@
     %h3{ role: 'price' }
       - if already_registered
         You're registered for this workshop
+      - elsif @coupon.present?
+        %strike= @event.formatted_cost
+        = cents_to_formatted_dollars @event.cost_in_cents - @coupon.amount_in_cents
       - else
         = @event.formatted_cost
-    - if !logged_in?
-      %p= link_to 'Register', login_url, class: 'btn', data: { confirm: "Please login to register.", buttontext: 'Login' }
-    - elsif current_user.student? && !already_registered
+    - if @coupon.present?
+      %p
+        Coupon
+        %strong= @coupon.code
+        has been applied.
+    - unless logged_in? && current_user.student? && already_registered
       = form_for Registration.new do |f|
         = f.hidden_field :event_id, value: @event.id
-        = f.hidden_field :student_profile_id, value: current_user.student_profile_id
+        = f.hidden_field :student_profile_id, value: @registrant_data[:student_profile_id], role: 'student'
         = f.hidden_field :stripe_token
-        = f.hidden_field :coupon_code, role: 'code'
+        = f.hidden_field :coupon_code, value: (@coupon.present? ? @coupon.code : nil), role: 'code'
         %p= button_tag 'Register', class: 'register'
-        %p.coupon{ role: 'coupon' }
-          %input{ type: 'text', placeholder: 'Coupon code?' }
-          %a.btn Check
+        - unless @event.cost_in_cents <= 0 || @coupon.present?
+          %p.coupon{ role: 'coupon' }
+            %input{ type: 'text', placeholder: 'Coupon code?' }
+            %a.btn Check
     - if @event.registration_ends_at.present?
       %p
         Registration ends in
