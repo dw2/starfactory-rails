@@ -1,0 +1,6 @@
+%section.textual
+  %h1 New Coupon
+  = form_for @coupon do |f|
+    = render 'fields', f: f
+    .actions
+      = button_tag 'Submit'

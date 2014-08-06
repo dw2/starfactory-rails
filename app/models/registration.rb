@@ -13,6 +13,8 @@
 #
 
 class Registration < ActiveRecord::Base
+  attr_accessor :coupon_code
+
   belongs_to :event
   counter_culture :event
   belongs_to :student_profile
@@ -59,8 +61,21 @@ class Registration < ActiveRecord::Base
       amount_paid_in_dollars, precision: 2, locale: :en)
   end
 
+  def discount_in_dollars
+    discount_in_cents.to_d / 100.0
+  end
+
+  def discount_in_dollars=(val)
+    self.discount_in_cents = (val.to_d * 100).to_i
+  end
+
+  def formatted_discount
+    ActionController::Base.helpers.number_to_currency(
+      discount_in_dollars, precision: 2, locale: :en)
+  end
+
   def amount_due
-    event.cost_in_dollars - amount_paid_in_dollars
+    event.cost_in_dollars - amount_paid_in_dollars - discount_in_dollars
   end
 
   def formatted_amount_due

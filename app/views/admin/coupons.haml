@@ -1,0 +1,29 @@
+%section.textual
+  %h1 Coupons
+  %nav
+    = link_to 'New', new_coupon_url, class: 'btn secondary icon new'
+  %table
+    %thead
+      %tr
+        %th= sort_link 'Code', 'coupons.code'
+        %th= sort_link 'Description', 'coupons.description'
+        %th= sort_link 'Event', 'coupons.event_id'
+        %th= sort_link 'Amount', 'coupons.amount_in_cents'
+        %th
+    - if @coupons.total_pages > 1
+      %tfoot
+        %td{ colspan: 4 }= paginate @coupons
+    %tbody
+      - @coupons.each do |coupon|
+        %tr
+          %td= link_to coupon.code, edit_coupon_url(coupon)
+          %td= coupon.description
+          %td
+            = coupon.event_workshop_name
+            &mdash;
+            = coupon.event_starts_at.strftime '%b %e, %Y @ %l:%M %P'
+          %td= coupon.formatted_amount
+          %td.actions
+            %div
+              = link_to 'Edit', edit_coupon_url(coupon), class: 'edit'
+              = link_to 'Delete', coupon_url(coupon), class: 'delete', method: 'delete', data: { confirm: 'Delete this coupon?' }

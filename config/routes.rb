@@ -20,6 +20,11 @@ Starfactory::Application.routes.draw do
   resources :sessions
   resources :password_resets, path: 'passwords'
 
+  resources :coupons, except: [:index, :show] do
+    collection do
+      get :check
+    end
+  end
   resources :discussions, except: [:index, :show]
   get 'forum' => 'discussions#forum', as: :forum
   resources :events do
@@ -33,12 +38,11 @@ Starfactory::Application.routes.draw do
     resources :registrations, only: [:index, :show]
   end
   resources :tracks, concerns: [:discussionable]
-  resources :workshops, concerns: [:votable, :discussionable] do
-    
-  end
+  resources :workshops, concerns: [:votable, :discussionable]
 
   scope :admin do
     get '' => 'admin#index', as: :admin
+    get 'coupons' => 'admin#coupons', as: :admin_coupons
     get 'discussions' => 'admin#discussions', as: :admin_discussions
     get 'events' => 'admin#events', as: :admin_events
     get 'instructors' => 'admin#instructor_profiles', as: :admin_instructors

@@ -14,9 +14,9 @@
 class StudentProfile < ActiveRecord::Base
   belongs_to :user, inverse_of: :student_profile
   has_many :registrations
-  has_many :events, through: :registrations, uniq: true
-  has_many :workshops, through: :events, uniq: true
-  has_many :tracks, through: :workshops, uniq: true
+  has_many :events, -> { uniq }, through: :registrations
+  has_many :workshops, -> { uniq }, through: :events
+  has_many :tracks, -> { uniq }, through: :workshops
 
   DEFAULT_SORT_COLUMN = 'student_profiles.name'
 

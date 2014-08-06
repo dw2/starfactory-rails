@@ -17,9 +17,9 @@ class RegistrationPolicy < Struct.new(:user, :registration)
   def permitted_attributes
     case
     when user.admin?
-      [:event_id, :student_profile_id, :stripe_token, :status, :amount_paid_in_cents]
+      [:event_id, :student_profile_id, :stripe_token, :status, :amount_paid_in_cents, :discount_in_cents, :coupon_code]
     when user.student?
-      [:event_id, :student_profile_id, :stripe_token]
+      [:event_id, :student_profile_id, :stripe_token, :coupon_code]
     else
       []
     end

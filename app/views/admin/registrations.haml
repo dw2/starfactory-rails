@@ -9,18 +9,20 @@
           %th= sort_link 'Student', 'student_profiles.name'
           %th= sort_link 'Stripe Token', 'registrations.stripe_token'
           %th= sort_link 'Amount Paid', 'registrations.amount_paid_in_cents'
+          %th= sort_link 'Discount', 'registrations.discount_in_cents'
           %th= sort_link 'Status', 'registrations.status'
           %th Due
           %th
       - if @registrations.total_pages > 1
         %tfoot
-          %td{ colspan: 6 }= paginate @registrations
+          %td{ colspan: 7 }= paginate @registrations
       %tbody
         - @registrations.each do |registration|
           %tr
             %td= link_to registration.student_profile_name, registration.student_profile
             %td= registration.stripe_token
             %td= registration.formatted_amount_paid
+            %td= registration.formatted_discount
             %td= render 'shared/status', status: registration.status
             %td= registration.formatted_amount_due
             %td.actions

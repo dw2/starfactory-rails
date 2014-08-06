@@ -94,6 +94,46 @@ article aside
         a:hover ~ img
             +opacity(.99)
 
+    button.register
+        +box_sizing(border-box)
+        display: block
+        width: 100%
+
+    strike
+        color: #7B7C83
+        text-decoration: line-through
+
+    .coupon
+        position: relative
+        &:after
+            +clear_fix()
+        input
+            +border_radius(2em)
+            +box_sizing(border-box)
+            float: left
+            margin: 0
+            padding-right: 3em
+        .btn
+            background: #4C4E54
+            +box_sizing(border-box)
+            color: $colorAccent2
+            margin: 0
+            padding: 0
+            position: absolute
+            right: 0
+            text-indent: -999em
+            top: 0
+            width: 2.75em
+            &:before
+                content: '\f00c'
+                left: 0
+                position: absolute
+                top: 0
+                width: 100%
+            &:hover
+                background: $colorAccent2Darker
+                color: #fff
+
 article aside time.big
     color: #fff
     display: block
@@ -145,8 +185,13 @@ article aside time.big
             right: 0
             top: 0
             width: 100px
+        button.register
+            width: auto
 
 @media screen and (max-width: 539px)
-    article aside .avatar
-        height: 75px
-        width: 75px
+    article aside
+        .avatar
+            height: 75px
+            width: 75px
+        button.register
+            width: 100%

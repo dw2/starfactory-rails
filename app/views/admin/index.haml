@@ -26,6 +26,10 @@
         %h3 Events
         %dfn #{Event.upcoming.size} Upcoming
     %li
+      = link_to admin_coupons_url do
+        %h3 Coupons
+        %dfn #{Coupon.all.size} Total
+    %li
       = link_to admin_locations_url do
         %h3 Locations
         %dfn #{Location.all.size} Places

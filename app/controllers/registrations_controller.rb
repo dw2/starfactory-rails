@@ -41,8 +41,15 @@ class RegistrationsController < ApplicationController
     @registration = policy_scope(Registration).new(registration_params)
     authorize @registration
 
+    if @coupon = Coupon.find_by(
+      code: registration_params[:coupon_code],
+      event_id: registration_params[:event_id])
+
+      @registration.discount_in_cents = @coupon.amount_in_cents
+    end
+
     if @registration.stripe_token.present?
-      @registration.amount_paid_in_cents = @registration.event_cost_in_cents
+      @registration.amount_paid_in_cents = @registration.event_cost_in_cents - @registration.discount_in_cents
     end
 
     if @registration.save ||

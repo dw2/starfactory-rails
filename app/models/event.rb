@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   has_many :instructor_profiles, through: :instructor_profiles_events
   has_many :registrations
   has_many :student_profiles, through: :registrations
+  has_many :coupons
   belongs_to :location
   counter_culture :location
 

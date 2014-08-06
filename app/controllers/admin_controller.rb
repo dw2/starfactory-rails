@@ -5,6 +5,13 @@ class AdminController < ApplicationController
   def index
   end
 
+  def coupons
+    add_breadcrumb 'Coupons'
+    @coupons = Coupon.by_code.page params[:page]
+    authorize @coupons
+    respond_with @coupons
+  end
+
   def discussions
     add_breadcrumb 'Discussions'
     @workshop = Workshop.find_by_id(params[:workshop].to_i)

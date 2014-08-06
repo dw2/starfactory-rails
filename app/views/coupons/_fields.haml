@@ -1,0 +1,18 @@
+.field
+  = f.label :code
+  = f.text_field :code
+  = render 'shared/field_errors', f: f, field: :code
+.field
+  = f.label :description
+  = f.text_field :description
+  = render 'shared/field_errors', f: f, field: :description
+%fieldset
+  %legend Event
+  - Event.active.upcoming.by_soonest.each_with_index do |event, e|
+    .field.radio
+      = f.radio_button :event_id, event.id, id: "coupon_event_id_#{e}", checked: event.id == f.object.event_id ? true : nil
+      = f.label :event_id, "#{event.workshop_name} - #{event.starts_at.strftime '%b %e, %Y @ %l:%M %P'}", for: "coupon_event_id_#{e}"
+.field
+  = f.label :amount_in_dollars
+  = f.number_field :amount_in_dollars, step: 0.01, value: f.object.amount_in_dollars ? "%0.2f" % f.object.amount_in_dollars : '' 
+  = render 'shared/field_errors', f: f, field: :amount_in_cents
