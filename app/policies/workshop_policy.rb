@@ -44,6 +44,10 @@ class WorkshopPolicy < Struct.new(:user, :workshop)
     !!user && user.admin? && !workshop.events.any? && !workshop.discussions.any?
   end
 
+  def clear_votes?
+    !!user && user.admin?
+  end
+
   # Used by the admin controller
   def workshops?
     !!user && user.admin?

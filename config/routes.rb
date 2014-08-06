@@ -38,7 +38,11 @@ Starfactory::Application.routes.draw do
     resources :registrations, only: [:index, :show]
   end
   resources :tracks, concerns: [:discussionable]
-  resources :workshops, concerns: [:votable, :discussionable]
+  resources :workshops, concerns: [:votable, :discussionable] do
+    member do
+      put :clear_votes
+    end
+  end
 
   scope :admin do
     get '' => 'admin#index', as: :admin

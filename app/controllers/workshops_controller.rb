@@ -1,7 +1,7 @@
 class WorkshopsController < ApplicationController
   respond_to :html
 
-  before_action :load_workshop, only: [:show, :edit, :update, :destroy]
+  before_action :load_workshop, only: [:show, :edit, :update, :destroy, :clear_votes]
   before_action :load_current_user_vote, only: [:show]
 
   add_breadcrumb 'Tracks', :tracks_url
@@ -62,6 +62,17 @@ class WorkshopsController < ApplicationController
     respond_with @workshop,
       location: admin_workshops_url,
       error: 'Unable to remove workshop.'
+  end
+
+  # PATCH/PUT /workshops/1/clear_votes
+  def clear_votes
+    authorize @workshop
+    if @workshop.votes.delete_all
+      @workshop.reload
+      @workshop.votes_count = 0
+      @workshop.save
+    end
+    respond_with @workshop
   end
 
 private
