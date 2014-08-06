@@ -16,6 +16,7 @@ class WorkshopsController < ApplicationController
     add_breadcrumb @workshop.track_name, track_url(@workshop.track)
     add_breadcrumb @workshop.name
     authorize @workshop
+    @workshop_data = @workshop.slice :id, :name
     respond_with @workshop
   end
 

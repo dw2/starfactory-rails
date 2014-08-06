@@ -1,3 +1,7 @@
+- content_for :footer do
+  = javascript_include_tag 'workshop'
+  = render 'shared/xdata', name: 'workshop', data: @workshop_data
+
 %section.textual.workshop
   %h1= @workshop.name
   - if logged_in? && current_user.admin?
@@ -25,13 +29,10 @@
       This class needs at least #{pluralize @workshop.votes_goal, 'vote', 'votes'}
       before it gets scheduled.
     %p
-      - if logged_in?
-        - if current_user.voted_on(@workshop)
-          = link_to 'Remove Vote', workshop_vote_url(@workshop.id, @vote.id), method: :delete
-        - else
-          = link_to 'Vote', workshop_votes_url(@workshop.id), method: :post, class: 'btn icon vote'
+      - if logged_in? && current_user.voted_on(@workshop)
+        = link_to 'Remove Vote', workshop_vote_url(@workshop.id, @vote.id), method: :delete
       - else
-        = link_to 'Vote', new_session_url, class: 'btn icon vote', data: { confirm: "Please login to vote.", buttontext: 'Login' }
+        = link_to 'Vote', workshop_votes_url(@workshop.id), method: :post, class: 'btn icon vote'
   - if logged_in?
     - discussions = @workshop.discussions.includes(:comments).order('comments.created_at desc').limit(3)
     - if discussions.any?

@@ -5,12 +5,9 @@
   .about
     %h3= link_to workshop.name, workshop
     %dfn
-      - if logged_in?
-        - if current_user.voted_on(workshop)
-          %mark.icon.voted
-          You voted for this class
-        - else
-          = link_to 'Vote', workshop_votes_url(workshop.id), method: :post
-          for this class
+      - if logged_in? && current_user.voted_on(workshop)
+        %mark.icon.voted
+        You voted for this class
       - else
-        = link_to 'Vote', new_session_url, data: { confirm: "Please login to vote.", buttontext: 'Login' }
+        = link_to 'Vote', workshop_votes_url(workshop.id), method: :post
+        for this class

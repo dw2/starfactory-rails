@@ -3,8 +3,8 @@ class VotesController < ApplicationController
 
   def create
     object = get_parent_object
+    @resource = get_parent_resource object
     if current_user && object
-      @resource = get_parent_resource object
       @vote = Vote.new(
         user_id: current_user.id,
         :"#{object}_id" => params[:"#{object}_id"]
@@ -17,6 +17,8 @@ class VotesController < ApplicationController
         flash[:notice] = 'You already voted for this.'
       end
       respond_with @vote, location: @resource
+    else
+      redirect_to polymorphic_url(@resource, register_and_vote: true)
     end
   end
 

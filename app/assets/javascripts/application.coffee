@@ -49,6 +49,7 @@ jQuery.register = (options={}, fields={}) ->
                 <input name="authenticity_token" type="hidden" value="#{authToken}">
                 <input name="register_event_id" type="hidden" value="#{fields.eventId}">
                 <input name="register_coupon_code" type="hidden" value="#{fields.couponCode}">
+                <input name="register_and_vote_workshop_id" type="hidden" value="#{fields.voteWorkshopId}">
                 <div class="field">
                     <label for="modal_user_student_profile_attributes_name">Full Name</label>
                     <input id="modal_user_student_profile_attributes_name" name="user[student_profile_attributes][name]" type="text">

@@ -20,15 +20,29 @@ class UsersController < ApplicationController
     @user = policy_scope(User).new(user_params)
     if @user.save
       flash[:notice] = 'Welcome to Starfactory. Check your email to activate your new account.'
-      if !!params[:register_event_id] && @event = Event.upcoming.find_by_id(params[:register_event_id])
+
+      # Onboarding for users registering for an event
+      if !!params[:register_event_id] && @event = Event.active.upcoming.find_by_id(params[:register_event_id])
         auto_login @user
         redirect_to event_url(@event,
           register: true,
           coupon_code: params[:register_coupon_code] || nil
         )
+
+      # Onboarding for users voting on a workshop
+      elsif !!params[:register_and_vote_workshop_id] &&
+        @workshop = Workshop.active.find_by_id(params[:register_and_vote_workshop_id])
+
+        auto_login @user
+        @workshop.votes.create user_id: current_user.id
+        flash[:notice] = 'Welcome to Starfactory. We got your vote. Check your email to activate your new account.'
+        redirect_to @workshop
+
+      # Normal registration
       else
         redirect_to root_url
       end
+
     else
       add_breadcrumb 'Register'
       respond_with @user
