@@ -16,11 +16,11 @@
   %h1 Workshops in this track:
   %ul
     - @track.workshops.active.by_sort.each do |workshop|
-      %li{ class: workshop.events.upcoming.any? ? 'icon bookmark' : nil }
-        = link_to (workshop.events.upcoming.any? ? workshop.events.first : workshop) do
+      %li{ class: workshop.events.active.upcoming.any? ? 'icon bookmark' : nil }
+        = link_to (workshop.events.active.upcoming.any? ? workshop.events.active.first : workshop) do
           %h3= workshop.name
           %dfn
-            - if workshop.events.upcoming.any?
+            - if workshop.events.active.upcoming.any?
               Register before
               %time= workshop.events.upcoming.first.starts_at.strftime '%b %e, %Y'
             - else
