@@ -22,6 +22,6 @@
           %dfn
             - if workshop.events.active.upcoming.any?
               Register before
-              %time= workshop.events.upcoming.first.starts_at.strftime '%b %e, %Y'
+              %time= workshop.events.active.upcoming.first.starts_at.strftime '%b %e, %Y'
             - else
               Needs #{pluralize workshop.votes_to_go, 'more vote', 'more votes'}
