@@ -36,7 +36,7 @@ class Workshop < ActiveRecord::Base
   scope :by_sort, -> { order('workshops.sort asc') }
   scope :voted, -> {
     includes(:events)
-    .where( events: { id: nil })
+    .where( events: { status: [nil, 'Disabled'] })
     .order('votes_count desc')
   }
 
